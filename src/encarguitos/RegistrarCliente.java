@@ -41,6 +41,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         TxtDireccion1 = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
+        BtnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -132,6 +133,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jSeparator5.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 290, 10));
 
+        BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
+        BtnVolver.setContentAreaFilled(false);
+        BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
 
@@ -189,6 +195,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnRegistrar;
+    private javax.swing.JButton BtnVolver;
     private javax.swing.JTextField TxtDireccion;
     private javax.swing.JTextField TxtDireccion1;
     private javax.swing.JLabel jLabel1;

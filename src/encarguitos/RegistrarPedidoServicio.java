@@ -42,6 +42,10 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         BtnRegistrar1 = new javax.swing.JButton();
+        TxtDireccion1 = new javax.swing.JTextField();
+        jSeparator5 = new javax.swing.JSeparator();
+        TxtDireccion2 = new javax.swing.JTextField();
+        jSeparator6 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -133,6 +137,32 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
         BtnRegistrar1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         jPanel1.add(BtnRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 680, 100, 30));
 
+        TxtDireccion1.setForeground(new java.awt.Color(153, 153, 153));
+        TxtDireccion1.setText("Ingresar Fecha de Solicitud");
+        TxtDireccion1.setBorder(null);
+        TxtDireccion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtDireccion1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TxtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 280, -1));
+
+        jSeparator5.setForeground(new java.awt.Color(60, 140, 22));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, 290, 10));
+
+        TxtDireccion2.setForeground(new java.awt.Color(153, 153, 153));
+        TxtDireccion2.setText("Ingresar Fecha de Entrega");
+        TxtDireccion2.setBorder(null);
+        TxtDireccion2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtDireccion2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TxtDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 280, -1));
+
+        jSeparator6.setForeground(new java.awt.Color(60, 140, 22));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 290, 10));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -140,6 +170,14 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TxtDireccion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDireccion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtDireccion1ActionPerformed
+
+    private void TxtDireccion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDireccion2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtDireccion2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,6 +217,8 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JButton BtnRegistrar1;
+    private javax.swing.JTextField TxtDireccion1;
+    private javax.swing.JTextField TxtDireccion2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -193,6 +233,8 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

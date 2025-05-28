@@ -162,12 +162,6 @@ public class Login extends javax.swing.JFrame {
 
                 return;
             }
-
-           
-            
-
-            
-
             if (c.IniciarSecion(correo, contrasena)==0) {
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Gerente exitoso!");
                 PrincipalGestor v = new PrincipalGestor();

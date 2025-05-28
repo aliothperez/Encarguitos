@@ -46,6 +46,7 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         TxtDireccion2 = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
+        BtnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -61,7 +62,7 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Registrar Pedido o Servicio");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(60, 140, 22));
@@ -163,6 +164,11 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
         jSeparator6.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 290, 10));
 
+        BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
+        BtnVolver.setContentAreaFilled(false);
+        BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -217,6 +223,7 @@ public class RegistrarPedidoServicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JButton BtnRegistrar1;
+    private javax.swing.JButton BtnVolver;
     private javax.swing.JTextField TxtDireccion1;
     private javax.swing.JTextField TxtDireccion2;
     private javax.swing.JComboBox<String> jComboBox1;

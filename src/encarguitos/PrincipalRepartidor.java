@@ -54,7 +54,7 @@ public class PrincipalRepartidor extends javax.swing.JFrame {
         BtnNoti.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnNoti.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnNoti.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().add(BtnNoti, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, -1));
+        getContentPane().add(BtnNoti, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
 
         BtnPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedidosRep.png"))); // NOI18N
@@ -63,7 +63,7 @@ public class PrincipalRepartidor extends javax.swing.JFrame {
         BtnPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().add(BtnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, -1, -1));
+        getContentPane().add(BtnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCarro2.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 480, 120, 50));

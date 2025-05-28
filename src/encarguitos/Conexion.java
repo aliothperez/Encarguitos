@@ -49,4 +49,97 @@ public class Conexion {
         }
         return null;
      }
+     
+     
+     
+     
+     
+     //ULTRALORD************************************************************************
+     
+     
+     
+     //--FIN ULTRALORD************************************************************************
 }
+
+//ULTRALORD************************************************************************
+class Cliente {
+     int idCliente;
+     String nombreCliente;
+     String numeroTel;
+     String direccion;
+     String referencias;
+
+    
+    public Cliente(int idCliente, String nombreCliente, String numeroTel, String direccion, String referencias) {
+        this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
+        this.numeroTel = numeroTel;
+        this.direccion = direccion;
+        this.referencias = referencias;
+    }  
+ 
+}
+
+class Usuario {
+    int idUsuario;
+    String nombreUsuario;
+    String correoUsuario;
+    String contrasena;
+    String rolUsuario;
+
+    public Usuario(int idUsuario, String nombreUsuario, String correoUsuario, String contrasena, String rolUsuario) {
+        this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.correoUsuario = correoUsuario;
+        this.contrasena = contrasena;
+        this.rolUsuario = rolUsuario;
+    }
+
+     
+}
+
+ class Solicitud {
+    int idSolicitud;
+    int idUsuario;
+    int idCliente;
+    String tipo;
+    String especificaciones;
+    String fechaSolicitud;
+    String fechaEntrega;
+    String estatus;
+
+    // Constructor
+    public Solicitud(int idSolicitud, int idUsuario, int idCliente, String tipo, String especificaciones, String fechaSolicitud, String fechaEntrega, String estatus) {
+        this.idSolicitud = idSolicitud;
+        this.idUsuario = idUsuario;
+        this.idCliente = idCliente;
+        this.tipo = tipo;
+        this.especificaciones = especificaciones;
+        this.fechaSolicitud = fechaSolicitud;
+        this.fechaEntrega = fechaEntrega;
+        this.estatus = estatus;
+    }
+
+}
+
+class Notificacion {
+    int idNotificacion;
+    int idUsuario;
+    int idSolicitud;
+    String descripcion;
+
+    // Constructor
+    public Notificacion(int idNotificacion, int idUsuario, int idSolicitud, String descripcion) {
+        this.idNotificacion = idNotificacion;
+        this.idUsuario = idUsuario;
+        this.idSolicitud = idSolicitud;
+        this.descripcion = descripcion;
+    }
+
+ 
+}
+
+
+
+
+     //--FIN ULTRALORD************************************************************************

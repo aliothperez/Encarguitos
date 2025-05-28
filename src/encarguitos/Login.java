@@ -4,17 +4,30 @@
  */
 package encarguitos;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author falio
  */
 public class Login extends javax.swing.JFrame {
-
+    Conexion c = new Conexion();
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+         try {
+            if(c.conexion.isClosed()){
+                System.out.println("Noo!!!. Se cerro");
+            }
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -30,7 +43,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         txtCorreo = new javax.swing.JTextField();
-        ptfContrasenia = new javax.swing.JPasswordField();
+        tpfContrasenia = new javax.swing.JPasswordField();
         BtnIngresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -71,10 +84,15 @@ public class Login extends javax.swing.JFrame {
         txtCorreo.setBorder(null);
         jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 180, -1));
 
-        ptfContrasenia.setForeground(new java.awt.Color(153, 153, 153));
-        ptfContrasenia.setText("jPasswordField1");
-        ptfContrasenia.setBorder(null);
-        jPanel1.add(ptfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 180, -1));
+        tpfContrasenia.setForeground(new java.awt.Color(153, 153, 153));
+        tpfContrasenia.setText("jPasswordField1");
+        tpfContrasenia.setBorder(null);
+        tpfContrasenia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tpfContraseniaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tpfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 180, -1));
 
         BtnIngresar.setBackground(new java.awt.Color(60, 140, 22));
         BtnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -122,8 +140,55 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarActionPerformed
-        // TODO add your handling code here:
+            
+        String correo = txtCorreo.getText(), contrasena = tpfContrasenia.getText();
+
+            if (correo.isBlank() || contrasena.isBlank()) {
+                mensajeError("ERROR: Campos vacíos");
+
+                if (correo.isBlank()) {
+                    txtCorreo.setBackground(new java.awt.Color(255, 102, 102)); // Rojo claro
+                    new javax.swing.Timer(3000, e -> {
+                        txtCorreo.setBackground(java.awt.Color.WHITE); // O el color original
+                    }).start();
+                }
+
+                if (contrasena.isBlank()) {
+                    tpfContrasenia.setBackground(new java.awt.Color(255, 102, 102));
+                    new javax.swing.Timer(3000, e -> {
+                        tpfContrasenia.setBackground(java.awt.Color.WHITE); // O el color original
+                    }).start();
+                }
+
+                return;
+            }
+
+           
+            
+
+            
+
+            if (c.IniciarSecion(correo, contrasena)==0) {
+                JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Gerente exitoso!");
+                PrincipalGestor v = new PrincipalGestor();
+                v.c = c;
+                v.setVisible(true);
+                this.dispose();
+            }else if(c.IniciarSecion(correo, contrasena)==1){
+                JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Repartidor exitoso!");
+                PrincipalRepartidor v = new PrincipalRepartidor();
+                v.c = c;
+                v.setVisible(true);
+                this.dispose();
+            }else{
+                //no se encontro
+            }
+              
     }//GEN-LAST:event_BtnIngresarActionPerformed
+
+    private void tpfContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tpfContraseniaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tpfContraseniaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,6 +224,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
+    public void mensajeError(String cad){
+        JOptionPane.showMessageDialog(this,cad);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnIngresar;
@@ -169,7 +237,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPasswordField ptfContrasenia;
+    private javax.swing.JPasswordField tpfContrasenia;
     private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,7 +30,6 @@ public class PrincipalGestor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         BtnVolver = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        BtnServicios = new javax.swing.JButton();
         BtnPedidos = new javax.swing.JButton();
         BtnClientes = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -60,16 +59,7 @@ public class PrincipalGestor extends javax.swing.JFrame {
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, 90));
-
-        BtnServicios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BtnServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Servicios.png"))); // NOI18N
-        BtnServicios.setText("Servicios");
-        BtnServicios.setContentAreaFilled(false);
-        BtnServicios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnServicios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnServicios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 90, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, -1, 90));
 
         BtnPedidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pedido.png"))); // NOI18N
@@ -78,7 +68,7 @@ public class PrincipalGestor extends javax.swing.JFrame {
         BtnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnPedidos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 90, 90));
+        jPanel1.add(BtnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 90, 90));
 
         BtnClientes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente.png"))); // NOI18N
@@ -87,7 +77,7 @@ public class PrincipalGestor extends javax.swing.JFrame {
         BtnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, 90, 90));
+        jPanel1.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 90, 90));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCarro.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 480, 120, 50));
@@ -138,7 +128,6 @@ public class PrincipalGestor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnClientes;
     private javax.swing.JButton BtnPedidos;
-    private javax.swing.JButton BtnServicios;
     private javax.swing.JButton BtnVolver;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;

@@ -54,11 +54,64 @@ public class Conexion {
      
      
      
-     //ULTRALORD************************************************************************
+          //ULTRALORD************************************************************************
+     public int IniciarSecion(String correo, String contrasena) {
+         int r=-1;
+         try {
+            //SELECT * FROM `Login` WHERE Correo like 'A' and Constrasena like 'A';
+            String SQL="SELECT * FROM Usuarios WHERE correoUsuario = "+correo+" and contrasena ="+contrasena;
+            cursor= transaccion.executeQuery(SQL);
+            if(cursor.next()){
+                if(cursor.getString(5).equals("Gerente")||cursor.getString(5).equals("Gestor de Operaciones")){
+                    r=0;
+                }else if(cursor.getString(5).equals("Repartidor")){
+                    r=1;
+                }
+                 
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return r;         
+    }
+     public boolean insertarProducto(Usuario p) {
+        try {
+            /*
+            INSERT INTO `Usuarios` (`idArticulo`, `Nombre`, `Descripcion`, `CodigoBarras`, `PrecioCompra`, `PrecioVenta`, `Stock`, `StockMinimo`, `IdCategoria`, `IdProveedor`) 
+            VALUES (NULL, 'Producto', 'Descripción', 'Código de Barras', 'Precio de Compra', 'Precio de Venta', 'Stock', 'Stock Mínimo', 'Categoría', 'Proveedor');
+            */
+            String SQL = "INSERT INTO `Usuarios` (`NombreUsuario`, `CorreoUsuario`, `Contrasena`,`RolUsuario`) "
+                       + "VALUES ('%Nombre%', '%Corr%', '%Constr%', '%Rol%');";
+
+            SQL = SQL.replaceAll("%Nombre%", p.nombreUsuario);
+            SQL = SQL.replaceAll("%corr%", p.correoUsuario);
+            SQL = SQL.replaceAll("%constr%", p.contrasena);
+            SQL = SQL.replaceAll("%ROL%", String.valueOf(p.rolUsuario));
+            
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar producto: " + ex.getMessage());
+            return false;
+        }
+        System.out.println("Producto insertado exitosamente");
+        return true;
+    }
+     
+     
+     
+     
+     
+     
+     
+     
      
      
      
      //--FIN ULTRALORD************************************************************************
+     
+ 
 }
 
 //ULTRALORD************************************************************************

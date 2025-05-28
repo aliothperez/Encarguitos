@@ -27,14 +27,15 @@ public class DetallesProdServ extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        LblNombre = new javax.swing.JLabel();
+        LblID = new javax.swing.JLabel();
+        LblNumero = new javax.swing.JLabel();
+        LblPedido = new javax.swing.JLabel();
+        LblDireccion = new javax.swing.JLabel();
+        LblFeEn = new javax.swing.JLabel();
+        LblFeSol = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        BtnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -42,35 +43,40 @@ public class DetallesProdServ extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("Nombre");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        LblNombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        LblNombre.setText("Nombre");
+        jPanel1.add(LblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("ID");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
+        LblID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LblID.setText("ID");
+        jPanel1.add(LblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Numero");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, -1, -1));
+        LblNumero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LblNumero.setText("Numero");
+        jPanel1.add(LblNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, -1, -1));
 
-        jLabel5.setText("Pedido");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 330, 270));
+        LblPedido.setText("Pedido");
+        jPanel1.add(LblPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 330, 270));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Direccion");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        LblDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LblDireccion.setText("Direccion");
+        jPanel1.add(LblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("Fecha de Entrega");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
+        LblFeEn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LblFeEn.setText("Fecha de Entrega");
+        jPanel1.add(LblFeEn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Fecha de Solicitud");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        LblFeSol.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LblFeSol.setText("Fecha de Solicitud");
+        jPanel1.add(LblFeSol, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaMas.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 550));
+
+        BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volverBlack.png"))); // NOI18N
+        BtnVolver.setContentAreaFilled(false);
+        BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 600));
 
@@ -113,14 +119,15 @@ public class DetallesProdServ extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnVolver;
+    private javax.swing.JLabel LblDireccion;
+    private javax.swing.JLabel LblFeEn;
+    private javax.swing.JLabel LblFeSol;
+    private javax.swing.JLabel LblID;
+    private javax.swing.JLabel LblNombre;
+    private javax.swing.JLabel LblNumero;
+    private javax.swing.JLabel LblPedido;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

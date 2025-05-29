@@ -26,6 +26,7 @@ public class PrincipalRepartidor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         BtnVolver = new javax.swing.JButton();
         BtnNoti = new javax.swing.JButton();
@@ -36,15 +37,23 @@ public class PrincipalRepartidor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Repartidor");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         BtnNoti.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnNoti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacionRep.png"))); // NOI18N
@@ -54,7 +63,12 @@ public class PrincipalRepartidor extends javax.swing.JFrame {
         BtnNoti.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnNoti.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnNoti.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().add(BtnNoti, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+        BtnNoti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNotiActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnNoti, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
 
         BtnPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedidosRep.png"))); // NOI18N
@@ -63,16 +77,41 @@ public class PrincipalRepartidor extends javax.swing.JFrame {
         BtnPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        getContentPane().add(BtnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
+        BtnPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPedidoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCarro2.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 480, 120, 50));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 480, 120, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaRep .png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidoActionPerformed
+       ConsultarPedidosServicios CP = new ConsultarPedidosServicios();
+        CP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnPedidoActionPerformed
+
+    private void BtnNotiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotiActionPerformed
+        RegistrarNotificaciones RN = new RegistrarNotificaciones();
+        RN.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnNotiActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        Login log = new Login();
+        log.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,5 +155,6 @@ public class PrincipalRepartidor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

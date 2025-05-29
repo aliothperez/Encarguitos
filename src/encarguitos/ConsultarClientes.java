@@ -59,7 +59,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
+        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 111, 90, 90));
 
         BtnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnEliminar.setForeground(new java.awt.Color(60, 140, 22));
@@ -69,7 +69,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
+        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 111, 80, 90));
 
         BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnAgregar.setForeground(new java.awt.Color(60, 140, 22));
@@ -79,7 +79,12 @@ public class ConsultarClientes extends javax.swing.JFrame {
         BtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 111, 80, 90));
 
         ListaClientes.setBorder(null);
         ListaClientes.setModel(new javax.swing.AbstractListModel<String>() {
@@ -118,6 +123,12 @@ public class ConsultarClientes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        RegistrarCliente RC = new RegistrarCliente();
+        RC.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnAgregarActionPerformed
 
     /**
      * @param args the command line arguments

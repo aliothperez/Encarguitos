@@ -80,6 +80,11 @@ public class ConsultarRepartidores extends javax.swing.JFrame {
         BtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -118,6 +123,12 @@ public class ConsultarRepartidores extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        RegistrarUsuarios RU = new RegistrarUsuarios();
+        RU.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnAgregarActionPerformed
 
     /**
      * @param args the command line arguments

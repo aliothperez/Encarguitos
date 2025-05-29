@@ -32,8 +32,8 @@ public class PrincipalGerente extends javax.swing.JFrame {
         BtnClientes = new javax.swing.JButton();
         BtnPedidos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        BtnNotificaciones = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
@@ -100,15 +100,22 @@ public class PrincipalGerente extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCarro.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 480, 120, 50));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
-        jLabel3.setText("Notificaciones");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Gerente");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        BtnNotificaciones.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
+        BtnNotificaciones.setText("Notificaciones");
+        BtnNotificaciones.setContentAreaFilled(false);
+        BtnNotificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnNotificaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNotificacionesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 150, -1));
 
         jList1.setBackground(new java.awt.Color(60, 140, 22));
         jList1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -155,6 +162,12 @@ public class PrincipalGerente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 
+    private void BtnNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotificacionesActionPerformed
+        ConsultarNotificaciones CN = new ConsultarNotificaciones();
+        CN.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnNotificacionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -192,12 +205,12 @@ public class PrincipalGerente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnClientes;
+    private javax.swing.JButton BtnNotificaciones;
     private javax.swing.JButton BtnPedidos;
     private javax.swing.JButton BtnUsuarios;
     private javax.swing.JButton BtnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;

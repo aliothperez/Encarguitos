@@ -32,7 +32,6 @@ public class ConsultarNotificaciones extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         BtnEliminar = new javax.swing.JButton();
-        BtnAgregar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -70,17 +69,7 @@ public class ConsultarNotificaciones extends javax.swing.JFrame {
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
-
-        BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnAgregar.setForeground(new java.awt.Color(60, 140, 22));
-        BtnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mas.png"))); // NOI18N
-        BtnAgregar.setText("Agregar");
-        BtnAgregar.setContentAreaFilled(false);
-        BtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
 
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(60, 140, 22));
@@ -90,7 +79,7 @@ public class ConsultarNotificaciones extends javax.swing.JFrame {
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
+        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaConsulta.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -156,7 +145,6 @@ public class ConsultarNotificaciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
-    private javax.swing.JButton BtnAgregar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnVolver;
     private javax.swing.JLabel jLabel1;

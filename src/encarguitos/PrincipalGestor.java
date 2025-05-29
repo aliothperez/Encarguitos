@@ -28,11 +28,11 @@ public class PrincipalGestor extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        BtnVolver = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        BtnPedidos = new javax.swing.JButton();
-        BtnClientes = new javax.swing.JButton();
+        BtnRep = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        BtnClientes = new javax.swing.JButton();
+        BtnPedidos = new javax.swing.JButton();
+        BtnVolver = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,29 +46,23 @@ public class PrincipalGestor extends javax.swing.JFrame {
         jLabel2.setText("Gestor de Operaciones");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
-        BtnVolver.setContentAreaFilled(false);
-        BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+        BtnRep.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnRep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/repartidor.png"))); // NOI18N
+        BtnRep.setText("Repartidores");
+        BtnRep.setActionCommand("BtnRepartdor");
+        BtnRep.setContentAreaFilled(false);
+        BtnRep.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnRep.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnRep.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnRep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRepActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, -1, 90));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/repartidor.png"))); // NOI18N
-        jButton1.setText("Repartidores");
-        jButton1.setActionCommand("BtnRepartdor");
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, -1, 90));
-
-        BtnPedidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BtnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pedido.png"))); // NOI18N
-        BtnPedidos.setText("Pedidos");
-        BtnPedidos.setContentAreaFilled(false);
-        BtnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnPedidos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 90, 90));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCarro.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 480, 120, 50));
 
         BtnClientes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente.png"))); // NOI18N
@@ -77,10 +71,36 @@ public class PrincipalGestor extends javax.swing.JFrame {
         BtnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 90, 90));
+        BtnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClientesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 90, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCarro.png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 480, 120, 50));
+        BtnPedidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pedido.png"))); // NOI18N
+        BtnPedidos.setText("Pedidos");
+        BtnPedidos.setContentAreaFilled(false);
+        BtnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnPedidos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPedidosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, -1, 90));
+
+        BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
+        BtnVolver.setContentAreaFilled(false);
+        BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaInterfaz.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -89,6 +109,30 @@ public class PrincipalGestor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClientesActionPerformed
+        ConsultarClientes CC = new ConsultarClientes();
+        CC.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnClientesActionPerformed
+
+    private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
+        ConsultarPedidosServicios CP = new ConsultarPedidosServicios();
+        CP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnPedidosActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        Login log = new Login();
+        log.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
+
+    private void BtnRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRepActionPerformed
+        ConsultarRepartidores CR = new ConsultarRepartidores();
+        CR.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnRepActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,8 +172,8 @@ public class PrincipalGestor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnClientes;
     private javax.swing.JButton BtnPedidos;
+    private javax.swing.JButton BtnRep;
     private javax.swing.JButton BtnVolver;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

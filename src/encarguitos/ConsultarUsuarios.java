@@ -223,7 +223,12 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Conexion bd = new Conexion();
+                 int tipoUsuario = 2;
+                 if(tipoUsuario == 0){
                 new ConsultarClientes(bd,0).setVisible(true);
+                 }else if (tipoUsuario== 1){
+                  new ConsultarClientes(bd,1).setVisible(true);
+                 }
             }
         });
     }

@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
  * @author falio
  */
 public class Login extends javax.swing.JFrame {
-    Conexion c = new Conexion();
+    Conexion bd = new Conexion();
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
          try {
-            if(c.conexion.isClosed()){
+            if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
             }
         } catch (SQLException ex) {
@@ -162,16 +162,22 @@ public class Login extends javax.swing.JFrame {
 
                 return;
             }
-            if (c.IniciarSecion(correo, contrasena)==0) {
+            if (bd.IniciarSecion(correo, contrasena)==0) {
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Gerente exitoso!");
                 PrincipalGestor v = new PrincipalGestor();
-                v.c = c;
+                v.bd = bd;
                 v.setVisible(true);
                 this.dispose();
-            }else if(c.IniciarSecion(correo, contrasena)==1){
+            }else if(bd.IniciarSecion(correo, contrasena)==1){
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Repartidor exitoso!");
                 PrincipalRepartidor v = new PrincipalRepartidor();
-                v.c = c;
+                v.bd = bd;
+                v.setVisible(true);
+                this.dispose();
+            }else if(bd.IniciarSecion(correo, contrasena)==1){
+                JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Repartidor exitoso!");
+                PrincipalGerente v = new PrincipalGerente();
+                v.bd = bd;
                 v.setVisible(true);
                 this.dispose();
             }else{

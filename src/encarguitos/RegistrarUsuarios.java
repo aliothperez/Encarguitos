@@ -3,18 +3,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package encarguitos;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author falio
  */
 public class RegistrarUsuarios extends javax.swing.JFrame {
+Conexion bd = new Conexion();
 
     /**
      * Creates new form RegistrarUsuarios
      */
     public RegistrarUsuarios() {
         initComponents();
+        try {
+            if(bd.conexion.isClosed()){
+                System.out.println("Noo!!!. Se cerro");
+            }
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

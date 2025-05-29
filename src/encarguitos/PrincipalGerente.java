@@ -4,17 +4,30 @@
  */
 package encarguitos;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author falio
  */
 public class PrincipalGerente extends javax.swing.JFrame {
+Conexion bd = new Conexion();
 
     /**
      * Creates new form PrincipalGerente
      */
     public PrincipalGerente() {
         initComponents();
+        try {
+            if(bd.conexion.isClosed()){
+                System.out.println("Noo!!!. Se cerro");
+            }
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

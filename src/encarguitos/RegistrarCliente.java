@@ -231,7 +231,7 @@ Conexion bd = new Conexion();
     }//GEN-LAST:event_TxtReferenciasMouseClicked
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-       ConsultarClientes CC = new ConsultarClientes();
+       ConsultarClientes CC = new ConsultarClientes(this.bd,0);
        CC.setVisible(true);
        this.dispose();        
           

@@ -193,7 +193,7 @@ Conexion bd = new Conexion();
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-       ConsultarUsuarios CU = new ConsultarUsuarios();
+       ConsultarUsuarios CU = new ConsultarUsuarios(this.bd,0);
        CU.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed

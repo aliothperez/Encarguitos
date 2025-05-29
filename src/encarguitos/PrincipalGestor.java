@@ -14,8 +14,7 @@ import java.util.logging.Logger;
  */
 public class PrincipalGestor extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-boolean rol = false;//true = gerente; false = gestor
-
+int tipoUsuario = 0;
     /**
      * Creates new form PrincipalGestor
      */
@@ -125,7 +124,7 @@ boolean rol = false;//true = gerente; false = gestor
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClientesActionPerformed
-        ConsultarClientes CC = new ConsultarClientes();
+        ConsultarClientes CC = new ConsultarClientes(this.bd,this.tipoUsuario);
         CC.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnClientesActionPerformed

@@ -15,14 +15,16 @@ import javax.swing.JOptionPane;
  * @author falio
  */
 public class ConsultarUsuarios extends javax.swing.JFrame {
-Conexion bd = new Conexion();
-boolean rol;//true = gerente; false = gestor
+    Conexion bd = new Conexion();
+    int tipoUsuario; // 0=Gestor, 1=Repartidor, 2=Gerente
 
     /**
      * Creates new form ConsultarUsuarios
      */
-    public ConsultarUsuarios() {
+    public ConsultarUsuarios(Conexion bd, int tipoUsuario) {
         initComponents();
+        this.bd = bd;
+        this.tipoUsuario = tipoUsuario;
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -139,10 +141,34 @@ boolean rol;//true = gerente; false = gestor
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        String nombreUsuario = ListaUsuarios.toString();
-        String correoUsuario = ListaUsuarios.toString();
-        String rolUsuario = ListaUsuarios.toString();
-        bd.eliminarUsuario(new Usuario(0,nombreUsuario, correoUsuario,"" ,rolUsuario));
+       int selectedIndex = ListaUsuarios.getSelectedIndex();
+    if (selectedIndex == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor seleccione un usuario para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    String selectedItem = ListaUsuarios.getSelectedValue();
+    String[] parts = selectedItem.split(" - ");
+    String nombreUsuario = parts[0];
+    String correoUsuario = parts[1];
+    String rolUsuario = parts[2];
+    
+    int confirm = JOptionPane.showConfirmDialog(
+        this, 
+        "¿Está seguro que desea eliminar al usuario: " + nombreUsuario + "?", 
+        "Confirmar Eliminación", 
+        JOptionPane.YES_NO_OPTION
+    );
+    
+    if (confirm == JOptionPane.YES_OPTION) {
+        boolean eliminado = bd.eliminarUsuario(new Usuario(0, nombreUsuario, correoUsuario, "", rolUsuario));
+        if (eliminado) {
+            JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente");
+            actualizarLista();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
@@ -150,18 +176,34 @@ boolean rol;//true = gerente; false = gestor
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        
+        switch(tipoUsuario) {
+            case 0: // Gestor
+                PrincipalGestor pg = new PrincipalGestor();
+                pg.bd = bd;
+                pg.setVisible(true);
+                break;
+            case 1: 
+                PrincipalGerente pge = new PrincipalGerente();
+                pge.bd = bd;
+                pge.setVisible(true);
+                break;
+ 
+        }
+        this.dispose();
+    
     }//GEN-LAST:event_BtnVolverActionPerformed
         
     public void actualizarLista(){
     ArrayList<String[]> usuarios = bd.ConsultarUsuarios();
     DefaultListModel<String> modelo = new DefaultListModel<>();
 
-    for (String[] usu : usuarios) {
-        
-        String item = usu[0] + " - " + usu[1] + " - " + usu[3];
-        modelo.addElement(item);
-    }
+     for (String[] usu : usuarios) {
+            String item = String.format("%s - %s - %s", 
+                usu[0],  // NombreUsuario
+                usu[1],  // CorreoUsuario
+                usu[3]); // RolUsuario
+            modelo.addElement(item);
+        }
 
     ListaUsuarios.setModel(modelo);
     }
@@ -196,7 +238,8 @@ boolean rol;//true = gerente; false = gestor
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsultarUsuarios().setVisible(true);
+                Conexion bd = new Conexion();
+                new ConsultarClientes(bd,0).setVisible(true);
             }
         });
     }

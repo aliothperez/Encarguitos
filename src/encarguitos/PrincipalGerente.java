@@ -14,13 +14,14 @@ import java.util.logging.Logger;
  */
 public class PrincipalGerente extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-    boolean rol = true;//true = gerente; false = gestor
+int tipoUsuario = 1;
 
     /**
      * Creates new form PrincipalGerente
      */
     public PrincipalGerente() {
         initComponents();
+        
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -148,7 +149,7 @@ Conexion bd = new Conexion();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUsuariosActionPerformed
-        ConsultarUsuarios CU = new ConsultarUsuarios();
+        ConsultarUsuarios CU = new ConsultarUsuarios(this.bd,this.tipoUsuario);
         CU.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnUsuariosActionPerformed
@@ -160,7 +161,7 @@ Conexion bd = new Conexion();
     }//GEN-LAST:event_BtnPedidosActionPerformed
 
     private void BtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClientesActionPerformed
-        ConsultarClientes CC = new ConsultarClientes();
+        ConsultarClientes CC = new ConsultarClientes(this.bd,this.tipoUsuario);
         CC.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnClientesActionPerformed

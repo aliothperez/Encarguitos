@@ -15,15 +15,17 @@ import javax.swing.JOptionPane;
  * @author falio
  */
 public class ConsultarClientes extends javax.swing.JFrame {
-Conexion bd = new Conexion();
-boolean rol;//true = gerente; false = gestor
+    Conexion bd = new Conexion();
+    int tipoUsuario; // 0=Gestor, 1=Repartidor, 2=Gerente
 
 
     /**
      * Creates new form ConsultarClientes
      */
-    public ConsultarClientes() {
+    public ConsultarClientes(Conexion bd, int tipoUsuario) {
         initComponents();
+        this.bd = bd;
+        this.tipoUsuario = tipoUsuario;
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -158,10 +160,34 @@ boolean rol;//true = gerente; false = gestor
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-       String nombreCliente = ListaClientes.toString();
-        String numTel = ListaClientes.toString();
-        String direccion = ListaClientes.toString();
-        bd.eliminarCliente(new Cliente(0,nombreCliente,numTel,direccion,""));
+       int selectedIndex = ListaClientes.getSelectedIndex();
+    if (selectedIndex == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor seleccione un cliente para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    String selectedItem = ListaClientes.getSelectedValue();
+    String[] parts = selectedItem.split(" - ");
+    String nombreCliente = parts[0];
+    String numTel = parts[1];
+    String direccion = parts[2];
+    
+    int confirm = JOptionPane.showConfirmDialog(
+        this, 
+        "¿Está seguro que desea eliminar al cliente: " + nombreCliente + "?", 
+        "Confirmar Eliminación", 
+        JOptionPane.YES_NO_OPTION
+    );
+    
+    if (confirm == JOptionPane.YES_OPTION) {
+        boolean eliminado = bd.eliminarCliente(new Cliente(0, nombreCliente, numTel, direccion, ""));
+        if (eliminado) {
+            JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente");
+            actualizarLista();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
@@ -169,17 +195,33 @@ boolean rol;//true = gerente; false = gestor
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-       
+       switch(tipoUsuario) {
+            case 0: // Gestor
+                PrincipalGestor pg = new PrincipalGestor();
+                pg.bd = bd;
+                pg.setVisible(true);
+                break;
+            case 1: 
+                PrincipalGerente pge = new PrincipalGerente();
+                pge.bd = bd;
+                pge.setVisible(true);
+                break;
+ 
+        }
+        this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
      public void actualizarLista(){
-    ArrayList<String[]> clientes = bd.ConsultarUsuarios();
+    ArrayList<String[]> clientes = bd.ConsultarCliente();
     DefaultListModel<String> modelo = new DefaultListModel<>();
 
-    for (String[] cli : clientes) {
-        
-        String item = cli[0] + " - " + cli[1] + " - " + cli[3]+ " - " + cli[4];
-        modelo.addElement(item);
-    }
+     // Llenar el modelo con los datos actualizados
+        for (String[] cli : clientes) {
+            String item = String.format("%s - %s - %s", 
+                cli[0],  // NombreCliente
+                cli[1],  // NumeroTel
+                cli[2]); // Direccion (corregido de índice 3 a 2)
+            modelo.addElement(item);
+        }
 
     ListaClientes.setModel(modelo);
     }
@@ -214,7 +256,8 @@ boolean rol;//true = gerente; false = gestor
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsultarClientes().setVisible(true);
+                Conexion bd = new Conexion();
+                new ConsultarClientes(bd,0).setVisible(true);
             }
         });
     }

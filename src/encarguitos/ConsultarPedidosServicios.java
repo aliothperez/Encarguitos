@@ -210,11 +210,6 @@ Usuario u = new Usuario();
             v.bd=bd;
             v.setVisible(true);
             this.dispose();
-        }else{
-            Login v = new Login();
-            v.bd=bd;
-            v.setVisible(true);
-            this.dispose();
         }
     }//GEN-LAST:event_BtnVolverActionPerformed
 
@@ -275,7 +270,8 @@ Usuario u = new Usuario();
             ls.addElement("No hay solicitudes disponibles");
             return;
         }
-
+        lsSolicitudes.getModel();
+ls.clear();
         // Procesar cada registro y agregarlo al JList
         for (String[] data : datos) {
             // Formatear la información para mostrar en cada línea del JList

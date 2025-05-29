@@ -109,7 +109,7 @@ Conexion bd = new Conexion();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidoActionPerformed
-       ConsultarPedidosServicios CP = new ConsultarPedidosServicios();
+       ConsultarPedidosAsignados CP = new ConsultarPedidosAsignados();
         CP.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnPedidoActionPerformed

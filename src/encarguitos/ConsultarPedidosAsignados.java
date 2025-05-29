@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 public class ConsultarPedidosAsignados extends javax.swing.JFrame {
 Conexion bd = new Conexion();
 DefaultListModel<String> model;
-Usuario u = new Usuario();
     /**
      * Creates new form ConsultarPedidosServicios
      */
@@ -37,7 +36,6 @@ Usuario u = new Usuario();
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-    u=Login.u;
   
     }
 
@@ -125,26 +123,13 @@ Usuario u = new Usuario();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        loadPedidosAsignados();
+       PrincipalRepartidor CP = new PrincipalRepartidor();
+        CP.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-       if(u.rolUsuario.equals("Gerente")){
-            PrincipalGerente v = new PrincipalGerente();
-            v.bd=bd;
-            v.setVisible(true);
-            this.dispose();
-        }if(u.rolUsuario.equals("Gestor de Operaciones")){
-            PrincipalGestor v = new PrincipalGestor();
-            v.bd=bd;
-            v.setVisible(true);
-            this.dispose();
-        }else{
-            Login v = new Login();
-            v.bd=bd;
-            v.setVisible(true);
-            this.dispose();
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_BtnVolverActionPerformed
     public static Connection ObtenerConexion(String USER, String PASSWORD){
          String conUrl = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";

@@ -47,6 +47,11 @@ public class PrincipalGerente extends javax.swing.JFrame {
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         BtnUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -57,6 +62,11 @@ public class PrincipalGerente extends javax.swing.JFrame {
         BtnUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnUsuarios.setVerifyInputWhenFocusTarget(false);
         BtnUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnUsuariosActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         BtnClientes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -66,6 +76,11 @@ public class PrincipalGerente extends javax.swing.JFrame {
         BtnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClientesActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 90, -1));
 
         BtnPedidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -75,6 +90,11 @@ public class PrincipalGerente extends javax.swing.JFrame {
         BtnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnPedidos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPedidosActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, -1, 90));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCarro.png"))); // NOI18N
@@ -110,6 +130,30 @@ public class PrincipalGerente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUsuariosActionPerformed
+        ConsultarUsuarios CU = new ConsultarUsuarios();
+        CU.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnUsuariosActionPerformed
+
+    private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
+        ConsultarPedidosServicios CP = new ConsultarPedidosServicios();
+        CP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnPedidosActionPerformed
+
+    private void BtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClientesActionPerformed
+        ConsultarClientes CC = new ConsultarClientes();
+        CC.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnClientesActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        Login log = new Login();
+        log.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
 
     /**
      * @param args the command line arguments

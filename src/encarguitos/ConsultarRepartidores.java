@@ -31,8 +31,8 @@ public class ConsultarRepartidores extends javax.swing.JFrame {
         BtnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        BtnAgregar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
+        BtnAgregar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -62,29 +62,32 @@ public class ConsultarRepartidores extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 380, 370));
 
-        BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnAgregar.setForeground(new java.awt.Color(60, 140, 22));
-        BtnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mas.png"))); // NOI18N
-        BtnAgregar.setText("Agregar");
-        BtnAgregar.setContentAreaFilled(false);
-        BtnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-
         BtnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnEliminar.setForeground(new java.awt.Color(60, 140, 22));
         BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         BtnEliminar.setText("Eliminar");
         BtnEliminar.setContentAreaFilled(false);
+        BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
+
+        BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BtnAgregar.setForeground(new java.awt.Color(60, 140, 22));
+        BtnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mas.png"))); // NOI18N
+        BtnAgregar.setText("Agregar");
+        BtnAgregar.setContentAreaFilled(false);
+        BtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(60, 140, 22));
         BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         BtnActualizar.setText("Actualizar");
         BtnActualizar.setContentAreaFilled(false);
+        BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));

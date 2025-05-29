@@ -5,6 +5,7 @@
 package encarguitos;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,11 +17,13 @@ public class PrincipalGerente extends javax.swing.JFrame {
 Conexion bd = new Conexion();
 public int tipoUsuario = 1;
 
+
     /**
      * Creates new form PrincipalGerente
      */
     public PrincipalGerente() {
         initComponents();
+            //cargarNotificaciones(); // Agrega esta línea
         
         try {
             if(bd.conexion.isClosed()){
@@ -52,10 +55,11 @@ public int tipoUsuario = 1;
         BtnPedidos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        BtnNotificaciones = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        ListaNoti = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        BtnNotificaciones1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -124,28 +128,39 @@ public int tipoUsuario = 1;
         jLabel2.setText("Gerente");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        BtnNotificaciones.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
-        BtnNotificaciones.setText("Notificaciones");
-        BtnNotificaciones.setContentAreaFilled(false);
-        BtnNotificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnNotificaciones.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volverBlack.png"))); // NOI18N
+        btnReset.setContentAreaFilled(false);
+        btnReset.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnNotificacionesActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 150, -1));
+        jPanel1.add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, 30));
 
-        jList1.setBackground(new java.awt.Color(60, 140, 22));
-        jList1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jList1.setForeground(new java.awt.Color(255, 255, 255));
-        jList1.setToolTipText("");
-        jScrollPane1.setViewportView(jList1);
+        ListaNoti.setBackground(new java.awt.Color(60, 140, 22));
+        ListaNoti.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ListaNoti.setForeground(new java.awt.Color(255, 255, 255));
+        ListaNoti.setToolTipText("");
+        jScrollPane1.setViewportView(ListaNoti);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 400, 190));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaInterfaz.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        BtnNotificaciones1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BtnNotificaciones1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
+        BtnNotificaciones1.setText("Notificaciones");
+        BtnNotificaciones1.setContentAreaFilled(false);
+        BtnNotificaciones1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnNotificaciones1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNotificaciones1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnNotificaciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 150, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 537));
 
@@ -176,12 +191,33 @@ public int tipoUsuario = 1;
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 
-    private void BtnNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotificacionesActionPerformed
-        ConsultarNotificaciones CN = new ConsultarNotificaciones();
-        CN.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_BtnNotificacionesActionPerformed
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+//            cargarNotificaciones();
+    }//GEN-LAST:event_btnResetActionPerformed
 
+    private void BtnNotificaciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotificaciones1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnNotificaciones1ActionPerformed
+// Método para cargar notificaciones en el JList
+/*private void cargarNotificaciones() {
+    // Obtener las notificaciones de la base de datos
+    ArrayList<String[]> notificaciones = bd.mostrarNotificaciones();
+    
+    // Crear un array para almacenar las notificaciones formateadas
+    String[] notificacionesFormateadas = new String[notificaciones.size()];
+    
+    // Formatear cada notificación
+    for (int i = 0; i < notificaciones.size(); i++) {
+        String[] notificacion = notificaciones.get(i);
+        notificacionesFormateadas[i] = String.format("ID: %s | Usuario: %s | Solicitud: %s | %s", 
+            
+            notificacion[0]  // Descripción
+        );
+    }
+    
+    // Asignar las notificaciones formateadas al JList
+    ListaNoti.setListData(notificacionesFormateadas);
+}*/
     /**
      * @param args the command line arguments
      */
@@ -219,14 +255,15 @@ public int tipoUsuario = 1;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnClientes;
-    private javax.swing.JButton BtnNotificaciones;
+    private javax.swing.JButton BtnNotificaciones1;
     private javax.swing.JButton BtnPedidos;
     private javax.swing.JButton BtnUsuarios;
     private javax.swing.JButton BtnVolver;
+    private javax.swing.JList<String> ListaNoti;
+    private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

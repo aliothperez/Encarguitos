@@ -92,7 +92,7 @@ Conexion bd = new Conexion();
 
         BtnPedidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pedido.png"))); // NOI18N
-        BtnPedidos.setText("Pedidos");
+        BtnPedidos.setText("Gestor");
         BtnPedidos.setContentAreaFilled(false);
         BtnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

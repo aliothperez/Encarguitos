@@ -4,8 +4,11 @@
  */
 package encarguitos;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +16,7 @@ import java.util.logging.Logger;
  */
 public class ConsultarClientes extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+
 
     /**
      * Creates new form ConsultarClientes
@@ -71,6 +75,11 @@ Conexion bd = new Conexion();
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 111, 90, 90));
 
         BtnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -81,6 +90,11 @@ Conexion bd = new Conexion();
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 80, 90));
 
         BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -142,6 +156,50 @@ Conexion bd = new Conexion();
         this.dispose();
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        int index = ListaClientes.getSelectedIndex();
+    if (index == -1) {
+        JOptionPane.showMessageDialog(null, "Selecciona un cliente para eliminar.");
+        return;
+    }
+    String seleccionado = ListaClientes.getModel().getElementAt(index);    
+    // Separar por "/" los datos
+    String[] partes = seleccionado.split("/");
+    if (partes.length < 3) {
+        JOptionPane.showMessageDialog(null, "Formato de cliente inválido.");
+        return;
+    }
+    String nombre = partes[0].trim();
+    String telefono = partes[1].trim();
+    String direccion = partes[2].trim();
+    int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar a " + nombre + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
+    if (confirm != JOptionPane.YES_OPTION) return;
+
+    Conexion conexion = new Conexion();
+    boolean eliminado = conexion.eliminarClientePorCampos(nombre, telefono, direccion);
+    if (eliminado) {
+        JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente.");
+        actualizarLista(); // Método que refresca la JList
+    } else {
+        JOptionPane.showMessageDialog(null, "No se pudo eliminar al cliente.");
+    }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+       actualizarLista();
+    }//GEN-LAST:event_BtnActualizarActionPerformed
+    public void actualizarLista(){
+         ArrayList<String[]> clientes = bd.ConsultarCliente();
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+    
+    for (String[] cliente : clientes) {
+        for (String dato : cliente) {
+            modelo.addElement(dato); // Cada línea de info o separador
+        }
+    }
+
+    ListaClientes.setModel(modelo);
+    }
     /**
      * @param args the command line arguments
      */

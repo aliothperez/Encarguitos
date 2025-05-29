@@ -134,6 +134,66 @@ public void RegistrarCliente(Cliente c ){
         JOptionPane.showMessageDialog(null, "Error al registrar Usuario");
         }
     } 
+    
+        public ArrayList<String[]> ConsultarCliente() {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "SELECT NombreCliente, NumeroTel, Dirección from Cliente ";
+            cursor = transaccion.executeQuery(SQL);
+            if (cursor.next()) {
+                do {
+                    String[] datos = {
+                        cursor.getString(1)+"/n",
+                        cursor.getString(2)+"/n", 
+                        cursor.getString(3)+"/n",
+                        "___________________"
+                    };
+                    resultado.add(datos);
+                } while (cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;    
+        }
+        
+        public ArrayList<String[]> ConsultarUsuarios() {
+        ArrayList<String[]> resultado = new ArrayList<>();
+        try {
+            String SQL = "SELECT NombreUsuario, CorreoUsuario, Contrasena, RolUsuario from Usuario ";
+            cursor = transaccion.executeQuery(SQL);
+            if (cursor.next()) {
+                do {
+                    String[] datos = {
+                        cursor.getString(1)+"/n",
+                        cursor.getString(2)+"/n", 
+                        cursor.getString(3)+"/n",
+                        cursor.getString(4)+"/n",
+                        "___________________"
+                    };
+                    resultado.add(datos);
+                } while (cursor.next());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    
+        }
+    public boolean eliminarClientePorCampos(String nombre, String telefono, String direccion) {
+    String sql = "DELETE FROM Cliente WHERE NombreCliente = %Nom% AND NumeroTel = %Num% AND Direccion = %Dir%";
+    try (Connection con = obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, nombre);
+        ps.setString(2, telefono);
+        ps.setString(3, direccion);
+        int filas = ps.executeUpdate();
+        return filas > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+    
 }
 
 

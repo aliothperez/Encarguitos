@@ -4,6 +4,7 @@
  */
 package encarguitos;
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -87,6 +88,11 @@ public class Login extends javax.swing.JFrame {
                 txtCorreoMouseClicked(evt);
             }
         });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 180, -1));
 
         txtContrasenia.setForeground(new java.awt.Color(153, 153, 153));
@@ -95,6 +101,11 @@ public class Login extends javax.swing.JFrame {
         txtContrasenia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtContraseniaMouseClicked(evt);
+            }
+        });
+        txtContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContraseniaKeyTyped(evt);
             }
         });
         jPanel1.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 180, -1));
@@ -198,6 +209,14 @@ public class Login extends javax.swing.JFrame {
     private void txtContraseniaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContraseniaMouseClicked
         txtContrasenia.setText("");
     }//GEN-LAST:event_txtContraseniaMouseClicked
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        txtCorreo.setForeground(Color.BLACK);
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtContraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseniaKeyTyped
+        txtContrasenia.setForeground(Color.BLACK);
+    }//GEN-LAST:event_txtContraseniaKeyTyped
 
     /**
      * @param args the command line arguments

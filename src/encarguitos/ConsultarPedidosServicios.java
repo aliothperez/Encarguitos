@@ -22,7 +22,7 @@ public class ConsultarPedidosServicios extends javax.swing.JFrame {
 Conexion bd = new Conexion();
 DefaultListModel ls= new DefaultListModel();
 
-
+Usuario u = new Usuario();
     /**
      * Creates new form ConsultarPedidosServicios
      */
@@ -51,6 +51,7 @@ DefaultListModel ls= new DefaultListModel();
         });
         
         MostrarlsPedidos();
+        u=Login.u;
   
     }
 
@@ -87,6 +88,11 @@ DefaultListModel ls= new DefaultListModel();
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         lsSolicitudes.setBorder(null);
@@ -192,6 +198,20 @@ DefaultListModel ls= new DefaultListModel();
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
         MostrarlsPedidos();
     }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        if(u.rolUsuario.equals("Gerente")){
+            PrincipalGerente v = new PrincipalGerente();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
+        }if(u.rolUsuario.equals("Gestor de Operaciones")){
+            PrincipalGestor v = new PrincipalGestor();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_BtnVolverActionPerformed
 
     /**
      * @param args the command line arguments

@@ -166,6 +166,11 @@ Conexion bd = new Conexion();
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
@@ -240,6 +245,13 @@ Conexion bd = new Conexion();
         bd.insertarSolicitud(new Solicitud(0,u.idUsuario,c.idCliente,cmbTipo.getItemAt(cmbTipo.getSelectedIndex()),
                 Espe,"",feEn,cmbEstatus.getItemAt(cmbEstatus.getSelectedIndex())));
     }//GEN-LAST:event_BtnRegistrar1ActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+            ConsultarPedidosServicios v = new ConsultarPedidosServicios();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
 
     /**
      * @param args the command line arguments

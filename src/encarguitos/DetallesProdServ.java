@@ -114,10 +114,14 @@ public class DetallesProdServ extends javax.swing.JFrame {
     LblDireccion.setText("Dirección: " + datosSolicitud[8]); // Dirección
     
     // Formato especial para el área de pedido con HTML
-    LblPedido.setText("<html><body style='width: 300px'>" +
+    LblPedido.setText("<html><body style='width: 300px; padding: 5px;'>" +
+                     "<h3>Detalles del Pedido</h3>" +
                      "<b>Tipo:</b> " + datosSolicitud[1] + "<br><br>" +
                      "<b>Especificaciones:</b><br>" + datosSolicitud[2] + "<br><br>" +
-                     "<b>Estado:</b> " + datosSolicitud[5] + "</body></html>");
+                     "<b>Estado:</b> " + datosSolicitud[5] + "<br><br>" +
+                     "<b>Fecha Solicitud:</b> " + datosSolicitud[3] + "<br>" +
+                     "<b>Fecha Entrega:</b> " + datosSolicitud[4] + "<br><br>" +
+                     "<b>Repartidor asignado:</b> " + datosSolicitud[10] + "</body></html>");
     
     LblFeSol.setText("Solicitado: " + datosSolicitud[3]); // Fecha solicitud
     LblFeEn.setText("Entrega: " + datosSolicitud[4]); // Fecha entrega

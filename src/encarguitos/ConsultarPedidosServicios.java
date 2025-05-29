@@ -260,70 +260,67 @@ Usuario u = new Usuario();
     }
 }
     public void MostrarlsPedidos(){
-        
+         DefaultListModel<String> model = (DefaultListModel<String>) lsSolicitudes.getModel();
+    model.clear();
 
-        // Obtener los datos de la base de datos
-        ArrayList<String[]> datos = bd.mostrarListaSolicitud();
+    ArrayList<String[]> datos = bd.mostrarListaSolicitud();
 
-        // Verificar si hay datos
-        if (datos.isEmpty()) {
-            ls.addElement("No hay solicitudes disponibles");
-            return;
-        }
-        lsSolicitudes.getModel();
-ls.clear();
-        // Procesar cada registro y agregarlo al JList
-        for (String[] data : datos) {
-            // Formatear la información para mostrar en cada línea del JList
-            String elemento = String.format(
-                "ID: %s | Tipo: %s | Cliente: %s | Tel: %s | Fecha Entrega: %s",
-                data[0],  // ID Solicitud
-                data[1],  // Tipo
-                data[6],  // Nombre Cliente
-                data[7],  // Teléfono
-                data[4]   // Fecha Entrega
-            );
-            ls.addElement(elemento);
-        }
+    if (datos.isEmpty()) {
+        model.addElement("No hay pedidos disponibles");
+        return;
+    }
+
+    for (String[] data : datos) {
+        String elemento = String.format(
+            "ID: %s | Cliente: %s | Repartidor: %s",
+            data[0], // ID Solicitud
+            data[1], // Nombre Cliente
+            data[2]  // Nombre Repartidor
+        );
+        model.addElement(elemento);
+    }
         
         
     }
- 
-private void mostrarDetallesSolicitud(String elementoSeleccionado) {
-    String id = obtenerID(elementoSeleccionado);
+ private void mostrarDetallesSolicitud(String elementoSeleccionado) {
+    // Extraer el ID del pedido del texto seleccionado
+    String id = elementoSeleccionado.split("\\|")[0].replace("ID:", "").trim();
     
-    if (id != null) {
+    if (id != null && !id.isEmpty()) {
         try {
-            // Consulta SQL para obtener todos los datos necesarios
-            String SQL = "SELECT s.idSolicitud, s.Tipo, s.Especificaciones, s.FechaSolicitud, s.FechaEntrega, s.Estatus, "
-                    + "c.NombreCliente, c.NumeroTel, c.Direccion, c.Referencias, u.NombreUsuario "
-                    + "FROM Solicitud s "
-                    + "inner join Cliente c on s.idCliente= c.idCliente "
-                    + "inner join Usuarios u on s.idUsuario= u.idUsuario WHERE s.idSolicitud = " + id+";";
+            // Obtener todos los detalles del pedido
+            String SQL = "SELECT s.idSolicitud, s.Tipo, s.Especificaciones, " +
+                         "DATE_FORMAT(s.FechaSolicitud, '%d/%m/%Y') as FechaSolicitud, " +
+                         "DATE_FORMAT(s.FechaEntrega, '%d/%m/%Y') as FechaEntrega, " +
+                         "s.Estatus, c.NombreCliente, c.NumeroTel, c.Direccion, " +
+                         "c.Referencias, u.NombreUsuario " +
+                         "FROM Solicitud s " +
+                         "INNER JOIN Cliente c ON s.idCliente = c.idCliente " +
+                         "INNER JOIN Usuarios u ON s.idUsuario = u.idUsuario " +
+                         "WHERE s.idSolicitud = " + id;
             
             bd.cursor = bd.transaccion.executeQuery(SQL);
             
             if (bd.cursor.next()) {
-                // Crear array con los 11 campos obtenidos
                 String[] datos = new String[11];
                 for (int i = 0; i < datos.length; i++) {
-                    datos[i] = bd.cursor.getString(i+1); // Los índices en JDBC comienzan en 1
+                    datos[i] = bd.cursor.getString(i+1);
                 }
                 
-                // Crear y mostrar la ventana de detalles
+                // Mostrar la ventana de detalles
                 DetallesProdServ detalles = new DetallesProdServ();
-                detalles.cargarDetallesSolicitud(datos); // Envía los datos
+                detalles.cargarDetallesSolicitud(datos);
                 detalles.setVisible(true);
-                this.dispose(); // Cierra la ventana actual
+                this.dispose();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, 
-                "Error al obtener detalles: " + ex.getMessage(),
+                "Error al obtener detalles del pedido: " + ex.getMessage(),
                 "Error", 
                 JOptionPane.ERROR_MESSAGE);
         }
     }
-}    
+}
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

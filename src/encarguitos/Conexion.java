@@ -263,36 +263,28 @@ public class Conexion {
         return true;
     }
     public ArrayList<String[]> mostrarListaSolicitud(){
-        ArrayList<String[]> resultado = new ArrayList<>();
-        try {
-String SQL = "SELECT s.idSolicitud, s.Tipo, s.Especificaciones, s.FechaSolicitud, s.FechaEntrega, s.Estatus, " +
-             "c.NombreCliente, c.NumeroTel, c.Direccion, c.Referencias, u.NombreUsuario " +
-             "FROM Solicitud s INNER JOIN Cliente c ON s.idCliente = c.idCliente " +
-             "INNER JOIN Usuarios u ON s.idUsuario = u.idUsuario;";
-            cursor = transaccion.executeQuery(SQL);
-
-            while (cursor.next()) {
-                String[] datos = {
-                    cursor.getString(1),cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),cursor.getString(5),cursor.getString(6),
-                    cursor.getString(7), cursor.getString(8),
-                    cursor.getString(9),cursor.getString(10),
-                    cursor.getString(11)
-                    /*"ID:"+cursor.getString(1)+", ",cursor.getString(2)+"\n",
-                    cursor.getString(3)+"\n",
-                    cursor.getString(4),cursor.getString(5)+" : ",cursor.getString(6),
-                    cursor.getString(7)+" : ", cursor.getString(8),
-                    cursor.getString(9),cursor.getString(10)+"\n",
-                    cursor.getString(11)*/
-                };
-                resultado.add(datos);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+       ArrayList<String[]> resultado = new ArrayList<>();
+    String SQL = "SELECT s.idSolicitud, c.NombreCliente, u.NombreUsuario " +
+                 "FROM Solicitud s " +
+                 "INNER JOIN Cliente c ON s.idCliente = c.idCliente " +
+                 "INNER JOIN Usuarios u ON s.idUsuario = u.idUsuario " +
+                 "ORDER BY s.FechaEntrega ASC";
+    
+    try (Statement stmt = conexion.createStatement();
+         ResultSet rs = stmt.executeQuery(SQL)) {
+        
+        while (rs.next()) {
+            String[] datos = {
+                rs.getString("idSolicitud"),
+                rs.getString("NombreCliente"),
+                rs.getString("NombreUsuario")
+            };
+            resultado.add(datos);
         }
-        return resultado;
+    } catch (SQLException ex) {
+        Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return resultado;
         
     }
     

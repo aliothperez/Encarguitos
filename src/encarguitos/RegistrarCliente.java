@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package encarguitos;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
  *
@@ -13,6 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarCliente extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+    boolean rol = true;//true = gerente; false = gestor
 
     /**
      * Creates new form RegistrarCliente
@@ -94,6 +97,11 @@ Conexion bd = new Conexion();
                 TxtTelMouseClicked(evt);
             }
         });
+        TxtTel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtTelKeyTyped(evt);
+            }
+        });
         jPanel1.add(TxtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 280, -1));
 
         jSeparator2.setForeground(new java.awt.Color(60, 140, 22));
@@ -107,6 +115,11 @@ Conexion bd = new Conexion();
                 TxtNomUsuMouseClicked(evt);
             }
         });
+        TxtNomUsu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNomUsuKeyTyped(evt);
+            }
+        });
         jPanel1.add(TxtNomUsu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 280, -1));
 
         jSeparator3.setForeground(new java.awt.Color(60, 140, 22));
@@ -118,6 +131,11 @@ Conexion bd = new Conexion();
         TxtDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TxtDireccionMouseClicked(evt);
+            }
+        });
+        TxtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtDireccionKeyTyped(evt);
             }
         });
         jPanel1.add(TxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 280, -1));
@@ -154,6 +172,11 @@ Conexion bd = new Conexion();
                 TxtReferenciasMouseClicked(evt);
             }
         });
+        TxtReferencias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtReferenciasKeyTyped(evt);
+            }
+        });
         jPanel1.add(TxtReferencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 280, -1));
 
         jSeparator5.setForeground(new java.awt.Color(60, 140, 22));
@@ -162,6 +185,11 @@ Conexion bd = new Conexion();
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
@@ -201,6 +229,36 @@ Conexion bd = new Conexion();
     private void TxtReferenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtReferenciasMouseClicked
         TxtReferencias.setText("");
     }//GEN-LAST:event_TxtReferenciasMouseClicked
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        if(rol){
+            PrincipalGerente PG = new PrincipalGerente();
+            PG.setVisible(true);
+            this.dispose();   
+        }else{
+            PrincipalGestor PGS = new PrincipalGestor();
+            PGS.setVisible(true);
+            this.dispose();   
+        }
+          
+             
+    }//GEN-LAST:event_BtnVolverActionPerformed
+
+    private void TxtNomUsuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNomUsuKeyTyped
+        TxtNomUsu.setForeground(Color.BLACK);
+    }//GEN-LAST:event_TxtNomUsuKeyTyped
+
+    private void TxtTelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtTelKeyTyped
+        TxtTel.setForeground(Color.BLACK);
+    }//GEN-LAST:event_TxtTelKeyTyped
+
+    private void TxtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtDireccionKeyTyped
+        TxtDireccion.setForeground(Color.BLACK);
+    }//GEN-LAST:event_TxtDireccionKeyTyped
+
+    private void TxtReferenciasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtReferenciasKeyTyped
+        TxtReferencias.setForeground(Color.BLACK);
+    }//GEN-LAST:event_TxtReferenciasKeyTyped
 
     /**
      * @param args the command line arguments

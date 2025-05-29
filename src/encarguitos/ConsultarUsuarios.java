@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarUsuarios extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+boolean rol;//true = gerente; false = gestor
 
     /**
      * Creates new form ConsultarUsuarios
@@ -65,14 +66,14 @@ Conexion bd = new Conexion();
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         jList1.setBorder(null);
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jList1.setToolTipText("");
         jScrollPane1.setViewportView(jList1);
 
@@ -111,7 +112,7 @@ Conexion bd = new Conexion();
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(60, 140, 22));
         BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
-        BtnActualizar.setText("Actualizar");
+        BtnActualizar.setText("Refrescar");
         BtnActualizar.setContentAreaFilled(false);
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -172,6 +173,18 @@ Conexion bd = new Conexion();
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
         actualizarLista();
     }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        if(rol == true){
+            PrincipalGerente PG = new PrincipalGerente();
+            PG.setVisible(true);
+            this.dispose();   
+        }else if(rol == false){
+            PrincipalGestor PGS = new PrincipalGestor();
+            PGS.setVisible(true);
+            this.dispose();   
+        }
+    }//GEN-LAST:event_BtnVolverActionPerformed
         
     public void actualizarLista(){
          ArrayList<String[]> usuarios = bd.ConsultarUsuarios();

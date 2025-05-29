@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarClientes extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+boolean rol;//true = gerente; false = gestor
 
 
     /**
@@ -65,12 +66,17 @@ Conexion bd = new Conexion();
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(60, 140, 22));
         BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
-        BtnActualizar.setText("Actualizar");
+        BtnActualizar.setText("Refrescar");
         BtnActualizar.setContentAreaFilled(false);
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -113,11 +119,6 @@ Conexion bd = new Conexion();
         jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 111, 80, 90));
 
         ListaClientes.setBorder(null);
-        ListaClientes.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         ListaClientes.setToolTipText("");
         jScrollPane1.setViewportView(ListaClientes);
 
@@ -188,15 +189,30 @@ Conexion bd = new Conexion();
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
        actualizarLista();
     }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        if(rol == true){
+            PrincipalGerente PG = new PrincipalGerente();
+            PG.setVisible(true);
+            this.dispose();   
+        }else if(rol == false){
+            PrincipalGestor PGS = new PrincipalGestor();
+            PGS.setVisible(true);
+            this.dispose();   
+        }
+    }//GEN-LAST:event_BtnVolverActionPerformed
     public void actualizarLista(){
          ArrayList<String[]> clientes = bd.ConsultarCliente();
         DefaultListModel<String> modelo = new DefaultListModel<>();
-    
     for (String[] cliente : clientes) {
-        for (String dato : cliente) {
-            modelo.addElement(dato); 
+    if (cliente.length >= 3) {
+            modelo.addElement(cliente[0]); // Nombre
+            modelo.addElement(cliente[1]); // Teléfono
+            modelo.addElement(cliente[2]); // Dirección
+            modelo.addElement("___________________"); // Separador
         }
-    }
+}
+    
 
     ListaClientes.setModel(modelo);
     }

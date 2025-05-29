@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  */
 public class PrincipalGerente extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+    boolean rol = true;//true = gerente; false = gestor
 
     /**
      * Creates new form PrincipalGerente
@@ -133,11 +134,6 @@ Conexion bd = new Conexion();
         jList1.setBackground(new java.awt.Color(60, 140, 22));
         jList1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jList1.setForeground(new java.awt.Color(255, 255, 255));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jList1.setToolTipText("");
         jScrollPane1.setViewportView(jList1);
 

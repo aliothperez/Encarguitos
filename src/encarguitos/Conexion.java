@@ -104,12 +104,12 @@ public class Conexion {
      
 public void RegistrarCliente(Cliente c ){        
     try { 
-            String sql = "INSERT INTO Cliente (NombreCliente, NumeroTel, Direccion, Referencias) VALUES (%Nom%, %Tel%, %Dir%, %Ref%)";
+            String sql = "INSERT INTO Cliente (NombreCliente, NumeroTel, Direccion, Referencias) VALUES ('%Nom%', '%Tel%', '%Dir%', '%Ref%');";
             sql = sql.replaceAll("%Nom%", c.nombreCliente);
             sql = sql.replaceAll("%Tel%", c.numeroTel);
             sql = sql.replaceAll("%Dir%", c.direccion);
             sql = sql.replaceAll("%Ref%", c.referencias);
-            cursor = transaccion.executeQuery(sql);       
+            transaccion.execute(sql);     
         JOptionPane.showMessageDialog(null, "Cliente registrado correctamente");
     } catch (SQLException ex) {
         Logger.getLogger(RegistrarCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,12 +119,12 @@ public void RegistrarCliente(Cliente c ){
 
     public void RegistrarUsuario(Usuario u){        
     try { 
-            String sql = "INSERT INTO Usuario (NombreUsuario, CorreoUsuario, Contrasena, RolUsuario) VALUES (%Nom%, %Cor%, %Con%, %Rol%)";
+            String sql = "INSERT INTO Usuarios (NombreUsuario, CorreoUsuario, Contrasena, RolUsuario) VALUES ('%Nom%', '%Cor%', '%Con%', '%Rol%');";
             sql = sql.replaceAll("%Nom%", u.nombreUsuario);
             sql = sql.replaceAll("%Cor%", u.correoUsuario);
             sql = sql.replaceAll("%Con%", u.contrasena);
             sql = sql.replaceAll("%Rol%", u.rolUsuario);
-            cursor = transaccion.executeQuery(sql);       
+            transaccion.execute(sql);
         JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
     } catch (SQLException ex) {
         Logger.getLogger(RegistrarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,50 +133,52 @@ public void RegistrarCliente(Cliente c ){
     } 
     
         public ArrayList<String[]> ConsultarCliente() {
-        ArrayList<String[]> resultado = new ArrayList<>();
-        try {
-            String SQL = "SELECT NombreCliente, NumeroTel, Dirección from Cliente ";
-            cursor = transaccion.executeQuery(SQL);
-            if (cursor.next()) {
-                do {
-                    String[] datos = {
-                        cursor.getString(1)+"/n",
-                        cursor.getString(2)+"/n", 
-                        cursor.getString(3)+"/n",
-                        "___________________"
-                    };
-                    resultado.add(datos);
-                } while (cursor.next());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarClientes.class.getName()).log(Level.SEVERE, null, ex);
+    ArrayList<String[]> resultado = new ArrayList<>();
+    try {
+        String SQL = "SELECT NombreCliente, NumeroTel, Direccion FROM Cliente";
+        ResultSet cursor = transaccion.executeQuery(SQL);
+
+        while (cursor.next()) {
+            String[] datos = {
+                cursor.getString("NombreCliente"),
+                cursor.getString("NumeroTel"),
+                cursor.getString("Direccion")
+                
+            };
+            resultado.add(datos);
         }
-        return resultado;    
+
+        cursor.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(ConsultarClientes.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return resultado;
+}
+
+public ArrayList<String[]> ConsultarUsuarios() {
+    ArrayList<String[]> resultado = new ArrayList<>();
+    try {
+        String SQL = "SELECT NombreUsuario, CorreoUsuario, Contrasena, RolUsuario FROM Usuarios";
+        ResultSet cursor = transaccion.executeQuery(SQL);
+
+        while (cursor.next()) {
+            String[] datos = {
+                cursor.getString("NombreUsuario"),
+                cursor.getString("CorreoUsuario"),
+                cursor.getString("Contrasena"),
+                cursor.getString("RolUsuario")
+                
+            };
+            resultado.add(datos);
         }
-        
-        public ArrayList<String[]> ConsultarUsuarios() {
-        ArrayList<String[]> resultado = new ArrayList<>();
-        try {
-            String SQL = "SELECT NombreUsuario, CorreoUsuario, Contrasena, RolUsuario from Usuario ";
-            cursor = transaccion.executeQuery(SQL);
-            if (cursor.next()) {
-                do {
-                    String[] datos = {
-                        cursor.getString(1)+"/n",
-                        cursor.getString(2)+"/n", 
-                        cursor.getString(3)+"/n",
-                        cursor.getString(4)+"/n",
-                        "___________________"
-                    };
-                    resultado.add(datos);
-                } while (cursor.next());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return resultado;
-    
-        }
+
+        cursor.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(ConsultarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return resultado;
+}
+
         public boolean eliminarClientePorCampos(String nombre, String telefono, String direccion) {
     String sql = "DELETE FROM Cliente WHERE NombreCliente = ? AND NumeroTel = ? AND Direccion = ?";
     try (Connection con = obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {

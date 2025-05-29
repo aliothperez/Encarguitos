@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 public class ConsultarPedidosAsignados extends javax.swing.JFrame {
 Conexion bd = new Conexion();
 DefaultListModel<String> model;
+Usuario u = new Usuario();
     /**
      * Creates new form ConsultarPedidosServicios
      */
@@ -36,6 +37,7 @@ DefaultListModel<String> model;
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+    u=Login.u;
   
     }
 
@@ -71,6 +73,11 @@ DefaultListModel<String> model;
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         ListaPedidosAsignados.setBorder(null);
@@ -120,6 +127,25 @@ DefaultListModel<String> model;
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
         loadPedidosAsignados();
     }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+       if(u.rolUsuario.equals("Gerente")){
+            PrincipalGerente v = new PrincipalGerente();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
+        }if(u.rolUsuario.equals("Gestor de Operaciones")){
+            PrincipalGestor v = new PrincipalGestor();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
+        }else{
+            Login v = new Login();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_BtnVolverActionPerformed
     public static Connection ObtenerConexion(String USER, String PASSWORD){
          String conUrl = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
                // + "databaseName=ENCARGUITOS;";

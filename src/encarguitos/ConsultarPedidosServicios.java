@@ -210,6 +210,11 @@ Usuario u = new Usuario();
             v.bd=bd;
             v.setVisible(true);
             this.dispose();
+        }else{
+            Login v = new Login();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_BtnVolverActionPerformed
 

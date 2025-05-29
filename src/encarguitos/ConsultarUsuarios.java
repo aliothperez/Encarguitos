@@ -46,7 +46,7 @@ boolean rol;//true = gerente; false = gestor
         jLabel2 = new javax.swing.JLabel();
         BtnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        ListaUsuarios = new javax.swing.JList<>();
         BtnEliminar = new javax.swing.JButton();
         BtnAgregar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
@@ -73,9 +73,9 @@ boolean rol;//true = gerente; false = gestor
         });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
-        jList1.setBorder(null);
-        jList1.setToolTipText("");
-        jScrollPane1.setViewportView(jList1);
+        ListaUsuarios.setBorder(null);
+        ListaUsuarios.setToolTipText("");
+        jScrollPane1.setViewportView(ListaUsuarios);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 380, 370));
 
@@ -139,35 +139,10 @@ boolean rol;//true = gerente; false = gestor
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        int index = jList1.getSelectedIndex();
-    if (index == -1) {
-        JOptionPane.showMessageDialog(null, "Selecciona un usuario para eliminar.");
-        return;
-    }
-
-    String seleccionado = jList1.getModel().getElementAt(index);
-    String[] partes = seleccionado.split("/");
-
-    if (partes.length < 3) {
-        JOptionPane.showMessageDialog(null, "Formato de usuario inválido.");
-        return;
-    }
-
-    String nombre = partes[0].trim();
-    String correo = partes[1].trim();
-    String rol = partes[2].trim();
-
-    int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar al usuario " + nombre + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
-    if (confirm != JOptionPane.YES_OPTION) return;
-
-    boolean eliminado = bd.eliminarUsuariosPorCampos(nombre, correo, rol);
-
-    if (eliminado) {
-        JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente.");
-        actualizarLista();
-    } else {
-        JOptionPane.showMessageDialog(null, "No se pudo eliminar el usuario.");
-    }
+        String nombreUsuario = ListaUsuarios.toString();
+        String correoUsuario = ListaUsuarios.toString();
+        String rolUsuario = ListaUsuarios.toString();
+        bd.eliminarUsuario(new Usuario(0,nombreUsuario, correoUsuario,"" ,rolUsuario));
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
@@ -175,29 +150,24 @@ boolean rol;//true = gerente; false = gestor
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        if(rol == true){
-            PrincipalGerente PG = new PrincipalGerente();
-            PG.setVisible(true);
-            this.dispose();   
-        }else if(rol == false){
-            PrincipalGestor PGS = new PrincipalGestor();
-            PGS.setVisible(true);
-            this.dispose();   
-        }
+        
     }//GEN-LAST:event_BtnVolverActionPerformed
         
     public void actualizarLista(){
-         ArrayList<String[]> usuarios = bd.ConsultarUsuarios();
-        DefaultListModel<String> modelo = new DefaultListModel<>();
-    
-        for (String[] usu : usuarios) {
-            for (String dato : usu) {
-                modelo.addElement(dato); 
-            }
-        }
+    ArrayList<String[]> usuarios = bd.ConsultarUsuarios();
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+
+    for (String[] usu : usuarios) {
+        
+        String item = usu[0] + " - " + usu[1] + " - " + usu[3];
+        modelo.addElement(item);
     }
+
+    ListaUsuarios.setModel(modelo);
+    }
+    
     /**
-     * @param args the command line arguments
+     * @param args the command line arguments 
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -236,9 +206,9 @@ boolean rol;//true = gerente; false = gestor
     private javax.swing.JButton BtnAgregar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnVolver;
+    private javax.swing.JList<String> ListaUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

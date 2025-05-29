@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
     Conexion bd = new Conexion();
-    boolean rol = true;//true = gerente; false = gestor
     /**
      * Creates new form Login
      */
@@ -180,7 +179,6 @@ public class Login extends javax.swing.JFrame {
                 return;
             }
             if (bd.IniciarSecion(correo, contrasena)==0) {
-                rol=false;
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Gestor de Operaciones exitoso!");
                 PrincipalGestor v = new PrincipalGestor();
                 v.bd = bd;
@@ -193,7 +191,6 @@ public class Login extends javax.swing.JFrame {
                 v.setVisible(true);
                 this.dispose();
             }else if(bd.IniciarSecion(correo, contrasena)==2){
-                rol=true;
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Gerente exitoso!");
                 PrincipalGerente v = new PrincipalGerente();
                 v.bd = bd;

@@ -136,7 +136,7 @@ public void RegistrarCliente(Cliente c ){
     ArrayList<String[]> resultado = new ArrayList<>();
     try {
         String SQL = "SELECT NombreCliente, NumeroTel, Direccion FROM Cliente";
-        ResultSet cursor = transaccion.executeQuery(SQL);
+        cursor = transaccion.executeQuery(SQL);  // <- CORREGIDO
 
         while (cursor.next()) {
             String[] datos = {
@@ -159,7 +159,7 @@ public ArrayList<String[]> ConsultarUsuarios() {
     ArrayList<String[]> resultado = new ArrayList<>();
     try {
         String SQL = "SELECT NombreUsuario, CorreoUsuario, Contrasena, RolUsuario FROM Usuarios";
-        ResultSet cursor = transaccion.executeQuery(SQL);
+        cursor = transaccion.executeQuery(SQL);  // <- CORREGIDO
 
         while (cursor.next()) {
             String[] datos = {
@@ -167,7 +167,6 @@ public ArrayList<String[]> ConsultarUsuarios() {
                 cursor.getString("CorreoUsuario"),
                 cursor.getString("Contrasena"),
                 cursor.getString("RolUsuario")
-                
             };
             resultado.add(datos);
         }
@@ -179,33 +178,40 @@ public ArrayList<String[]> ConsultarUsuarios() {
     return resultado;
 }
 
-        public boolean eliminarClientePorCampos(String nombre, String telefono, String direccion) {
-    String sql = "DELETE FROM Cliente WHERE NombreCliente = ? AND NumeroTel = ? AND Direccion = ?";
-    try (Connection con = obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, nombre);
-        ps.setString(2, telefono);
-        ps.setString(3, direccion);
+    public boolean eliminarCliente(Cliente c) {
+    String SQL = "DELETE FROM Cliente WHERE NombreCliente = ? AND NumeroTel = ? AND Direccion = ?";
+    try (PreparedStatement ps = conexion.prepareStatement(SQL)) {
+        ps.setString(1, c.nombreCliente);
+        ps.setString(2, c.numeroTel);
+        ps.setString(3, c.direccion);
+
         int filas = ps.executeUpdate();
         return filas > 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
-    }  
-    
-}
-    public boolean eliminarUsuariosPorCampos(String nombre, String Correo, String Rol) {
-     String sql = "DELETE FROM Usuarios WHERE NombreUsuario = ? AND CorreoUsuario = ? AND Rol = ?";
-    try (Connection con = obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, nombre);
-        ps.setString(2, Correo);
-        ps.setString(3, Rol);
-        int filas = ps.executeUpdate();
-        return filas > 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
+    } catch (SQLException ex) {
+        System.out.println("Error al eliminar cliente: " + ex.getMessage());
         return false;
     }
 }
+    public boolean eliminarUsuario(Usuario u) {
+    String SQL = "DELETE FROM Usuarios WHERE NombreUsuario = ? AND CorreoUsuario = ? AND RolUsuario = ?";
+    try (PreparedStatement ps = conexion.prepareStatement(SQL)) {
+        ps.setString(1, u.nombreUsuario);
+        ps.setString(2, u.correoUsuario);
+        ps.setString(3, u.rolUsuario);
+
+        int filas = ps.executeUpdate();
+        if (filas > 0) {
+            JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente.");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "️ No se encontró un usuario con esos datos.");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar usuario: " + e.getMessage());
+    }
+    return false;
+}
+
     
     
 }//FIN CONEXION

@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarCliente extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-    boolean rol = true;//true = gerente; false = gestor
+    boolean rol;//true = gerente; false = gestor
 
     /**
      * Creates new form RegistrarCliente
@@ -231,15 +231,9 @@ Conexion bd = new Conexion();
     }//GEN-LAST:event_TxtReferenciasMouseClicked
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        if(rol){
-            PrincipalGerente PG = new PrincipalGerente();
-            PG.setVisible(true);
-            this.dispose();   
-        }else{
-            PrincipalGestor PGS = new PrincipalGestor();
-            PGS.setVisible(true);
-            this.dispose();   
-        }
+       ConsultarClientes CC = new ConsultarClientes();
+       CC.setVisible(true);
+       this.dispose();        
           
              
     }//GEN-LAST:event_BtnVolverActionPerformed

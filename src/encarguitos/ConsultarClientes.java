@@ -86,7 +86,7 @@ boolean rol;//true = gerente; false = gestor
                 BtnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 111, 90, 90));
+        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 90, 90));
 
         BtnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnEliminar.setForeground(new java.awt.Color(60, 140, 22));
@@ -116,7 +116,7 @@ boolean rol;//true = gerente; false = gestor
                 BtnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 111, 80, 90));
+        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 80, 90));
 
         ListaClientes.setBorder(null);
         ListaClientes.setToolTipText("");
@@ -158,32 +158,10 @@ boolean rol;//true = gerente; false = gestor
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        int index = ListaClientes.getSelectedIndex();
-    if (index == -1) {
-        JOptionPane.showMessageDialog(null, "Selecciona un cliente para eliminar.");
-        return;
-    }
-    String seleccionado = ListaClientes.getModel().getElementAt(index);    
-    // Separar por "/" los datos
-    String[] partes = seleccionado.split("/");
-    if (partes.length < 3) {
-        JOptionPane.showMessageDialog(null, "Formato de cliente inválido.");
-        return;
-    }
-    String nombre = partes[0].trim();
-    String telefono = partes[1].trim();
-    String direccion = partes[2].trim();
-    int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar a " + nombre + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
-    if (confirm != JOptionPane.YES_OPTION) return;
-
-    Conexion conexion = new Conexion();
-    boolean eliminado = conexion.eliminarClientePorCampos(nombre, telefono, direccion);
-    if (eliminado) {
-        JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente.");
-        actualizarLista(); // Método que refresca la JList
-    } else {
-        JOptionPane.showMessageDialog(null, "No se pudo eliminar al cliente.");
-    }
+       String nombreCliente = ListaClientes.toString();
+        String numTel = ListaClientes.toString();
+        String direccion = ListaClientes.toString();
+        bd.eliminarCliente(new Cliente(0,nombreCliente,numTel,direccion,""));
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
@@ -191,31 +169,21 @@ boolean rol;//true = gerente; false = gestor
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        if(rol == true){
-            PrincipalGerente PG = new PrincipalGerente();
-            PG.setVisible(true);
-            this.dispose();   
-        }else if(rol == false){
-            PrincipalGestor PGS = new PrincipalGestor();
-            PGS.setVisible(true);
-            this.dispose();   
-        }
+       
     }//GEN-LAST:event_BtnVolverActionPerformed
-    public void actualizarLista(){
-         ArrayList<String[]> clientes = bd.ConsultarCliente();
-        DefaultListModel<String> modelo = new DefaultListModel<>();
-    for (String[] cliente : clientes) {
-    if (cliente.length >= 3) {
-            modelo.addElement(cliente[0]); // Nombre
-            modelo.addElement(cliente[1]); // Teléfono
-            modelo.addElement(cliente[2]); // Dirección
-            modelo.addElement("___________________"); // Separador
-        }
-}
-    
+     public void actualizarLista(){
+    ArrayList<String[]> clientes = bd.ConsultarUsuarios();
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+
+    for (String[] cli : clientes) {
+        
+        String item = cli[0] + " - " + cli[1] + " - " + cli[3]+ " - " + cli[4];
+        modelo.addElement(item);
+    }
 
     ListaClientes.setModel(modelo);
     }
+    
     /**
      * @param args the command line arguments
      */

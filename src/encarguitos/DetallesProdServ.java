@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * @author falio
  */
 public class DetallesProdServ extends javax.swing.JFrame {
-Conexion bd = new Conexion();
+    Conexion bd = new Conexion();
 
     /**
      * Creates new form DetallesProdServ
@@ -88,6 +88,11 @@ Conexion bd = new Conexion();
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volverBlack.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 600));
@@ -95,6 +100,28 @@ Conexion bd = new Conexion();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        // TODO add your handling code here:
+        ConsultarPedidosServicios cps = new ConsultarPedidosServicios();
+        cps.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
+    public void cargarDetallesSolicitud(String[] datosSolicitud) {
+    // Asignación de datos a los componentes de la interfaz
+    LblNombre.setText(datosSolicitud[6]); // Nombre del cliente
+    LblID.setText("ID: " + datosSolicitud[0]); // ID de la solicitud
+    LblNumero.setText("Tel: " + datosSolicitud[7]); // Teléfono
+    LblDireccion.setText("Dirección: " + datosSolicitud[8]); // Dirección
+    
+    // Formato especial para el área de pedido con HTML
+    LblPedido.setText("<html><body style='width: 300px'>" +
+                     "<b>Tipo:</b> " + datosSolicitud[1] + "<br><br>" +
+                     "<b>Especificaciones:</b><br>" + datosSolicitud[2] + "<br><br>" +
+                     "<b>Estado:</b> " + datosSolicitud[5] + "</body></html>");
+    
+    LblFeSol.setText("Solicitado: " + datosSolicitud[3]); // Fecha solicitud
+    LblFeEn.setText("Entrega: " + datosSolicitud[4]); // Fecha entrega
+}
     /**
      * @param args the command line arguments
      */

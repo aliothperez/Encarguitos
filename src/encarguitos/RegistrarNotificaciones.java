@@ -6,6 +6,7 @@ package encarguitos;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author falio
@@ -26,6 +27,9 @@ Conexion bd = new Conexion();
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        int correoActual = Login.u.idUsuario;
+        System.out.println("Correo obtenido: " + correoActual);
     }
 
     /**
@@ -48,7 +52,7 @@ Conexion bd = new Conexion();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taDescripcion = new javax.swing.JTextArea();
         BtnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -60,7 +64,7 @@ Conexion bd = new Conexion();
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(60, 140, 22));
-        jLabel3.setText("Nombre de Usuario");
+        jLabel3.setText("Correo de Usuario");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -82,7 +86,7 @@ Conexion bd = new Conexion();
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 290, 10));
 
         TxtNomUs.setForeground(new java.awt.Color(153, 153, 153));
-        TxtNomUs.setText("Ingresar Nombre de Usuario");
+        TxtNomUs.setText("Ingresar Correo de Usuario");
         TxtNomUs.setBorder(null);
         TxtNomUs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -103,6 +107,11 @@ Conexion bd = new Conexion();
         BtnRegistrar.setBorderPainted(false);
         BtnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnRegistrar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRegistrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 480, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -115,15 +124,20 @@ Conexion bd = new Conexion();
         jLabel5.setText("Descripción");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        taDescripcion.setColumns(20);
+        taDescripcion.setRows(5);
+        jScrollPane1.setViewportView(taDescripcion);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 290, 160));
 
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
@@ -141,6 +155,73 @@ Conexion bd = new Conexion();
     private void TxtSoliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtSoliMouseClicked
         TxtSoli.setText("");
     }//GEN-LAST:event_TxtSoliMouseClicked
+
+    private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+              
+        // Validar campos vacíos
+        if(TxtNomUs.getText().trim().isEmpty() || TxtNomUs.getText().equals("Ingresar Nombre de Usuario")) {
+            JOptionPane.showMessageDialog(this, "Ingrese un nombre de usuario válido", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if(TxtSoli.getText().trim().isEmpty() || TxtSoli.getText().equals("Ingrese el ID de la Solicitud")) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID de solicitud válido", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if(taDescripcion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "La descripción no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar que el ID sea numérico
+        int idSolicitud;
+        try {
+            idSolicitud = Integer.parseInt(TxtSoli.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID de solicitud debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener ID de usuario
+        String nombreUsuario = TxtNomUs.getText().trim();
+        int idUsuario = bd.obtenerIdUsuario(nombreUsuario);
+
+        if(idUsuario == -1) {
+            JOptionPane.showMessageDialog(this, "El usuario no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Confirmar antes de registrar
+        int confirm = JOptionPane.showConfirmDialog(this, 
+            "¿Registrar esta notificación?", 
+            "Confirmar", 
+            JOptionPane.YES_NO_OPTION);
+
+        if(confirm == JOptionPane.YES_OPTION) {
+            Notificacion nueva = new Notificacion(0, idUsuario, idSolicitud, taDescripcion.getText().trim());
+            boolean exito = bd.insertarNotificacion(nueva);
+
+            if(exito) {
+                JOptionPane.showMessageDialog(this, "Notificación registrada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar la notificación", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_BtnRegistrarActionPerformed
+    private void limpiarCampos() {
+        TxtNomUs.setText("Ingresar Nombre de Usuario");
+        TxtSoli.setText("Ingrese el ID de la Solicitud");
+        taDescripcion.setText("");
+    }
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        // TODO add your handling code here:
+        ConsultarNotificaciones v = new ConsultarNotificaciones();
+        v.bd = bd;
+        v.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,6 +272,6 @@ Conexion bd = new Conexion();
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea taDescripcion;
     // End of variables declaration//GEN-END:variables
 }

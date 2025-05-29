@@ -4,8 +4,13 @@
  */
 package encarguitos;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,6 +32,8 @@ Conexion bd = new Conexion();
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        MostrarCmbCliente();MostrarCmbRepartidor();
     }
 
     /**
@@ -44,22 +51,20 @@ Conexion bd = new Conexion();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        BtnRegistrar = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmbEstatus = new javax.swing.JComboBox<>();
+        cmbRepartidor = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taEspesificaciones = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmbTipo = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         BtnRegistrar1 = new javax.swing.JButton();
-        TxtFeSol = new javax.swing.JTextField();
-        jSeparator5 = new javax.swing.JSeparator();
-        TxtFeEn = new javax.swing.JTextField();
+        txtFeEn = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
         BtnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        cmbCliente = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(60, 140, 22));
@@ -91,48 +96,38 @@ Conexion bd = new Conexion();
         jLabel6.setText("Estatus");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 620, -1, -1));
 
-        jComboBox1.setBackground(new java.awt.Color(60, 140, 22));
-        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setBorder(null);
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 640, 290, -1));
+        cmbEstatus.setBackground(new java.awt.Color(60, 140, 22));
+        cmbEstatus.setForeground(new java.awt.Color(255, 255, 255));
+        cmbEstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Pedido recibido", "En proceso", "Preparando envío", "Enviado", "Entregado", "Cancelado" }));
+        cmbEstatus.setBorder(null);
+        jPanel1.add(cmbEstatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 640, 290, -1));
 
-        BtnRegistrar.setBackground(new java.awt.Color(60, 140, 22));
-        BtnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BtnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        BtnRegistrar.setText("Agregar Detalles de Cliente");
-        BtnRegistrar.setToolTipText("");
-        BtnRegistrar.setBorder(null);
-        BtnRegistrar.setBorderPainted(false);
-        BtnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnRegistrar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        jPanel1.add(BtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 290, 30));
+        cmbRepartidor.setBackground(new java.awt.Color(60, 140, 22));
+        cmbRepartidor.setForeground(new java.awt.Color(255, 255, 255));
+        cmbRepartidor.setBorder(null);
+        cmbRepartidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRepartidorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmbRepartidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 290, -1));
 
-        jComboBox2.setBackground(new java.awt.Color(60, 140, 22));
-        jComboBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setBorder(null);
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 290, -1));
+        taEspesificaciones.setColumns(20);
+        taEspesificaciones.setRows(5);
+        jScrollPane1.setViewportView(taEspesificaciones);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 290, 160));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 290, 210));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(60, 140, 22));
         jLabel7.setText("Especificaciones");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(60, 140, 22));
-        jLabel8.setText("Fecha de Solicitud");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, -1, -1));
-
-        jComboBox3.setBackground(new java.awt.Color(60, 140, 22));
-        jComboBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Pedido", "Servicio", "Pedido y Servicio" }));
-        jComboBox3.setBorder(null);
-        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 290, -1));
+        cmbTipo.setBackground(new java.awt.Color(60, 140, 22));
+        cmbTipo.setForeground(new java.awt.Color(255, 255, 255));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Pedido", "Servicio", "Pedido y Servicio" }));
+        cmbTipo.setBorder(null);
+        jPanel1.add(cmbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 290, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(60, 140, 22));
@@ -148,30 +143,22 @@ Conexion bd = new Conexion();
         BtnRegistrar1.setBorderPainted(false);
         BtnRegistrar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnRegistrar1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        BtnRegistrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRegistrar1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 680, 100, 30));
 
-        TxtFeSol.setForeground(new java.awt.Color(153, 153, 153));
-        TxtFeSol.setText("Ingresar Fecha de Solicitud");
-        TxtFeSol.setBorder(null);
-        TxtFeSol.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtFeEn.setForeground(new java.awt.Color(153, 153, 153));
+        txtFeEn.setText("Ingresar Fecha de Entrega");
+        txtFeEn.setBorder(null);
+        txtFeEn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TxtFeSolMouseClicked(evt);
+                txtFeEnMouseClicked(evt);
             }
         });
-        jPanel1.add(TxtFeSol, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 280, -1));
-
-        jSeparator5.setForeground(new java.awt.Color(60, 140, 22));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, 290, 10));
-
-        TxtFeEn.setForeground(new java.awt.Color(153, 153, 153));
-        TxtFeEn.setText("Ingresar Fecha de Entrega");
-        TxtFeEn.setBorder(null);
-        TxtFeEn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TxtFeEnMouseClicked(evt);
-            }
-        });
-        jPanel1.add(TxtFeEn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 280, -1));
+        jPanel1.add(txtFeEn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 280, -1));
 
         jSeparator6.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 290, 10));
@@ -184,18 +171,75 @@ Conexion bd = new Conexion();
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        cmbCliente.setBackground(new java.awt.Color(60, 140, 22));
+        cmbCliente.setForeground(new java.awt.Color(255, 255, 255));
+        cmbCliente.setBorder(null);
+        cmbCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbClienteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 290, -1));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(60, 140, 22));
+        jLabel11.setText("Asignar Cliente");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TxtFeSolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtFeSolMouseClicked
-        TxtFeSol.setText("");
-    }//GEN-LAST:event_TxtFeSolMouseClicked
+    private void txtFeEnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFeEnMouseClicked
+        txtFeEn.setText("");
+    }//GEN-LAST:event_txtFeEnMouseClicked
 
-    private void TxtFeEnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtFeEnMouseClicked
-        TxtFeEn.setText("");
-    }//GEN-LAST:event_TxtFeEnMouseClicked
+    private void cmbRepartidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRepartidorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRepartidorActionPerformed
+
+    private void cmbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbClienteActionPerformed
+
+    private void BtnRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrar1ActionPerformed
+        Cliente c= new Cliente();
+        Usuario u= new Usuario();
+        String Espe = taEspesificaciones.getText(),feEn = txtFeEn.getText();
+
+        
+        // Validar que los ComboBox no tengan selecciones inválidas
+        if (cmbCliente.getSelectedIndex() == 0 || cmbRepartidor.getSelectedIndex() == 0 ||
+            cmbTipo.getSelectedIndex() == 0 || cmbEstatus.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Selecciona opciones válidas en los campos desplegables.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Validar que los textos no estén vacíos
+        if (Espe.isEmpty() || feEn.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Al menos una de las variables está vacía.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Validar formato de la fecha
+        if (!esFechaValida(feEn)) {
+            JOptionPane.showMessageDialog(null, "Formato incorrecto. Usa YYYY-MM-DD.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar que la fecha sea futura
+        if (!esFechaFutura(feEn)) {
+            JOptionPane.showMessageDialog(null, "La fecha ingresada debe ser posterior a hoy.", "Error de fecha", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        c=bd.obtenerCliente(cmbCliente.getItemAt(cmbCliente.getSelectedIndex()));
+        u=bd.obtenerRepartidor(cmbRepartidor.getItemAt(cmbRepartidor.getSelectedIndex()));
+        
+        //si todo essta al tiro
+        bd.insertarSolicitud(new Solicitud(0,u.idUsuario,c.idCliente,cmbTipo.getItemAt(cmbTipo.getSelectedIndex()),
+                Espe,"",feEn,cmbEstatus.getItemAt(cmbEstatus.getSelectedIndex())));
+    }//GEN-LAST:event_BtnRegistrar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,29 +275,72 @@ Conexion bd = new Conexion();
             }
         });
     }
+    public static boolean esFechaValida(String fecha) {
+        return fecha.matches("\\d{4}-\\d{2}-\\d{2}");
+    } 
+    public static boolean esFechaFutura(String fecha) {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        formato.setLenient(false); // Evita interpretaciones incorrectas
+
+        try {
+            Date fechaIngresada = formato.parse(fecha); // Convierte la cadena a fecha
+            Date fechaHoy = new Date(); // Obtiene la fecha actual
+
+            return fechaIngresada.after(fechaHoy); // Devuelve true si es después de hoy
+        } catch (ParseException e) {
+            return false; // Si hay error en el formato, devuelve false
+        }
+    }
+    
+    public void MostrarCmbCliente(){
+        ArrayList<String[]>datos =bd.mostrarClientes();
+        cmbCliente.removeAllItems();
+        if (datos.size() == 0) {
+            cmbCliente.addItem("No hay datos disponibles");
+            return;
+        }
+        // Recorrer los resultados y agregarlos al JComboBox
+        cmbCliente.addItem("Selecciona un Cliente"); 
+        for (String[] data : datos) {
+            // Por ejemplo, usar el primer campo como elemento (puedes ajustarlo según la lógica necesaria)
+            cmbCliente.addItem(data[1]); // data[0] es el nombre, código o lo que se necesite mostrar
+        }
+    }
+    public void MostrarCmbRepartidor(){
+        ArrayList<String[]>datos =bd.mostrarRepartidor();
+        cmbRepartidor.removeAllItems();
+        if (datos.size() == 0) {
+            cmbRepartidor.addItem("No hay datos disponibles");
+            return;
+        }
+        // Recorrer los resultados y agregarlos al JComboBox
+        cmbRepartidor.addItem("Selecciona un Repartidor"); 
+        for (String[] data : datos) {
+            // Por ejemplo, usar el primer campo como elemento (puedes ajustarlo según la lógica necesaria)
+            cmbRepartidor.addItem(data[1]); // data[0] es el nombre, código o lo que se necesite mostrar
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnRegistrar;
     private javax.swing.JButton BtnRegistrar1;
     private javax.swing.JButton BtnVolver;
-    private javax.swing.JTextField TxtFeEn;
-    private javax.swing.JTextField TxtFeSol;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> cmbCliente;
+    private javax.swing.JComboBox<String> cmbEstatus;
+    private javax.swing.JComboBox<String> cmbRepartidor;
+    private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea taEspesificaciones;
+    private javax.swing.JTextField txtFeEn;
     // End of variables declaration//GEN-END:variables
 }

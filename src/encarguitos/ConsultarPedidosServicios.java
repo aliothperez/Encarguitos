@@ -8,6 +8,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +20,8 @@ import java.awt.Component;
  */
 public class ConsultarPedidosServicios extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+DefaultListModel ls= new DefaultListModel();
+
 
     /**
      * Creates new form ConsultarPedidosServicios
@@ -29,6 +36,21 @@ Conexion bd = new Conexion();
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+    
+        lsSolicitudes.setModel(ls);
+        lsSolicitudes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) { // Doble clic
+                    String seleccionado = lsSolicitudes.getSelectedValue();
+                    if (seleccionado != null) {
+                        mostrarDetallesSolicitud(seleccionado);
+                    }
+                }
+            }
+        });
+        
+        MostrarlsPedidos();
   
     }
 
@@ -45,7 +67,7 @@ Conexion bd = new Conexion();
         jLabel2 = new javax.swing.JLabel();
         BtnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lsSolicitudes = new javax.swing.JList<>();
         BtnEliminar = new javax.swing.JButton();
         BtnAgregar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
@@ -67,14 +89,9 @@ Conexion bd = new Conexion();
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
-        jList1.setBorder(null);
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList1.setToolTipText("");
-        jScrollPane1.setViewportView(jList1);
+        lsSolicitudes.setBorder(null);
+        lsSolicitudes.setToolTipText("");
+        jScrollPane1.setViewportView(lsSolicitudes);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 380, 370));
 
@@ -86,6 +103,11 @@ Conexion bd = new Conexion();
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
 
         BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -106,11 +128,16 @@ Conexion bd = new Conexion();
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(60, 140, 22));
         BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
-        BtnActualizar.setText("Actualizar");
+        BtnActualizar.setText("Refrescar");
         BtnActualizar.setContentAreaFilled(false);
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaConsulta.png"))); // NOI18N
@@ -126,6 +153,45 @@ Conexion bd = new Conexion();
         RP.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnAgregarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+
+        String seleccionado = lsSolicitudes.getSelectedValue();
+        if (seleccionado != null) {
+            String id = obtenerID(seleccionado);
+            if (id != null) {
+                if (bd.eliminarSolicitud(id)) {
+                    JOptionPane.showMessageDialog(this, "Solicitud eliminada con éxito");
+                    MostrarlsPedidos(); // Actualizar la lista
+                } else {
+                    JOptionPane.showMessageDialog(this, 
+                        "No se pudo eliminar la solicitud", 
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "No has seleccionado ninguna solicitud", 
+                "Advertencia", 
+                JOptionPane.WARNING_MESSAGE);
+        }
+        MostrarlsPedidos();
+        /*String seleccionado = lsSolicitudes.getSelectedValue();
+        if (seleccionado != null) {
+               // Aquí deberías extraer el ID del cliente desde el texto del elemento (dependiendo de cómo lo almacenas)
+                String idU = obtenerID(seleccionado); // Método para extraer ID
+                if(bd.eliminarSolicitud(idU)){
+                    JOptionPane.showMessageDialog(this, "Se elimino con exitoo");
+                }
+        } else {
+            JOptionPane.showMessageDialog(this, "No has seleccionado ningún Elemento.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }*/
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+        MostrarlsPedidos();
+    }//GEN-LAST:event_BtnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,6 +227,83 @@ Conexion bd = new Conexion();
             }
         });
     }
+    /*public String obtenerID(String texto) {
+    return texto.split(",")[0].replace("ID: ", "").trim(); // Extrae el ID basado en el formato
+    }*/
+    public String obtenerID(String texto) {
+    try {
+        // Asume formato "ID: 123, Tipo: ..."
+        return texto.split(",")[0].split(":")[1].trim();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al obtener ID", "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
+}
+    public void MostrarlsPedidos(){
+        
+
+        // Obtener los datos de la base de datos
+        ArrayList<String[]> datos = bd.mostrarListaSolicitud();
+
+        // Verificar si hay datos
+        if (datos.isEmpty()) {
+            ls.addElement("No hay solicitudes disponibles");
+            return;
+        }
+
+        // Procesar cada registro y agregarlo al JList
+        for (String[] data : datos) {
+            // Formatear la información para mostrar en cada línea del JList
+            String elemento = String.format(
+                "ID: %s | Tipo: %s | Cliente: %s | Tel: %s | Fecha Entrega: %s",
+                data[0],  // ID Solicitud
+                data[1],  // Tipo
+                data[6],  // Nombre Cliente
+                data[7],  // Teléfono
+                data[4]   // Fecha Entrega
+            );
+            ls.addElement(elemento);
+        }
+        
+        
+    }
+ 
+private void mostrarDetallesSolicitud(String elementoSeleccionado) {
+    String id = obtenerID(elementoSeleccionado);
+    
+    if (id != null) {
+        try {
+            // Consulta SQL para obtener todos los datos necesarios
+            String SQL = "SELECT s.idSolicitud, s.Tipo, s.Especificaciones, s.FechaSolicitud, s.FechaEntrega, s.Estatus, "
+                    + "c.NombreCliente, c.NumeroTel, c.Direccion, c.Referencias, u.NombreUsuario "
+                    + "FROM Solicitud s "
+                    + "inner join Cliente c on s.idCliente= c.idCliente "
+                    + "inner join Usuarios u on s.idUsuario= u.idUsuario WHERE s.idSolicitud = " + id+";";
+            
+            bd.cursor = bd.transaccion.executeQuery(SQL);
+            
+            if (bd.cursor.next()) {
+                // Crear array con los 11 campos obtenidos
+                String[] datos = new String[11];
+                for (int i = 0; i < datos.length; i++) {
+                    datos[i] = bd.cursor.getString(i+1); // Los índices en JDBC comienzan en 1
+                }
+                
+                // Crear y mostrar la ventana de detalles
+                DetallesProdServ detalles = new DetallesProdServ();
+                detalles.cargarDetallesSolicitud(datos); // Envía los datos
+                detalles.setVisible(true);
+                this.dispose(); // Cierra la ventana actual
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, 
+                "Error al obtener detalles: " + ex.getMessage(),
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
@@ -169,8 +312,8 @@ Conexion bd = new Conexion();
     private javax.swing.JButton BtnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> lsSolicitudes;
     // End of variables declaration//GEN-END:variables
 }

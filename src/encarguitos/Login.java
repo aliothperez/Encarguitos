@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
     Conexion bd = new Conexion();
+    public static Usuario u;
     /**
      * Creates new form Login
      */
@@ -178,6 +179,9 @@ public class Login extends javax.swing.JFrame {
 
                 return;
             }
+            
+            u=bd.obtenerUsuario(correo, contrasena);
+            
             if (bd.IniciarSecion(correo, contrasena)==0) {
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión como Gestor de Operaciones exitoso!");
                 PrincipalGestor v = new PrincipalGestor();

@@ -170,7 +170,7 @@ DefaultListModel<String> model;
     }//GEN-LAST:event_BtnVolverActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-         String seleccionado = ListaRepartidores.getSelectedValue(); // ej. "Juan Perez - juan@gmail.com"
+     String seleccionado = ListaRepartidores.getSelectedValue(); // ej. "Juan Perez - juan@gmail.com"
     
     if (seleccionado != null && seleccionado.contains(" - ")) {
         String[] partes = seleccionado.split(" - ");

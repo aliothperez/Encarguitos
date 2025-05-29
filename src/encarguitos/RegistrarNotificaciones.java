@@ -222,9 +222,8 @@ Conexion bd = new Conexion();
     }
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
         // TODO add your handling code here:
-        ConsultarNotificaciones v = new ConsultarNotificaciones();
-        v.bd = bd;
-        v.setVisible(true);
+        PrincipalRepartidor PR = new PrincipalRepartidor();
+        PR.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 

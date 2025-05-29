@@ -92,6 +92,11 @@ DefaultListModel<String> model;
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -118,9 +123,7 @@ DefaultListModel<String> model;
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-       PrincipalRepartidor CP = new PrincipalRepartidor();
-        CP.setVisible(true);
-        this.dispose();
+       bd.mostrarListaSolicitud();
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
@@ -128,6 +131,36 @@ DefaultListModel<String> model;
        PR.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        String seleccionado = ListaPedidosAsignados.getSelectedValue();
+    if (seleccionado == null) {
+        JOptionPane.showMessageDialog(this, "Seleccione un pedido para eliminar.");
+        return;
+    }
+
+    // Extraer el ID del string: "ID: 5 - Entregar paquete"
+    int id = Integer.parseInt(seleccionado.split(" ")[1]);
+
+    int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el pedido ID " + id + "?",
+            "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+    if (confirm == JOptionPane.YES_OPTION) {
+        try {
+            Statement st = bd.conexion.createStatement();
+            String deleteQuery = "DELETE FROM pedidos WHERE id_pedido = " + id;
+            int rows = st.executeUpdate(deleteQuery);
+            if (rows > 0) {
+                JOptionPane.showMessageDialog(this, "Pedido eliminado con éxito.");
+                bd.eliminarSolicitud(seleccionado); // Actualizar la lista
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el pedido para eliminar.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar pedido: " + ex.getMessage());
+        }
+    }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
  
     /**
      * @param args the command line arguments

@@ -341,6 +341,7 @@ public class Conexion {
         }
     }
 }
+    
      
     
     public boolean insertarNotificacion(Notificacion n) {
@@ -388,9 +389,9 @@ public class Conexion {
     }
     return resultado;
 }
-    public boolean eliminarNotificacion(String id) {
+    public boolean eliminarNotificacion(Notificacion n) {
     try {
-        String SQL = "DELETE FROM Notificaciones WHERE idNotificacion = " + id;
+        String SQL = "DELETE FROM Notificaciones WHERE idNotificacion = " + n.idNotificacion;
         transaccion.execute(SQL);
         return true;
     } catch (SQLException ex) {

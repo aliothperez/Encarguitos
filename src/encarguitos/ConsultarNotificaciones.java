@@ -70,6 +70,11 @@ DefaultListModel<String> model;
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         ListaNotificaciones.setBorder(null);
@@ -136,67 +141,42 @@ DefaultListModel<String> model;
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        loadNotificaciones();
+        bd.mostrarNotificaciones();
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-    String selected = ListaNotificaciones.getSelectedValue();
+         String seleccionado = ListaNotificaciones.getSelectedValue();
 
-    if (selected != null && selected.contains(" - ")) {
-    int id = Integer.parseInt(selected.split(" - ")[0]);
-
-        String user = "uhtizfzseb5vjftn";
-        String password = "Jt6Ylx7jpfbKdDxaOrcB";
-
-        try (Connection conn = ObtenerConexion(user, password);
-         PreparedStatement stmt = conn.prepareStatement("DELETE FROM Notificaciones WHERE ID = ?")) {
-           stmt.setInt(1, id);
-         stmt.executeUpdate();
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error al eliminar notificación:\n" + e.getMessage());
-    }
-
-    // Remover de la lista
-    DefaultListModel<String> model = (DefaultListModel<String>) ListaNotificaciones.getModel();
-    model.removeElement(selected);
-
-} else {
-    JOptionPane.showMessageDialog(this, "Selecciona una notificación válida.");
-}
-    }//GEN-LAST:event_BtnEliminarActionPerformed
-    public static Connection ObtenerConexion(String USER, String PASSWORD){
-         String conUrl = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
-               // + "databaseName=ENCARGUITOS;";
-         
+    if (seleccionado != null && seleccionado.contains(" - ")) {
         try {
-            return DriverManager.getConnection(conUrl, USER, PASSWORD);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarNotificaciones.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-    private void loadNotificaciones() {
-       //String url = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
-        String user = "uhtizfzseb5vjftn";
-        String password = "Jt6Ylx7jpfbKdDxaOrcB";
+            String[] partes = seleccionado.split(" - ");
+            int idUsuario = Integer.parseInt(partes[0].trim());
+            int idSolicitud = Integer.parseInt(partes[1].trim());
 
-        try (Connection conn = ObtenerConexion(user, password);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT Descripcion FROM Notificaciones")) {
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de eliminar esta notificación?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
 
-            while (rs.next()) {
-                String mensaje = rs.getString("Descripcion");
-                String id = rs.getString("idNotificacion");
-                String formatted = id + " - " + mensaje;
-                model.addElement(formatted);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                bd.eliminarNotificacion(new Notificacion(0, idUsuario, idSolicitud, ""));
+                JOptionPane.showMessageDialog(this, "Notificación eliminada correctamente.");
+                BtnActualizarActionPerformed(null);
             }
-            
-             ListaNotificaciones.setModel(model);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar notificaciones:\n" + e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error al interpretar el ID. Verifica el formato.");
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Seleccione una notificación válida.");
     }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        PrincipalGerente PG = new PrincipalGerente();
+        PG.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
+   
     
     /**
      * @param args the command line arguments

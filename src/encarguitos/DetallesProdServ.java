@@ -101,7 +101,6 @@ public class DetallesProdServ extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        // TODO add your handling code here:
         ConsultarPedidosServicios cps = new ConsultarPedidosServicios();
         cps.setVisible(true);
         this.dispose();

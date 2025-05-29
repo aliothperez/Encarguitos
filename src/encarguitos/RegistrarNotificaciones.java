@@ -93,6 +93,11 @@ Conexion bd = new Conexion();
                 TxtNomUsMouseClicked(evt);
             }
         });
+        TxtNomUs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtNomUsActionPerformed(evt);
+            }
+        });
         jPanel1.add(TxtNomUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 280, -1));
 
         jSeparator3.setForeground(new java.awt.Color(60, 140, 22));
@@ -222,6 +227,10 @@ Conexion bd = new Conexion();
         v.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
+
+    private void TxtNomUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNomUsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtNomUsActionPerformed
 
     /**
      * @param args the command line arguments

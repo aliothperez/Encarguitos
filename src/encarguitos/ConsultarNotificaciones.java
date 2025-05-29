@@ -73,11 +73,6 @@ DefaultListModel<String> model;
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         ListaNotificaciones.setBorder(null);
-        ListaNotificaciones.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         ListaNotificaciones.setToolTipText("");
         jScrollPane1.setViewportView(ListaNotificaciones);
 

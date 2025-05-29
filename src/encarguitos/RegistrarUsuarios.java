@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarUsuarios extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+    int tipoUsuario; // 0=Gestor, 1=Repartidor, 2=Gerente
 
     /**
      * Creates new form RegistrarUsuarios
@@ -193,8 +194,22 @@ Conexion bd = new Conexion();
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-       ConsultarUsuarios CU = new ConsultarUsuarios(this.bd,0);
-       CU.setVisible(true);
+       ConsultarUsuarios CU = null ;
+        switch(tipoUsuario) {
+            case 0: // Gestor     
+                PrincipalGestor pg = new PrincipalGestor();
+                pg.bd = bd; 
+                pg.getTipoUsuario();
+                CU = new ConsultarUsuarios(this.bd, 0);
+                break;
+            case 1: //gerente
+                PrincipalGerente pge = new PrincipalGerente();
+                pge.bd = bd; 
+                pge.getTipoUsuario();
+                CU = new ConsultarUsuarios(this.bd, 1);
+                break;
+        }
+         CU.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 

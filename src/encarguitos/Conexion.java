@@ -119,6 +119,21 @@ public void RegistrarCliente(Cliente c ){
         JOptionPane.showMessageDialog(null, "Error al registrar cliente");
         }
     } 
+
+    public void RegistrarUsuario(Usuario u){        
+    try { 
+            String sql = "INSERT INTO Usuario (NombreUsuario, CorreoUsuario, Contrasena, RolUsuario) VALUES (%Nom%, %Cor%, %Con%, %Rol%)";
+            sql = sql.replaceAll("%Nom%", u.nombreUsuario);
+            sql = sql.replaceAll("%Cor%", u.correoUsuario);
+            sql = sql.replaceAll("%Con%", u.contrasena);
+            sql = sql.replaceAll("%Rol%", u.rolUsuario);
+            cursor = transaccion.executeQuery(sql);       
+        JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+    } catch (SQLException ex) {
+        Logger.getLogger(RegistrarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, "Error al registrar Usuario");
+        }
+    } 
 }
 
 

@@ -89,6 +89,11 @@ Conexion bd = new Conexion();
         TxtTel.setForeground(new java.awt.Color(153, 153, 153));
         TxtTel.setText("Utilice diez dígitos máximo");
         TxtTel.setBorder(null);
+        TxtTel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtTelMouseClicked(evt);
+            }
+        });
         jPanel1.add(TxtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 280, -1));
 
         jSeparator2.setForeground(new java.awt.Color(60, 140, 22));
@@ -97,6 +102,11 @@ Conexion bd = new Conexion();
         TxtNomUsu.setForeground(new java.awt.Color(153, 153, 153));
         TxtNomUsu.setText("Ingresar Nombre de Usuario");
         TxtNomUsu.setBorder(null);
+        TxtNomUsu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtNomUsuMouseClicked(evt);
+            }
+        });
         jPanel1.add(TxtNomUsu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 280, -1));
 
         jSeparator3.setForeground(new java.awt.Color(60, 140, 22));
@@ -105,6 +115,11 @@ Conexion bd = new Conexion();
         TxtDireccion.setForeground(new java.awt.Color(153, 153, 153));
         TxtDireccion.setText("Direccion");
         TxtDireccion.setBorder(null);
+        TxtDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtDireccionMouseClicked(evt);
+            }
+        });
         jPanel1.add(TxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 280, -1));
 
         jSeparator4.setForeground(new java.awt.Color(60, 140, 22));
@@ -134,6 +149,11 @@ Conexion bd = new Conexion();
         TxtReferencias.setForeground(new java.awt.Color(153, 153, 153));
         TxtReferencias.setText("Referencias");
         TxtReferencias.setBorder(null);
+        TxtReferencias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtReferenciasMouseClicked(evt);
+            }
+        });
         jPanel1.add(TxtReferencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 280, -1));
 
         jSeparator5.setForeground(new java.awt.Color(60, 140, 22));
@@ -165,6 +185,22 @@ Conexion bd = new Conexion();
         
         bd.RegistrarCliente(new Cliente(0,NombreCliente, Telefono,Direccion, Referencias ));
     }//GEN-LAST:event_BtnRegistrarActionPerformed
+
+    private void TxtNomUsuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtNomUsuMouseClicked
+        TxtNomUsu.setText("");
+    }//GEN-LAST:event_TxtNomUsuMouseClicked
+
+    private void TxtTelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtTelMouseClicked
+        TxtTel.setText("");
+    }//GEN-LAST:event_TxtTelMouseClicked
+
+    private void TxtDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtDireccionMouseClicked
+        TxtDireccion.setText("");
+    }//GEN-LAST:event_TxtDireccionMouseClicked
+
+    private void TxtReferenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtReferenciasMouseClicked
+        TxtReferencias.setText("");
+    }//GEN-LAST:event_TxtReferenciasMouseClicked
 
     /**
      * @param args the command line arguments

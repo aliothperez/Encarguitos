@@ -6,6 +6,7 @@ package encarguitos;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,13 +45,13 @@ Conexion bd = new Conexion();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TxtCorreo = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField2 = new javax.swing.JTextField();
+        TxtNomUs = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        jTextField3 = new javax.swing.JTextField();
+        TxtContrasena = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        CmbRol = new javax.swing.JComboBox<>();
         BtnRegistrar = new javax.swing.JButton();
         BtnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -86,35 +87,50 @@ Conexion bd = new Conexion();
         jLabel6.setText("Seleccionar Rol de Usuario");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
 
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setText("Ejemplo@email");
-        jTextField1.setBorder(null);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 280, -1));
+        TxtCorreo.setForeground(new java.awt.Color(153, 153, 153));
+        TxtCorreo.setText("Ejemplo@email");
+        TxtCorreo.setBorder(null);
+        TxtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtCorreoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(TxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 280, -1));
 
         jSeparator2.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 290, 10));
 
-        jTextField2.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField2.setText("Ingresar Nombre de Usuario");
-        jTextField2.setBorder(null);
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 280, -1));
+        TxtNomUs.setForeground(new java.awt.Color(153, 153, 153));
+        TxtNomUs.setText("Ingresar Nombre de Usuario");
+        TxtNomUs.setBorder(null);
+        TxtNomUs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtNomUsMouseClicked(evt);
+            }
+        });
+        jPanel1.add(TxtNomUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 280, -1));
 
         jSeparator3.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 290, 10));
 
-        jTextField3.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField3.setText("Ingresar contraseña");
-        jTextField3.setBorder(null);
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 280, -1));
+        TxtContrasena.setForeground(new java.awt.Color(153, 153, 153));
+        TxtContrasena.setText("Ingresar contraseña");
+        TxtContrasena.setBorder(null);
+        TxtContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtContrasenaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(TxtContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 280, -1));
 
         jSeparator4.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 290, 10));
 
-        jComboBox1.setBackground(new java.awt.Color(60, 140, 22));
-        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Gerente", "Gestor de Operaciones", "Repartidor" }));
-        jComboBox1.setBorder(null);
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 290, -1));
+        CmbRol.setBackground(new java.awt.Color(60, 140, 22));
+        CmbRol.setForeground(new java.awt.Color(255, 255, 255));
+        CmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Gerente", "Gestor de Operaciones", "Repartidor" }));
+        CmbRol.setBorder(null);
+        jPanel1.add(CmbRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 290, -1));
 
         BtnRegistrar.setBackground(new java.awt.Color(60, 140, 22));
         BtnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -125,6 +141,11 @@ Conexion bd = new Conexion();
         BtnRegistrar.setBorderPainted(false);
         BtnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnRegistrar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRegistrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, 100, 30));
 
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
@@ -139,6 +160,32 @@ Conexion bd = new Conexion();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TxtNomUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtNomUsMouseClicked
+        TxtNomUs.setText("");
+    }//GEN-LAST:event_TxtNomUsMouseClicked
+
+    private void TxtCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtCorreoMouseClicked
+         TxtCorreo.setText("");
+    }//GEN-LAST:event_TxtCorreoMouseClicked
+  
+    private void TxtContrasenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtContrasenaMouseClicked
+        TxtContrasena.setText("");
+    }//GEN-LAST:event_TxtContrasenaMouseClicked
+
+    private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+        String NombreUsuario = TxtNomUs.getText();
+        String Correo = TxtCorreo.getText();
+        String Contrasena = TxtContrasena.getText();
+        String Rol = CmbRol.getSelectedItem().toString();
+        
+        if (NombreUsuario.isEmpty() || Correo.isEmpty() || Contrasena.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos");
+        return;
+        }
+        
+        bd.RegistrarUsuario(new Usuario(0,NombreUsuario,Correo, Contrasena, Rol));
+    }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,7 +225,10 @@ Conexion bd = new Conexion();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JButton BtnVolver;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> CmbRol;
+    private javax.swing.JTextField TxtContrasena;
+    private javax.swing.JTextField TxtCorreo;
+    private javax.swing.JTextField TxtNomUs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -189,8 +239,5 @@ Conexion bd = new Conexion();
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

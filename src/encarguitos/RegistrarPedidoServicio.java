@@ -54,9 +54,9 @@ Conexion bd = new Conexion();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         BtnRegistrar1 = new javax.swing.JButton();
-        TxtDireccion1 = new javax.swing.JTextField();
+        TxtFeSol = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
-        TxtDireccion2 = new javax.swing.JTextField();
+        TxtFeEn = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
         BtnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -150,28 +150,28 @@ Conexion bd = new Conexion();
         BtnRegistrar1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         jPanel1.add(BtnRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 680, 100, 30));
 
-        TxtDireccion1.setForeground(new java.awt.Color(153, 153, 153));
-        TxtDireccion1.setText("Ingresar Fecha de Solicitud");
-        TxtDireccion1.setBorder(null);
-        TxtDireccion1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtDireccion1ActionPerformed(evt);
+        TxtFeSol.setForeground(new java.awt.Color(153, 153, 153));
+        TxtFeSol.setText("Ingresar Fecha de Solicitud");
+        TxtFeSol.setBorder(null);
+        TxtFeSol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtFeSolMouseClicked(evt);
             }
         });
-        jPanel1.add(TxtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 280, -1));
+        jPanel1.add(TxtFeSol, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 280, -1));
 
         jSeparator5.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, 290, 10));
 
-        TxtDireccion2.setForeground(new java.awt.Color(153, 153, 153));
-        TxtDireccion2.setText("Ingresar Fecha de Entrega");
-        TxtDireccion2.setBorder(null);
-        TxtDireccion2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtDireccion2ActionPerformed(evt);
+        TxtFeEn.setForeground(new java.awt.Color(153, 153, 153));
+        TxtFeEn.setText("Ingresar Fecha de Entrega");
+        TxtFeEn.setBorder(null);
+        TxtFeEn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtFeEnMouseClicked(evt);
             }
         });
-        jPanel1.add(TxtDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 280, -1));
+        jPanel1.add(TxtFeEn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 280, -1));
 
         jSeparator6.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 290, 10));
@@ -189,13 +189,13 @@ Conexion bd = new Conexion();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TxtDireccion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDireccion1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtDireccion1ActionPerformed
+    private void TxtFeSolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtFeSolMouseClicked
+        TxtFeSol.setText("");
+    }//GEN-LAST:event_TxtFeSolMouseClicked
 
-    private void TxtDireccion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDireccion2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtDireccion2ActionPerformed
+    private void TxtFeEnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtFeEnMouseClicked
+        TxtFeEn.setText("");
+    }//GEN-LAST:event_TxtFeEnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -236,8 +236,8 @@ Conexion bd = new Conexion();
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JButton BtnRegistrar1;
     private javax.swing.JButton BtnVolver;
-    private javax.swing.JTextField TxtDireccion1;
-    private javax.swing.JTextField TxtDireccion2;
+    private javax.swing.JTextField TxtFeEn;
+    private javax.swing.JTextField TxtFeSol;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;

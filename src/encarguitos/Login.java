@@ -43,7 +43,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         txtCorreo = new javax.swing.JTextField();
-        tpfContrasenia = new javax.swing.JPasswordField();
+        txtContrasenia = new javax.swing.JPasswordField();
         BtnIngresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -82,17 +82,22 @@ public class Login extends javax.swing.JFrame {
         txtCorreo.setForeground(new java.awt.Color(153, 153, 153));
         txtCorreo.setText("Ejemplo@email");
         txtCorreo.setBorder(null);
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 180, -1));
-
-        tpfContrasenia.setForeground(new java.awt.Color(153, 153, 153));
-        tpfContrasenia.setText("jPasswordField1");
-        tpfContrasenia.setBorder(null);
-        tpfContrasenia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tpfContraseniaActionPerformed(evt);
+        txtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCorreoMouseClicked(evt);
             }
         });
-        jPanel1.add(tpfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 180, -1));
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 180, -1));
+
+        txtContrasenia.setForeground(new java.awt.Color(153, 153, 153));
+        txtContrasenia.setText("jPasswordField1");
+        txtContrasenia.setBorder(null);
+        txtContrasenia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtContraseniaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 180, -1));
 
         BtnIngresar.setBackground(new java.awt.Color(60, 140, 22));
         BtnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -141,7 +146,7 @@ public class Login extends javax.swing.JFrame {
 
     private void BtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarActionPerformed
             
-        String correo = txtCorreo.getText(), contrasena = tpfContrasenia.getText();
+        String correo = txtCorreo.getText(), contrasena = txtContrasenia.getText();
 
             if (correo.isBlank() || contrasena.isBlank()) {
                 mensajeError("ERROR: Campos vacíos");
@@ -154,9 +159,9 @@ public class Login extends javax.swing.JFrame {
                 }
 
                 if (contrasena.isBlank()) {
-                    tpfContrasenia.setBackground(new java.awt.Color(255, 102, 102));
+                    txtContrasenia.setBackground(new java.awt.Color(255, 102, 102));
                     new javax.swing.Timer(3000, e -> {
-                        tpfContrasenia.setBackground(java.awt.Color.WHITE); // O el color original
+                        txtContrasenia.setBackground(java.awt.Color.WHITE); // O el color original
                     }).start();
                 }
 
@@ -186,9 +191,13 @@ public class Login extends javax.swing.JFrame {
               
     }//GEN-LAST:event_BtnIngresarActionPerformed
 
-    private void tpfContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tpfContraseniaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tpfContraseniaActionPerformed
+    private void txtCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMouseClicked
+         txtCorreo.setText("");
+    }//GEN-LAST:event_txtCorreoMouseClicked
+
+    private void txtContraseniaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContraseniaMouseClicked
+        txtContrasenia.setText("");
+    }//GEN-LAST:event_txtContraseniaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -237,7 +246,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPasswordField tpfContrasenia;
+    private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }

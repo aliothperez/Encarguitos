@@ -40,9 +40,9 @@ Conexion bd = new Conexion();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TxtSoli = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField2 = new javax.swing.JTextField();
+        TxtNomUs = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         BtnRegistrar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -68,18 +68,28 @@ Conexion bd = new Conexion();
         jLabel2.setText("Registrar Notificación");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
 
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setText("Ingrese el ID de la Solicitud");
-        jTextField1.setBorder(null);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 280, -1));
+        TxtSoli.setForeground(new java.awt.Color(153, 153, 153));
+        TxtSoli.setText("Ingrese el ID de la Solicitud");
+        TxtSoli.setBorder(null);
+        TxtSoli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtSoliMouseClicked(evt);
+            }
+        });
+        jPanel1.add(TxtSoli, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 280, -1));
 
         jSeparator2.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 290, 10));
 
-        jTextField2.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField2.setText("Ingresar Nombre de Usuario");
-        jTextField2.setBorder(null);
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 280, -1));
+        TxtNomUs.setForeground(new java.awt.Color(153, 153, 153));
+        TxtNomUs.setText("Ingresar Nombre de Usuario");
+        TxtNomUs.setBorder(null);
+        TxtNomUs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TxtNomUsMouseClicked(evt);
+            }
+        });
+        jPanel1.add(TxtNomUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 280, -1));
 
         jSeparator3.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 290, 10));
@@ -124,6 +134,14 @@ Conexion bd = new Conexion();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void TxtNomUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtNomUsMouseClicked
+        TxtNomUs.setText("");
+    }//GEN-LAST:event_TxtNomUsMouseClicked
+
+    private void TxtSoliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TxtSoliMouseClicked
+        TxtSoli.setText("");
+    }//GEN-LAST:event_TxtSoliMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -162,6 +180,8 @@ Conexion bd = new Conexion();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JButton BtnVolver;
+    private javax.swing.JTextField TxtNomUs;
+    private javax.swing.JTextField TxtSoli;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -172,7 +192,5 @@ Conexion bd = new Conexion();
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

@@ -125,7 +125,8 @@ DefaultListModel<String> model;
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
        PrincipalRepartidor PR = new PrincipalRepartidor();
-       PR
+       PR.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
  
     /**

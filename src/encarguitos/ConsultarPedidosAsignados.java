@@ -3,13 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package encarguitos;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -17,16 +19,16 @@ import javax.swing.JOptionPane;
  *
  * @author falio
  */
-public class ConsultarRepartidores extends javax.swing.JFrame {
+public class ConsultarPedidosAsignados extends javax.swing.JFrame {
 Conexion bd = new Conexion();
 DefaultListModel<String> model;
     /**
-     * Creates new form ConsultarRepartidores
+     * Creates new form ConsultarPedidosServicios
      */
-    public ConsultarRepartidores() {
+    public ConsultarPedidosAsignados() {
         model = new DefaultListModel<>();
         initComponents();
-        try {
+    try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
             }
@@ -34,6 +36,7 @@ DefaultListModel<String> model;
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+  
     }
 
     /**
@@ -49,35 +52,35 @@ DefaultListModel<String> model;
         jLabel2 = new javax.swing.JLabel();
         BtnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        ListaRepartidores = new javax.swing.JList<>();
+        ListaPedidosAsignados = new javax.swing.JList<>();
         BtnEliminar = new javax.swing.JButton();
-        BtnAgregar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Consultar Repartidores");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+        jLabel2.setText("Consultar Pedidos Asignados");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
-        ListaRepartidores.setBorder(null);
-        ListaRepartidores.setModel(new javax.swing.AbstractListModel<String>() {
+        ListaPedidosAsignados.setBorder(null);
+        ListaPedidosAsignados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        ListaRepartidores.setToolTipText("");
-        jScrollPane1.setViewportView(ListaRepartidores);
+        ListaPedidosAsignados.setToolTipText("");
+        jScrollPane1.setViewportView(ListaPedidosAsignados);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 380, 370));
 
@@ -89,22 +92,7 @@ DefaultListModel<String> model;
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
-
-        BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnAgregar.setForeground(new java.awt.Color(60, 140, 22));
-        BtnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mas.png"))); // NOI18N
-        BtnAgregar.setText("Agregar");
-        BtnAgregar.setContentAreaFilled(false);
-        BtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAgregarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(60, 140, 22));
@@ -119,43 +107,18 @@ DefaultListModel<String> model;
                 BtnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
+        jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaConsulta.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 0, 0)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
-                    .addGap(0, 0, 0)))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        RegistrarUsuarios RU = new RegistrarUsuarios();
-        RU.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_BtnAgregarActionPerformed
-
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-       loadRepartidores();
+        loadPedidosAsignados();
     }//GEN-LAST:event_BtnActualizarActionPerformed
     public static Connection ObtenerConexion(String USER, String PASSWORD){
          String conUrl = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
@@ -168,24 +131,26 @@ DefaultListModel<String> model;
             return null;
         }
     }
-    private void loadRepartidores() {
+    private void loadPedidosAsignados() {
        //String url = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
         String user = "uhtizfzseb5vjftn";
         String password = "Jt6Ylx7jpfbKdDxaOrcB";
 
         try (Connection conn = ObtenerConexion(user, password);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT NombreUsuario FROM Usuarios Where RolUsuario = 'Repartidor'")) {
+             ResultSet rs = stmt.executeQuery("SELECT Especificaciones FROM Solicitud Where idUsuario = 1")) {
 
             while (rs.next()) {
-                String mensaje = rs.getString("NombreUsuario");
-                model.addElement(mensaje);
+                String mensaje = rs.getString("Especificaciones");
+                String id = rs.getString("idUsuario");
+                String formatted = id + " - " + mensaje;
+                model.addElement(formatted);
             }
             
-             ListaRepartidores.setModel(model);
+             ListaPedidosAsignados.setModel(model);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar repartidores:\n" + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar pedidos:\n" + e.getMessage());
         }
     }
     /**
@@ -205,30 +170,30 @@ DefaultListModel<String> model;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConsultarRepartidores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarPedidosAsignados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConsultarRepartidores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarPedidosAsignados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConsultarRepartidores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarPedidosAsignados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConsultarRepartidores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarPedidosAsignados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsultarRepartidores().setVisible(true);
+                new ConsultarPedidosAsignados().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
-    private javax.swing.JButton BtnAgregar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnVolver;
-    private javax.swing.JList<String> ListaRepartidores;
+    private javax.swing.JList<String> ListaPedidosAsignados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

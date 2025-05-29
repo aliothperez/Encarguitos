@@ -3,14 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package encarguitos;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -18,12 +22,12 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarNotificaciones extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-private DefaultListModel<String> listModel = new DefaultListModel<>();
-
+DefaultListModel<String> model;
     /**
      * Creates new form ConsultarNotificaciones
      */
     public ConsultarNotificaciones() {
+        model = new DefaultListModel<>();
         initComponents();
         try {
             if(bd.conexion.isClosed()){
@@ -33,65 +37,8 @@ private DefaultListModel<String> listModel = new DefaultListModel<>();
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // Configurar el modelo del JList
-    jList1.setModel(listModel);
-    cargarNotificaciones();
-    
-    // Añadir listener para doble clic
-    jList1.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent evt) {
-            if (evt.getClickCount() == 2) {
-                mostrarDetallesNotificacion();
-            }
-        }
-    });
-    
-    BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        String seleccionado = jList1.getSelectedValue();
-        if (seleccionado != null && !seleccionado.equals("No hay notificaciones disponibles")) {
-            String id = seleccionado.split("\\|")[0].trim().split(":")[1].trim();
-            
-            int confirm = JOptionPane.showConfirmDialog(
-                ConsultarNotificaciones.this, 
-                "¿Eliminar esta notificación?", 
-                "Confirmar", 
-                JOptionPane.YES_NO_OPTION);
-            
-            if (confirm == JOptionPane.YES_OPTION) {
-                if (bd.eliminarNotificacion(id)) {
-                    JOptionPane.showMessageDialog(ConsultarNotificaciones.this, 
-                        "Notificación eliminada", 
-                        "Éxito", 
-                        JOptionPane.INFORMATION_MESSAGE);
-                    cargarNotificaciones();
-                } else {
-                    JOptionPane.showMessageDialog(ConsultarNotificaciones.this, 
-                        "Error al eliminar", 
-                        "Error", 
-                        JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(ConsultarNotificaciones.this, 
-                "Seleccione una notificación", 
-                "Advertencia", 
-                JOptionPane.WARNING_MESSAGE);
-        }
     }
-});
-
-BtnVolver.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        // Código existente para volver
-        dispose();
-    }
-});
-
     
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,7 +52,7 @@ BtnVolver.addActionListener(new java.awt.event.ActionListener() {
         jLabel2 = new javax.swing.JLabel();
         BtnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        ListaNotificaciones = new javax.swing.JList<>();
         BtnEliminar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -125,9 +72,14 @@ BtnVolver.addActionListener(new java.awt.event.ActionListener() {
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
-        jList1.setBorder(null);
-        jList1.setToolTipText("");
-        jScrollPane1.setViewportView(jList1);
+        ListaNotificaciones.setBorder(null);
+        ListaNotificaciones.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        ListaNotificaciones.setToolTipText("");
+        jScrollPane1.setViewportView(ListaNotificaciones);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 380, 370));
 
@@ -139,6 +91,11 @@ BtnVolver.addActionListener(new java.awt.event.ActionListener() {
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
 
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -184,16 +141,68 @@ BtnVolver.addActionListener(new java.awt.event.ActionListener() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        
-          
-        cargarNotificaciones();
-        JOptionPane.showMessageDialog(ConsultarNotificaciones.this, 
-            "Notificaciones actualizadas", 
-            "Información", 
-            JOptionPane.INFORMATION_MESSAGE);
-    
+        loadNotificaciones();
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+    String selected = ListaNotificaciones.getSelectedValue();
+
+    if (selected != null && selected.contains(" - ")) {
+    int id = Integer.parseInt(selected.split(" - ")[0]);
+
+        String user = "uhtizfzseb5vjftn";
+        String password = "Jt6Ylx7jpfbKdDxaOrcB";
+
+        try (Connection conn = ObtenerConexion(user, password);
+         PreparedStatement stmt = conn.prepareStatement("DELETE FROM Notificaciones WHERE ID = ?")) {
+           stmt.setInt(1, id);
+         stmt.executeUpdate();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al eliminar notificación:\n" + e.getMessage());
+    }
+
+    // Remover de la lista
+    DefaultListModel<String> model = (DefaultListModel<String>) ListaNotificaciones.getModel();
+    model.removeElement(selected);
+
+} else {
+    JOptionPane.showMessageDialog(this, "Selecciona una notificación válida.");
+}
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+    public static Connection ObtenerConexion(String USER, String PASSWORD){
+         String conUrl = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
+               // + "databaseName=ENCARGUITOS;";
+         
+        try {
+            return DriverManager.getConnection(conUrl, USER, PASSWORD);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarNotificaciones.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    private void loadNotificaciones() {
+       //String url = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
+        String user = "uhtizfzseb5vjftn";
+        String password = "Jt6Ylx7jpfbKdDxaOrcB";
+
+        try (Connection conn = ObtenerConexion(user, password);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT Descripcion FROM Notificaciones")) {
+
+            while (rs.next()) {
+                String mensaje = rs.getString("Descripcion");
+                String id = rs.getString("idNotificacion");
+                String formatted = id + " - " + mensaje;
+                model.addElement(formatted);
+            }
+            
+             ListaNotificaciones.setModel(model);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar notificaciones:\n" + e.getMessage());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -228,70 +237,14 @@ BtnVolver.addActionListener(new java.awt.event.ActionListener() {
             }
         });
     }
-    private void cargarNotificaciones() {
-    listModel.clear(); // Limpiar el modelo existente
-    
-    ArrayList<String[]> notificaciones = bd.mostrarNotificaciones();
-    
-    if (notificaciones.isEmpty()) {
-        listModel.addElement("No hay notificaciones disponibles");
-        return;
-    }
-    
-    for (String[] notif : notificaciones) {
-        // Formatear la información para mostrar en el JList
-        String elemento = String.format(
-            "ID: %s | Usuario: %s | Solicitud: %s | Estado: %s",
-            notif[0],  // ID Notificación
-            notif[1],  // Nombre Usuario
-            notif[2],  // Tipo Solicitud
-            notif[3]   // Estatus
-        );
-        listModel.addElement(elemento);
-    }
-}
 
-private void mostrarDetallesNotificacion() {
-    String seleccionado = jList1.getSelectedValue();
-    if (seleccionado != null && !seleccionado.equals("No hay notificaciones disponibles")) {
-        String id = seleccionado.split("\\|")[0].trim().split(":")[1].trim();
-        
-        try {
-            String SQL = "Select n.idNotificacion,u.NombreUsuario,s.idSolicitud,n.Descripcion from Notificaciones n inner join Usuarios u on u.idUsuario=n.idUsuario inner join Solicitud s on s.idSolicitud = n.idSolicitud;";
-            
-            bd.cursor = bd.transaccion.executeQuery(SQL);
-            
-            if (bd.cursor.next()) {
-                String mensaje = String.format(
-                    "<html><b>Descripción:</b> %s<br><br>" +
-                    "<b>Usuario:</b> %s<br>" +
-                    "<b>Tipo Solicitud:</b> %s<br>" +
-                    "<b>Especificaciones:</b> %s<br>" +
-                    "<b>Estado:</b> %s</html>",
-                    bd.cursor.getString(1),  // Descripción
-                    bd.cursor.getString(2),  // Nombre Usuario
-                    bd.cursor.getString(3),  // Tipo Solicitud
-                    bd.cursor.getString(4),  // Especificaciones
-                    bd.cursor.getString(5)   // Estatus
-                );
-                
-                JOptionPane.showMessageDialog(this, mensaje, "Detalles Notificación", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, 
-                "Error al obtener detalles: " + ex.getMessage(),
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }
-}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnVolver;
+    private javax.swing.JList<String> ListaNotificaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

@@ -543,8 +543,7 @@ class Cliente {
     }  
 
     Cliente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+          }
  
 }
  
@@ -565,8 +564,7 @@ class Usuario {
     }
 
     Usuario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+           }
 
      
 }

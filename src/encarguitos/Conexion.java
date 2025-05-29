@@ -49,10 +49,7 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, "❌ Driver no encontrado", ex);
         }
         return null;
-     }
-     
-     
-     
+     }     
      
      
           //ULTRALORD************************************************************************
@@ -180,8 +177,8 @@ public void RegistrarCliente(Cliente c ){
         return resultado;
     
         }
-    public boolean eliminarClientePorCampos(String nombre, String telefono, String direccion) {
-    String sql = "DELETE FROM Cliente WHERE NombreCliente = %Nom% AND NumeroTel = %Num% AND Direccion = %Dir%";
+        public boolean eliminarClientePorCampos(String nombre, String telefono, String direccion) {
+    String sql = "DELETE FROM Cliente WHERE NombreCliente = ? AND NumeroTel = ? AND Direccion = ?";
     try (Connection con = obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
         ps.setString(1, nombre);
         ps.setString(2, telefono);
@@ -191,10 +188,25 @@ public void RegistrarCliente(Cliente c ){
     } catch (SQLException e) {
         e.printStackTrace();
         return false;
+    }  
+    
+}
+    public boolean eliminarUsuariosPorCampos(String nombre, String Correo, String Rol) {
+     String sql = "DELETE FROM Usuarios WHERE NombreUsuario = ? AND CorreoUsuario = ? AND Rol = ?";
+    try (Connection con = obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, nombre);
+        ps.setString(2, Correo);
+        ps.setString(3, Rol);
+        int filas = ps.executeUpdate();
+        return filas > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
 }
     
-}
+    
+}//FIN CONEXION
 
 
 //ULTRALORD************************************************************************
@@ -215,6 +227,7 @@ class Cliente {
     }  
  
 }
+ 
 
 class Usuario {
     int idUsuario;

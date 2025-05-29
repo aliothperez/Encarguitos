@@ -4,8 +4,11 @@
  */
 package encarguitos;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -83,6 +86,11 @@ Conexion bd = new Conexion();
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
 
         BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -108,6 +116,11 @@ Conexion bd = new Conexion();
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaConsulta.png"))); // NOI18N
@@ -124,6 +137,52 @@ Conexion bd = new Conexion();
         this.dispose();
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        int index = jList1.getSelectedIndex();
+    if (index == -1) {
+        JOptionPane.showMessageDialog(null, "Selecciona un usuario para eliminar.");
+        return;
+    }
+
+    String seleccionado = jList1.getModel().getElementAt(index);
+    String[] partes = seleccionado.split("/");
+
+    if (partes.length < 3) {
+        JOptionPane.showMessageDialog(null, "Formato de usuario inválido.");
+        return;
+    }
+
+    String nombre = partes[0].trim();
+    String correo = partes[1].trim();
+    String rol = partes[2].trim();
+
+    int confirm = JOptionPane.showConfirmDialog(null, "¿Eliminar al usuario " + nombre + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
+    if (confirm != JOptionPane.YES_OPTION) return;
+
+    boolean eliminado = bd.eliminarUsuariosPorCampos(nombre, correo, rol);
+
+    if (eliminado) {
+        JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente.");
+        actualizarLista();
+    } else {
+        JOptionPane.showMessageDialog(null, "No se pudo eliminar el usuario.");
+    }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+        actualizarLista();
+    }//GEN-LAST:event_BtnActualizarActionPerformed
+        
+    public void actualizarLista(){
+         ArrayList<String[]> usuarios = bd.ConsultarUsuarios();
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+    
+        for (String[] usu : usuarios) {
+            for (String dato : usu) {
+                modelo.addElement(dato); 
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */

@@ -194,7 +194,7 @@ Conexion bd = new Conexion();
     
     for (String[] cliente : clientes) {
         for (String dato : cliente) {
-            modelo.addElement(dato); // Cada línea de info o separador
+            modelo.addElement(dato); 
         }
     }
 

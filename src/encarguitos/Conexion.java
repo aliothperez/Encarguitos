@@ -60,13 +60,15 @@ public class Conexion {
          int r=-1;
          try {
             //SELECT * FROM `Login` WHERE Correo like 'A' and Constrasena like 'A';
-            String SQL="SELECT * FROM Usuarios WHERE correoUsuario = "+correo+" and contrasena ="+contrasena;
+            String SQL="SELECT * FROM Usuarios WHERE CorreoUsuario = '"+ correo+"' and Contrasena ='"+contrasena + "'";
             cursor= transaccion.executeQuery(SQL);
             if(cursor.next()){
-                if(cursor.getString(5).equals("Gerente")||cursor.getString(5).equals("Gestor de Operaciones")){
-                    r=0;
+                if(cursor.getString(5).equals("Gerente")){
+                    r=2;
                 }else if(cursor.getString(5).equals("Repartidor")){
                     r=1;
+                }else if(cursor.getString(5).equals("Gestor de Operaciones")){
+                    r=0;
                 }
                  
             }

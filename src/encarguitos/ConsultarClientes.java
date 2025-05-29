@@ -16,8 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarClientes extends javax.swing.JFrame {
     Conexion bd = new Conexion();
-    int tipoUsuario; // 0=Gestor, 1=Repartidor, 2=Gerente
-
+    int tipoUsuario;
 
     /**
      * Creates new form ConsultarClientes
@@ -26,6 +25,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
         initComponents();
         this.bd = bd;
         this.tipoUsuario = tipoUsuario;
+        
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -195,15 +195,17 @@ public class ConsultarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-       switch(tipoUsuario) {
+        switch(tipoUsuario) {
             case 0: // Gestor
+                
                 PrincipalGestor pg = new PrincipalGestor();
-                pg.bd = bd;
+                pg.bd = bd; pg.getTipoUsuario();
                 pg.setVisible(true);
+               
                 break;
-            case 1: 
+            case 1: //gerente
                 PrincipalGerente pge = new PrincipalGerente();
-                pge.bd = bd;
+                pge.bd = bd; pge.getTipoUsuario();
                 pge.setVisible(true);
                 break;
  
@@ -256,8 +258,14 @@ public class ConsultarClientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Conexion bd = new Conexion();
+                 Conexion bd = new Conexion();
+                 int tipoUsuario = 2;
+                 if(tipoUsuario == 0){
                 new ConsultarClientes(bd,0).setVisible(true);
+                 }else if (tipoUsuario== 1){
+                  new ConsultarClientes(bd,1).setVisible(true);
+                 }
+                
             }
         });
     }

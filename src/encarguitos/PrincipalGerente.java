@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class PrincipalGerente extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-int tipoUsuario = 1;
+public int tipoUsuario = 1;
 
     /**
      * Creates new form PrincipalGerente
@@ -30,6 +30,10 @@ int tipoUsuario = 1;
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public int getTipoUsuario() {
+        return tipoUsuario;
     }
 
     /**

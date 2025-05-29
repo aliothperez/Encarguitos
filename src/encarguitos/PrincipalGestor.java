@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class PrincipalGestor extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-int tipoUsuario = 0;
+public int tipoUsuario = 0;
     /**
      * Creates new form PrincipalGestor
      */
@@ -29,7 +29,9 @@ int tipoUsuario = 0;
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public int getTipoUsuario() {
+        return tipoUsuario;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

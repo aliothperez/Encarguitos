@@ -151,7 +151,9 @@ public class Conexion {
             String[] datos = {
                 cursor.getString(1),
                 cursor.getString(2),
-                cursor.getString(3),cursor.getString(4),cursor.getString(5)
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5)
             };
             resultado.add(datos);
         }
@@ -199,6 +201,7 @@ public class Conexion {
     }
     return c;
     }
+    
     public int obtenerIdUsuario(String Co){
            int i=-1;
         try {
@@ -519,7 +522,24 @@ public ArrayList<String[]> ConsultarUsuarios() {
     }
     return false;
 }
+    public boolean eliminarRepartidor(Usuario u) {
+    String SQL = "DELETE FROM Usuarios WHERE NombreUsuario = ? AND CorreoUsuario = ? AND RolUsuario = 'Repartidor'";
+    try (PreparedStatement ps = conexion.prepareStatement(SQL)) {
+        ps.setString(1, u.nombreUsuario);
+        ps.setString(2, u.correoUsuario);
 
+        int filas = ps.executeUpdate();
+        if (filas > 0) {
+            JOptionPane.showMessageDialog(null, "Repartidor eliminado correctamente.");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "️ No se encontró un repartidor con esos datos.");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar repartidor: " + e.getMessage());
+    }
+    return false;
+}
     
     
 }//FIN CONEXION

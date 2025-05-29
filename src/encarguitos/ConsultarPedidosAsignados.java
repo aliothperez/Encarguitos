@@ -124,41 +124,10 @@ DefaultListModel<String> model;
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        // TODO add your handling code here:
+       PrincipalRepartidor PR = new PrincipalRepartidor();
+       PR
     }//GEN-LAST:event_BtnVolverActionPerformed
-    public static Connection ObtenerConexion(String USER, String PASSWORD){
-         String conUrl = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
-               // + "databaseName=ENCARGUITOS;";
-         
-        try {
-            return DriverManager.getConnection(conUrl, USER, PASSWORD);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarNotificaciones.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-    private void loadPedidosAsignados() {
-       //String url = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
-        String user = "uhtizfzseb5vjftn";
-        String password = "Jt6Ylx7jpfbKdDxaOrcB";
-
-        try (Connection conn = ObtenerConexion(user, password);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT Especificaciones FROM Solicitud Where idUsuario = 1")) {
-
-            while (rs.next()) {
-                String mensaje = rs.getString("Especificaciones");
-                String id = rs.getString("idUsuario");
-                String formatted = id + " - " + mensaje;
-                model.addElement(formatted);
-            }
-            
-             ListaPedidosAsignados.setModel(model);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar pedidos:\n" + e.getMessage());
-        }
-    }
+ 
     /**
      * @param args the command line arguments
      */

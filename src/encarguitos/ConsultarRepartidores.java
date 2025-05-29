@@ -68,6 +68,11 @@ DefaultListModel<String> model;
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
         BtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
         ListaRepartidores.setBorder(null);
@@ -84,6 +89,11 @@ DefaultListModel<String> model;
         BtnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
 
         BtnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -150,73 +160,29 @@ DefaultListModel<String> model;
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-       loadRepartidores();
+       bd.mostrarRepartidor();
     }//GEN-LAST:event_BtnActualizarActionPerformed
-    public static Connection ObtenerConexion(String USER, String PASSWORD){
-         String conUrl = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
-               // + "databaseName=ENCARGUITOS;";
-         
-        try {
-            return DriverManager.getConnection(conUrl, USER, PASSWORD);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarNotificaciones.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        PrincipalGestor pg = new PrincipalGestor();
+        pg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+         String seleccionado = ListaRepartidores.getSelectedValue(); // ej. "Juan Perez - juan@gmail.com"
+    
+    if (seleccionado != null && seleccionado.contains(" - ")) {
+        String[] partes = seleccionado.split(" - ");
+        String nombreUsuario = partes[0].trim();
+        String correoUsuario = partes[1].trim();
+
+        bd.eliminarRepartidor(new Usuario(0, nombreUsuario, correoUsuario, "", "Repartidor"));
+    } else {
+        JOptionPane.showMessageDialog(null, "Seleccione un repartidor válido.");
     }
-    private void loadRepartidores() {
-       //String url = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
-        String user = "uhtizfzseb5vjftn";
-        String password = "Jt6Ylx7jpfbKdDxaOrcB";
-
-        try (Connection conn = ObtenerConexion(user, password);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT NombreUsuario FROM Usuarios Where RolUsuario = 'Repartidor'")) {
-
-            while (rs.next()) {
-                String mensaje = rs.getString("NombreUsuario");
-                model.addElement(mensaje);
-            }
-            
-             ListaRepartidores.setModel(model);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar repartidores:\n" + e.getMessage());
-        }
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConsultarRepartidores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConsultarRepartidores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConsultarRepartidores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConsultarRepartidores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConsultarRepartidores().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;

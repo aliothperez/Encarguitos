@@ -141,33 +141,17 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-       int selectedIndex = ListaUsuarios.getSelectedIndex();
-    if (selectedIndex == -1) {
-        JOptionPane.showMessageDialog(this, "Por favor seleccione un usuario para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+       String seleccionado = ListaUsuarios.getSelectedValue(); // ej. "Juan Perez - juan@gmail.com"
     
-    String selectedItem = ListaUsuarios.getSelectedValue();
-    String[] parts = selectedItem.split(" - ");
-    String nombreUsuario = parts[0];
-    String correoUsuario = parts[1];
-    String rolUsuario = parts[2];
-    
-    int confirm = JOptionPane.showConfirmDialog(
-        this, 
-        "¿Está seguro que desea eliminar al usuario: " + nombreUsuario + "?", 
-        "Confirmar Eliminación", 
-        JOptionPane.YES_NO_OPTION
-    );
-    
-    if (confirm == JOptionPane.YES_OPTION) {
-        boolean eliminado = bd.eliminarUsuario(new Usuario(0, nombreUsuario, correoUsuario, "", rolUsuario));
-        if (eliminado) {
-            JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente");
-            actualizarLista();
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al eliminar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    if (seleccionado != null && seleccionado.contains(" - ")) {
+        String[] partes = seleccionado.split(" - ");
+        String nombreUsuario = partes[0].trim();
+        String correoUsuario = partes[1].trim();
+        String RolUsuario = partes[2].trim();
+
+        bd.eliminarUsuario(new Usuario(0, nombreUsuario, correoUsuario, "", RolUsuario));
+    } else {
+        JOptionPane.showMessageDialog(null, "Seleccione un usuario válido.");
     }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 

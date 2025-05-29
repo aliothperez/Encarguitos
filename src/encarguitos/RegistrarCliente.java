@@ -6,6 +6,7 @@ package encarguitos;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author falio
@@ -26,8 +27,11 @@ Conexion bd = new Conexion();
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
+    
+    
+    
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,15 +47,15 @@ Conexion bd = new Conexion();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TxtTel = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField2 = new javax.swing.JTextField();
+        TxtNomUsu = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         TxtDireccion = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         BtnRegistrar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        TxtDireccion1 = new javax.swing.JTextField();
+        TxtReferencias = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         BtnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -82,23 +86,18 @@ Conexion bd = new Conexion();
         jLabel5.setText("Direccion");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setText("Utilice diez dígitos máximo");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 280, -1));
+        TxtTel.setForeground(new java.awt.Color(153, 153, 153));
+        TxtTel.setText("Utilice diez dígitos máximo");
+        TxtTel.setBorder(null);
+        jPanel1.add(TxtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 280, -1));
 
         jSeparator2.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 290, 10));
 
-        jTextField2.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField2.setText("Ingresar Nombre de Usuario");
-        jTextField2.setBorder(null);
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 280, -1));
+        TxtNomUsu.setForeground(new java.awt.Color(153, 153, 153));
+        TxtNomUsu.setText("Ingresar Nombre de Usuario");
+        TxtNomUsu.setBorder(null);
+        jPanel1.add(TxtNomUsu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 280, -1));
 
         jSeparator3.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 290, 10));
@@ -106,11 +105,6 @@ Conexion bd = new Conexion();
         TxtDireccion.setForeground(new java.awt.Color(153, 153, 153));
         TxtDireccion.setText("Direccion");
         TxtDireccion.setBorder(null);
-        TxtDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtDireccionActionPerformed(evt);
-            }
-        });
         jPanel1.add(TxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 280, -1));
 
         jSeparator4.setForeground(new java.awt.Color(60, 140, 22));
@@ -125,6 +119,11 @@ Conexion bd = new Conexion();
         BtnRegistrar.setBorderPainted(false);
         BtnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnRegistrar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRegistrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 100, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -132,15 +131,10 @@ Conexion bd = new Conexion();
         jLabel7.setText("Referencias");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, -1, -1));
 
-        TxtDireccion1.setForeground(new java.awt.Color(153, 153, 153));
-        TxtDireccion1.setText("Referencias");
-        TxtDireccion1.setBorder(null);
-        TxtDireccion1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtDireccion1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(TxtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 280, -1));
+        TxtReferencias.setForeground(new java.awt.Color(153, 153, 153));
+        TxtReferencias.setText("Referencias");
+        TxtReferencias.setBorder(null);
+        jPanel1.add(TxtReferencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 280, -1));
 
         jSeparator5.setForeground(new java.awt.Color(60, 140, 22));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 290, 10));
@@ -158,17 +152,19 @@ Conexion bd = new Conexion();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void TxtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtDireccionActionPerformed
-
-    private void TxtDireccion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDireccion1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtDireccion1ActionPerformed
+    private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+        String NombreCliente = TxtNomUsu.getText();
+        String Telefono = TxtTel.getText();
+        String Direccion = TxtDireccion.getText();
+        String Referencias = TxtReferencias.getText();
+        
+        if (NombreCliente.isEmpty() || Telefono.isEmpty() || Direccion.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos");
+        return;
+        }
+        
+        bd.RegistrarCliente(new Cliente(0,NombreCliente, Telefono,Direccion, Referencias ));
+    }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,7 +205,9 @@ Conexion bd = new Conexion();
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JButton BtnVolver;
     private javax.swing.JTextField TxtDireccion;
-    private javax.swing.JTextField TxtDireccion1;
+    private javax.swing.JTextField TxtNomUsu;
+    private javax.swing.JTextField TxtReferencias;
+    private javax.swing.JTextField TxtTel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -221,7 +219,5 @@ Conexion bd = new Conexion();
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

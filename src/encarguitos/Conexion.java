@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -98,21 +99,26 @@ public class Conexion {
         System.out.println("Producto insertado exitosamente");
         return true;
     }
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
+
      
      //--FIN ULTRALORD************************************************************************
      
- 
+public void RegistrarCliente(Cliente c ){        
+    try { 
+            String sql = "INSERT INTO Cliente (NombreCliente, NumeroTel, Direccion, Referencias) VALUES (%Nom%, %Tel%, %Dir%, %Ref%)";
+            sql = sql.replaceAll("%Nom%", c.nombreCliente);
+            sql = sql.replaceAll("%Tel%", c.numeroTel);
+            sql = sql.replaceAll("%Dir%", c.direccion);
+            sql = sql.replaceAll("%Ref%", c.referencias);
+            cursor = transaccion.executeQuery(sql);       
+        JOptionPane.showMessageDialog(null, "Cliente registrado correctamente");
+    } catch (SQLException ex) {
+        Logger.getLogger(RegistrarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, "Error al registrar cliente");
+        }
+    } 
 }
+
 
 //ULTRALORD************************************************************************
 class Cliente {
@@ -193,6 +199,5 @@ class Notificacion {
 }
 
 
-
-
      //--FIN ULTRALORD************************************************************************
+

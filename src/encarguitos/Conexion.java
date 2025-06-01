@@ -295,6 +295,29 @@ public class Conexion {
     return resultado;
         
     }
+    //---------------------MOSTRAR LISTA SOLICITUD ASIGNADA------------------------------
+    public ArrayList<String[]> mostrarListaSolicitudAs(){
+       ArrayList<String[]> resultado = new ArrayList<>();
+    String SQL = "SELECT s.idSolicitud, s.Tipo,s.FechaEntrega FROM Solicitud s INNER JOIN Cliente c ON s.idCliente = c.idCliente INNER JOIN Usuarios u ON " +
+"s.idUsuario = u.idUsuario ORDER BY s.FechaEntrega ASC";
+    
+    try (Statement stmt = conexion.createStatement();
+         ResultSet rs = stmt.executeQuery(SQL)) {
+        
+        while (rs.next()) {
+            String[] datos = {
+                rs.getString(1),
+                rs.getString(2),
+                rs.getString(3)
+            };
+            resultado.add(datos);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return resultado;
+        
+    }
 //--------------------------ELIMINAR SOLICITUD--------------------------
     public boolean eliminarSolicitud(String id) {
     try {

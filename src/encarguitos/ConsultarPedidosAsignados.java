@@ -8,10 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -21,12 +24,13 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarPedidosAsignados extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-DefaultListModel<String> model;
+//DefaultListModel<String> model;
+DefaultListModel ls= new DefaultListModel();
     /**
      * Creates new form ConsultarPedidosServicios
      */
     public ConsultarPedidosAsignados() {
-        model = new DefaultListModel<>();
+       
         initComponents();
     try {
             if(bd.conexion.isClosed()){
@@ -36,7 +40,23 @@ DefaultListModel<String> model;
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-  
+    
+        lsPedido.setModel(ls);
+        /*
+        lsSolicitudes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) { // Doble clic
+                    String seleccionado = lsSolicitudes.getSelectedValue();
+                    if (seleccionado != null) {
+                        mostrarDetallesSolicitud(seleccionado);
+                    }
+                }
+            }
+        });*/
+        
+          MostrarlsPedidos();
+
     }
 
     /**
@@ -52,7 +72,7 @@ DefaultListModel<String> model;
         jLabel2 = new javax.swing.JLabel();
         BtnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        ListaPedidosAsignados = new javax.swing.JList<>();
+        lsPedido = new javax.swing.JList<>();
         BtnEliminar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -78,9 +98,9 @@ DefaultListModel<String> model;
         });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
-        ListaPedidosAsignados.setBorder(null);
-        ListaPedidosAsignados.setToolTipText("");
-        jScrollPane1.setViewportView(ListaPedidosAsignados);
+        lsPedido.setBorder(null);
+        lsPedido.setToolTipText("");
+        jScrollPane1.setViewportView(lsPedido);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 380, 370));
 
@@ -135,7 +155,29 @@ DefaultListModel<String> model;
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
        
     }//GEN-LAST:event_BtnEliminarActionPerformed
- 
+    public void MostrarlsPedidos(){
+         DefaultListModel<String> model = (DefaultListModel<String>) lsPedido.getModel();
+        model.clear();
+
+        ArrayList<String[]> datos = bd.mostrarListaSolicitudAs();
+
+        if (datos.isEmpty()) {
+            model.addElement("No hay pedidos disponibles");
+            return;
+        }
+
+        for (String[] data : datos) {
+            String elemento = String.format(
+                "ID: %s | Tipo: %s | Fecha de entrega: %s",
+                data[0], // ID Solicitud
+                data[1], // Tipo
+                data[2]  // fecha de entrega
+            );
+            model.addElement(elemento);
+        }
+        
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -176,10 +218,10 @@ DefaultListModel<String> model;
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnVolver;
-    private javax.swing.JList<String> ListaPedidosAsignados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> lsPedido;
     // End of variables declaration//GEN-END:variables
 }

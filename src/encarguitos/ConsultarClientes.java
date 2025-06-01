@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class ConsultarClientes extends javax.swing.JFrame {
     Conexion bd = new Conexion();
     int tipoUsuario;
+    DefaultListModel<String> model;
 
     /**
      * Creates new form ConsultarClientes
@@ -183,7 +184,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
         boolean eliminado = bd.eliminarCliente(new Cliente(0, nombreCliente, numTel, direccion, ""));
         if (eliminado) {
             JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente");
-            actualizarLista();
+            //actualizarLista();
         } else {
             JOptionPane.showMessageDialog(this, "Error al eliminar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -191,7 +192,17 @@ public class ConsultarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-       actualizarLista();
+        model.clear(); // Limpiar el modelo anterior
+    ArrayList<String[]> lista = bd.ConsultarCliente();
+
+    for (String[] cli : lista) {
+        String nombre = cli[1];
+        String numtel = cli[2];
+        String dir = cli[3];
+        model.addElement(nombre + " - " + numtel + " - "+dir);
+    }
+
+    ListaClientes.setModel(model);
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
@@ -212,21 +223,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
-     public void actualizarLista(){
-    ArrayList<String[]> clientes = bd.ConsultarCliente();
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-
-     // Llenar el modelo con los datos actualizados
-        for (String[] cli : clientes) {
-            String item = String.format("%s - %s - %s", 
-                cli[0],  // NombreCliente
-                cli[1],  // NumeroTel
-                cli[2]); // Direccion (corregido de índice 3 a 2)
-            modelo.addElement(item);
-        }
-
-    ListaClientes.setModel(modelo);
-    }
+     
     
     /**
      * @param args the command line arguments

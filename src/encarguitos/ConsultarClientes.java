@@ -219,8 +219,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
                 PrincipalGerente pge = new PrincipalGerente();
                 pge.bd = bd; pge.getTipoUsuario();
                 pge.setVisible(true);
-                break;
- 
+                break; 
         }
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed

@@ -36,7 +36,7 @@ public int tipoUsuario = 1;
     }
 
     public int getTipoUsuario() {
-        return tipoUsuario;
+        return tipoUsuario=1;
     }
 
     /**

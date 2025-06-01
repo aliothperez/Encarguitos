@@ -30,7 +30,7 @@ public int tipoUsuario = 0;
         }
     }
     public int getTipoUsuario() {
-        return tipoUsuario;
+        return tipoUsuario=0;
     }
     /**
      * This method is called from within the constructor to initialize the form.

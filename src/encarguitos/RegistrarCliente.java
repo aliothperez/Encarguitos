@@ -15,7 +15,9 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarCliente extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-    int tipoUsuario; // 0=Gestor, 1=Repartidor, 2=Gerente
+    int tipoUsuario; // 
+     ConsultarClientes CC = new ConsultarClientes(this.bd, tipoUsuario);
+
 
     /**
      * Creates new form RegistrarCliente
@@ -30,11 +32,7 @@ Conexion bd = new Conexion();
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    
-    
-        
+    }       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -231,25 +229,20 @@ Conexion bd = new Conexion();
     }//GEN-LAST:event_TxtReferenciasMouseClicked
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        ConsultarClientes CC = null ;
-        switch(tipoUsuario) {
-            case 0: // Gestor     
-                PrincipalGestor pg = new PrincipalGestor();
-                pg.bd = bd; 
-                pg.getTipoUsuario();
-                CC = new ConsultarClientes(this.bd, 0);
-                break;
-            case 1: //gerente
-                PrincipalGerente pge = new PrincipalGerente();
-                pge.bd = bd; 
-                pge.getTipoUsuario();
-                CC = new ConsultarClientes(this.bd, 1);
-                break;
-        }
-         CC.setVisible(true);
-       this.dispose();       
-          
-             
+ 
+    if (tipoUsuario == 0) {
+        PrincipalGestor pg = new PrincipalGestor();
+        pg.bd = bd;
+        CC = new ConsultarClientes(this.bd, 0);
+        
+    } else if (tipoUsuario == 1) {
+        PrincipalGerente pge = new PrincipalGerente();
+        pge.bd = bd;
+        CC = new ConsultarClientes(this.bd, 1);
+    }
+        
+        CC.setVisible(true);       
+        this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 
     private void TxtNomUsuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNomUsuKeyTyped

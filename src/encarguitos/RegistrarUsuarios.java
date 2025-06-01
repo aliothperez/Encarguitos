@@ -200,13 +200,13 @@ Conexion bd = new Conexion();
                 PrincipalGestor pg = new PrincipalGestor();
                 pg.bd = bd; 
                 pg.getTipoUsuario();
-                CU = new ConsultarUsuarios(this.bd, 0);
+                CU = new ConsultarUsuarios(0);
                 break;
             case 1: //gerente
                 PrincipalGerente pge = new PrincipalGerente();
                 pge.bd = bd; 
                 pge.getTipoUsuario();
-                CU = new ConsultarUsuarios(this.bd, 1);
+                CU = new ConsultarUsuarios(1);
                 break;
         }
          CU.setVisible(true);

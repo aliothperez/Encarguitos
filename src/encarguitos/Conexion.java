@@ -589,6 +589,8 @@ class Usuario {
     }
 
     Usuario() {
+        
+        
            }
 
      

@@ -126,7 +126,7 @@ public int tipoUsuario = 0;
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClientesActionPerformed
-        ConsultarClientes CC = new ConsultarClientes(this.bd,this.tipoUsuario);
+        ConsultarClientes CC = new ConsultarClientes(this.tipoUsuario);
         CC.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnClientesActionPerformed

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class RegistrarCliente extends javax.swing.JFrame {
 Conexion bd = new Conexion();
     int tipoUsuario; // 
-     ConsultarClientes CC = new ConsultarClientes(this.bd, tipoUsuario);
+     ConsultarClientes CC = new ConsultarClientes( tipoUsuario);
 
 
     /**
@@ -229,20 +229,10 @@ Conexion bd = new Conexion();
     }//GEN-LAST:event_TxtReferenciasMouseClicked
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
- 
-    if (tipoUsuario == 0) {
-        PrincipalGestor pg = new PrincipalGestor();
-        pg.bd = bd;
-        CC = new ConsultarClientes(this.bd, 0);
-        
-    } else if (tipoUsuario == 1) {
-        PrincipalGerente pge = new PrincipalGerente();
-        pge.bd = bd;
-        CC = new ConsultarClientes(this.bd, 1);
-    }
-        
-        CC.setVisible(true);       
-        this.dispose();
+    ConsultarClientes v=new ConsultarClientes(this.tipoUsuario);
+        v.bd=bd;
+        v.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 
     private void TxtNomUsuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNomUsuKeyTyped

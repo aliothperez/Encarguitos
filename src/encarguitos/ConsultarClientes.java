@@ -18,11 +18,13 @@ public class ConsultarClientes extends javax.swing.JFrame {
     Conexion bd = new Conexion();
     int tipoUsuario;
     DefaultListModel<String> model;
+    Usuario u = new Usuario();
 
+//Usuario u = new Usuario();
     /**
      * Creates new form ConsultarClientes
      */
-    public ConsultarClientes(Conexion bd, int tipoUsuario) {
+    public ConsultarClientes( int tipoUsuario) {
         initComponents();
         this.bd = bd;
         this.tipoUsuario = tipoUsuario;
@@ -36,6 +38,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
             
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        u=Login.u;
     }
 
     /**
@@ -207,21 +210,17 @@ public class ConsultarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        switch(tipoUsuario) {
-            case 0: // Gestor
-                
-                PrincipalGestor pg = new PrincipalGestor();
-                pg.bd = bd; pg.getTipoUsuario();
-                pg.setVisible(true);
-               
-                break;
-            case 1: //gerente
-                PrincipalGerente pge = new PrincipalGerente();
-                pge.bd = bd; pge.getTipoUsuario();
-                pge.setVisible(true);
-                break; 
+        if(u.rolUsuario.equals("Gerente")){
+            PrincipalGerente v = new PrincipalGerente();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
+        }if(u.rolUsuario.equals("Gestor de Operaciones")){
+            PrincipalGestor v = new PrincipalGestor();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
         }
-        this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
      
     
@@ -258,9 +257,9 @@ public class ConsultarClientes extends javax.swing.JFrame {
                  Conexion bd = new Conexion();
                  int tipoUsuario = 2;
                  if(tipoUsuario == 0){
-                new ConsultarClientes(bd,0).setVisible(true);
+                new ConsultarClientes(0).setVisible(true);
                  }else if (tipoUsuario== 1){
-                  new ConsultarClientes(bd,1).setVisible(true);
+                  new ConsultarClientes(1).setVisible(true);
                  }
                 
             }

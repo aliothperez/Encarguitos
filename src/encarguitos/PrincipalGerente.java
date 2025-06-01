@@ -168,7 +168,7 @@ public int tipoUsuario = 1;
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUsuariosActionPerformed
-        ConsultarUsuarios CU = new ConsultarUsuarios(this.bd,this.tipoUsuario);
+        ConsultarUsuarios CU = new ConsultarUsuarios(this.tipoUsuario);
         CU.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnUsuariosActionPerformed
@@ -180,7 +180,7 @@ public int tipoUsuario = 1;
     }//GEN-LAST:event_BtnPedidosActionPerformed
 
     private void BtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClientesActionPerformed
-        ConsultarClientes CC = new ConsultarClientes(this.bd,this.tipoUsuario);
+        ConsultarClientes CC = new ConsultarClientes(this.tipoUsuario);
         CC.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnClientesActionPerformed

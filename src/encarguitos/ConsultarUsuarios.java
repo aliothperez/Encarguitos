@@ -21,7 +21,7 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
     /**
      * Creates new form ConsultarUsuarios
      */
-    public ConsultarUsuarios(Conexion bd, int tipoUsuario) {
+    public ConsultarUsuarios( int tipoUsuario) {
         initComponents();
         this.bd = bd;
         this.tipoUsuario = tipoUsuario;
@@ -160,21 +160,7 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        switch(tipoUsuario) {
-            case 0: // Gestor
-                PrincipalGestor pg = new PrincipalGestor();
-                pg.bd = bd;
-                pg.setVisible(true);
-                break;
-            case 1: 
-                PrincipalGerente pge = new PrincipalGerente();
-                pge.bd = bd;
-                pge.setVisible(true);
-                break;
- 
-        }
-        this.dispose();
-    
+        
     }//GEN-LAST:event_BtnVolverActionPerformed
         
     
@@ -211,9 +197,9 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
                 Conexion bd = new Conexion();
                  int tipoUsuario = 2;
                  if(tipoUsuario == 0){
-                new ConsultarClientes(bd,0).setVisible(true);
+                new ConsultarClientes(0).setVisible(true);
                  }else if (tipoUsuario== 1){
-                  new ConsultarClientes(bd,1).setVisible(true);
+                  new ConsultarClientes(1).setVisible(true);
                  }
             }
         });

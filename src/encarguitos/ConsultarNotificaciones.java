@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 public class ConsultarNotificaciones extends javax.swing.JFrame {
 Conexion bd = new Conexion();
 DefaultListModel<String> model;
+
     /**
      * Creates new form ConsultarNotificaciones
      */

@@ -23,9 +23,9 @@ public class Conexion {
     Connection conexion;
     Statement transaccion;
     ResultSet cursor;
-    private static final String URL = "jdbc:mysql://bxzqahn8l7tzouihijgg-mysql.services.clever-cloud.com:3306/bxzqahn8l7tzouihijgg";
-    private static final String USER = "uhtizfzseb5vjftn";
-    private static final String PASSWORD = "Jt6Ylx7jpfbKdDxaOrcB";
+    private static final String URL = "jdbc:mysql://uryaod5uqxph6syc:izdaon0t333M76oMWL9@bizxdrsoaiigjnp3sfht-mysql.services.clever-cloud.com:21804/bizxdrsoaiigjnp3sfht";
+    private static final String USER = "uryaod5uqxph6syc";
+    private static final String PASSWORD = "izdaon0t333M76oMWL9";
     public Conexion() {
     try {
             Class.forName("com.mysql.cj.jdbc.Driver");

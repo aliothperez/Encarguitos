@@ -102,6 +102,7 @@ public class DetallesProdServ extends javax.swing.JFrame {
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
         ConsultarPedidosServicios cps = new ConsultarPedidosServicios();
+        cps.bd=bd;
         cps.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed

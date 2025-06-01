@@ -310,6 +310,7 @@ Usuario u = new Usuario();
                 // Mostrar la ventana de detalles
                 DetallesProdServ detalles = new DetallesProdServ();
                 detalles.cargarDetallesSolicitud(datos);
+                detalles.bd=bd;
                 detalles.setVisible(true);
                 this.dispose();
             }

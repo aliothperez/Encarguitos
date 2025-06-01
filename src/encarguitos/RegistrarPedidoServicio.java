@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package encarguitos;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 /**
  *
@@ -24,6 +29,8 @@ Conexion bd = new Conexion();
      */
     public RegistrarPedidoServicio() {
         initComponents();
+        ((AbstractDocument) txtTotal.getDocument()).setDocumentFilter(new MoneyFilter());
+        txtTotal.setText("$");
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -50,8 +57,6 @@ Conexion bd = new Conexion();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        cmbEstatus = new javax.swing.JComboBox<>();
         cmbRepartidor = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         taEspesificaciones = new javax.swing.JTextArea();
@@ -62,9 +67,12 @@ Conexion bd = new Conexion();
         txtFeEn = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
         BtnVolver = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         cmbCliente = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JTextField();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(60, 140, 22));
@@ -91,25 +99,9 @@ Conexion bd = new Conexion();
         jLabel5.setText("Tipo");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(60, 140, 22));
-        jLabel6.setText("Estatus");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 620, -1, -1));
-
-        cmbEstatus.setBackground(new java.awt.Color(60, 140, 22));
-        cmbEstatus.setForeground(new java.awt.Color(255, 255, 255));
-        cmbEstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Pedido recibido", "En proceso", "Preparando envío", "Enviado", "Entregado", "Cancelado" }));
-        cmbEstatus.setBorder(null);
-        jPanel1.add(cmbEstatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 640, 290, -1));
-
         cmbRepartidor.setBackground(new java.awt.Color(60, 140, 22));
         cmbRepartidor.setForeground(new java.awt.Color(255, 255, 255));
         cmbRepartidor.setBorder(null);
-        cmbRepartidor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbRepartidorActionPerformed(evt);
-            }
-        });
         jPanel1.add(cmbRepartidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 290, -1));
 
         taEspesificaciones.setColumns(20);
@@ -120,8 +112,8 @@ Conexion bd = new Conexion();
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(60, 140, 22));
-        jLabel7.setText("Especificaciones");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
+        jLabel7.setText("Pedido");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
 
         cmbTipo.setBackground(new java.awt.Color(60, 140, 22));
         cmbTipo.setForeground(new java.awt.Color(255, 255, 255));
@@ -132,7 +124,7 @@ Conexion bd = new Conexion();
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(60, 140, 22));
         jLabel10.setText("Fecha de Entrega");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 620, -1, -1));
 
         BtnRegistrar1.setBackground(new java.awt.Color(60, 140, 22));
         BtnRegistrar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -148,7 +140,7 @@ Conexion bd = new Conexion();
                 BtnRegistrar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 680, 100, 30));
+        jPanel1.add(BtnRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 690, 100, 30));
 
         txtFeEn.setForeground(new java.awt.Color(153, 153, 153));
         txtFeEn.setText("Ingresar Fecha de Entrega");
@@ -158,10 +150,10 @@ Conexion bd = new Conexion();
                 txtFeEnMouseClicked(evt);
             }
         });
-        jPanel1.add(txtFeEn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 280, -1));
+        jPanel1.add(txtFeEn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 640, 280, -1));
 
         jSeparator6.setForeground(new java.awt.Color(60, 140, 22));
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 290, 10));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 660, 290, 10));
 
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
@@ -173,17 +165,9 @@ Conexion bd = new Conexion();
         });
         jPanel1.add(BtnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         cmbCliente.setBackground(new java.awt.Color(60, 140, 22));
         cmbCliente.setForeground(new java.awt.Color(255, 255, 255));
         cmbCliente.setBorder(null);
-        cmbCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbClienteActionPerformed(evt);
-            }
-        });
         jPanel1.add(cmbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 290, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -191,7 +175,32 @@ Conexion bd = new Conexion();
         jLabel11.setText("Asignar Cliente");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 740));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(60, 140, 22));
+        jLabel12.setText("Total a Pagar");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, -1, -1));
+
+        txtTotal.setText("$");
+        txtTotal.setBorder(null);
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalActionPerformed(evt);
+            }
+        });
+        txtTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTotalKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 280, -1));
+
+        jSeparator7.setForeground(new java.awt.Color(60, 140, 22));
+        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 290, 10));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 750));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -200,26 +209,10 @@ Conexion bd = new Conexion();
         txtFeEn.setText("");
     }//GEN-LAST:event_txtFeEnMouseClicked
 
-    private void cmbRepartidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRepartidorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbRepartidorActionPerformed
-
-    private void cmbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbClienteActionPerformed
-
     private void BtnRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrar1ActionPerformed
         Cliente c= new Cliente();
         Usuario u= new Usuario();
-        String Espe = taEspesificaciones.getText(),feEn = txtFeEn.getText();
-
-        
-        // Validar que los ComboBox no tengan selecciones inválidas
-        if (cmbCliente.getSelectedIndex() == 0 || cmbRepartidor.getSelectedIndex() == 0 ||
-            cmbTipo.getSelectedIndex() == 0 || cmbEstatus.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Selecciona opciones válidas en los campos desplegables.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        String Espe = taEspesificaciones.getText(),feEn = txtFeEn.getText(); 
 
         // Validar que los textos no estén vacíos
         if (Espe.isEmpty() || feEn.isEmpty()) {
@@ -242,8 +235,8 @@ Conexion bd = new Conexion();
         u=bd.obtenerRepartidor(cmbRepartidor.getItemAt(cmbRepartidor.getSelectedIndex()));
         
         //si todo essta al tiro
-        bd.insertarSolicitud(new Solicitud(0,u.idUsuario,c.idCliente,cmbTipo.getItemAt(cmbTipo.getSelectedIndex()),
-                Espe,"",feEn,cmbEstatus.getItemAt(cmbEstatus.getSelectedIndex())));
+        /*bd.insertarSolicitud(new Solicitud(0,u.idUsuario,c.idCliente,cmbTipo.getItemAt(cmbTipo.getSelectedIndex()),
+                Espe,"",feEn,cmbEstatus.getItemAt(cmbEstatus.getSelectedIndex())));*/
     }//GEN-LAST:event_BtnRegistrar1ActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
@@ -252,6 +245,38 @@ Conexion bd = new Conexion();
             v.setVisible(true);
             this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
+
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalActionPerformed
+
+    private void txtTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalKeyTyped
+        char c = evt.getKeyChar();
+    String text = txtTotal.getText();
+
+    // No permitir borrar el signo de pesos
+    if (c == KeyEvent.VK_BACK_SPACE && txtTotal.getCaretPosition() <= 1) {
+        evt.consume();
+        return;
+    }
+
+    // Impedir escribir antes del signo de pesos
+    if (txtTotal.getCaretPosition() == 0) {
+        txtTotal.setCaretPosition(1); // mueve el cursor después del $
+        evt.consume();
+        return;
+    }
+
+    // Solo permitir dígitos y un punto
+    if (!Character.isDigit(c) && c != '.') {
+        evt.consume();
+        return;
+    }
+
+    if (c == '.' && text.contains(".")) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtTotalKeyTyped
 
     /**
      * @param args the command line arguments
@@ -337,22 +362,55 @@ Conexion bd = new Conexion();
     private javax.swing.JButton BtnRegistrar1;
     private javax.swing.JButton BtnVolver;
     private javax.swing.JComboBox<String> cmbCliente;
-    private javax.swing.JComboBox<String> cmbEstatus;
     private javax.swing.JComboBox<String> cmbRepartidor;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JTextArea taEspesificaciones;
     private javax.swing.JTextField txtFeEn;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+}
+class MoneyFilter extends DocumentFilter {
+    @Override
+    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+        if (offset == 0) {
+            // Impedir insertar antes del símbolo $
+            return;
+        }
+        if (string.matches("[0-9.]+")) {
+            super.insertString(fb, offset, string, attr);
+        }
+    }
+
+    @Override
+    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+        if (offset == 0) {
+            // Impedir reemplazar el símbolo $
+            return;
+        }
+        if (text.matches("[0-9.]*")) {
+            super.replace(fb, offset, length, text, attrs);
+        }
+    }
+
+    @Override
+    public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
+        if (offset == 0) {
+            // Impedir borrar el símbolo $
+            return;
+        }
+        super.remove(fb, offset, length);
+    }
 }

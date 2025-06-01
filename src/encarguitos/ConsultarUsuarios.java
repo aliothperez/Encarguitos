@@ -156,7 +156,7 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        actualizarLista();
+        
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
@@ -177,20 +177,6 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
     
     }//GEN-LAST:event_BtnVolverActionPerformed
         
-    public void actualizarLista(){
-    ArrayList<String[]> usuarios = bd.ConsultarUsuarios();
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-
-     for (String[] usu : usuarios) {
-            String item = String.format("%s - %s - %s", 
-                usu[0],  // NombreUsuario
-                usu[1],  // CorreoUsuario
-                usu[3]); // RolUsuario
-            modelo.addElement(item);
-        }
-
-    ListaUsuarios.setModel(modelo);
-    }
     
     /**
      * @param args the command line arguments 

@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JOptionPane;
+import javax.swing.text.DocumentFilter;
 
 /**
  *
@@ -53,6 +54,7 @@ public class Conexion {
      
      
           //ULTRALORD************************************************************************
+//--------------------------INICIAR SESIÓN--------------------------
     public int IniciarSecion(String correo, String contrasena) {
          int r=-1;
          try {
@@ -75,7 +77,7 @@ public class Conexion {
         }
         return r;         
     }
-    
+//--------------------------MOSTRAR USUARIOS--------------------------
     public Usuario obtenerUsuario(String correo, String contrasena) {
          Usuario u = new Usuario();
          
@@ -97,6 +99,7 @@ public class Conexion {
         }
         return u;         
     }
+//--------------------------ISERTAR PRODUCTOS--------------------------
     public boolean insertarProducto(Usuario p) {
         try {
             /*
@@ -120,7 +123,8 @@ public class Conexion {
         System.out.println("Producto insertado exitosamente");
         return true;
     }
-     
+
+//--------------------------MOSTRAR CLIENTES--------------------------
     public ArrayList<String[]> mostrarClientes() {
     ArrayList<String[]> resultado = new ArrayList<>();
     try {
@@ -141,6 +145,7 @@ public class Conexion {
     }
     return resultado;
     }
+//--------------------------MOSTRAR REPARTIDOR--------------------------
     public ArrayList<String[]> mostrarRepartidor()  {
     ArrayList<String[]> resultado = new ArrayList<>();
     try {
@@ -151,9 +156,7 @@ public class Conexion {
             String[] datos = {
                 cursor.getString(1),
                 cursor.getString(2),
-                cursor.getString(3),
-                cursor.getString(4),
-                cursor.getString(5)
+                cursor.getString(3)
             };
             resultado.add(datos);
         }
@@ -163,6 +166,8 @@ public class Conexion {
     }
     return resultado;
     }
+    
+//--------------------------OBTENER CLIENTE--------------------------
     public Cliente obtenerCliente(String nombre){
         Cliente c = new Cliente();
         try {
@@ -181,7 +186,7 @@ public class Conexion {
         Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, "Error al buscar el pCliente por ID", ex);
     }
     return c;
-    }
+    }//--------------------------OBTERNER REPARTIDOR--------------------------
     public Usuario obtenerRepartidor(String nombre){
         Usuario c = new Usuario();
         try {
@@ -201,7 +206,8 @@ public class Conexion {
     }
     return c;
     }
-    
+   
+//--------------------------OBTENER USUARIO--------------------------
     public int obtenerIdUsuario(String Co){
            int i=-1;
         try {
@@ -217,6 +223,7 @@ public class Conexion {
     }
     return i; 
     }
+//--------------------------OBTENER ROL USUARIO--------------------------
     public int obtenerRolUsuario(String Co){
         int r=-1;
          try {
@@ -239,6 +246,7 @@ public class Conexion {
         }
         return r;
     }
+//--------------------------INSERTAR SOLICITUD--------------------------
     public boolean insertarSolicitud(Solicitud s) {
         try {
              
@@ -262,6 +270,7 @@ public class Conexion {
         JOptionPane.showMessageDialog(null, "Solicitud insertada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
+//--------------------------MOSTRAR LISTA SOLICITUD--------------------------
     public ArrayList<String[]> mostrarListaSolicitud(){
        ArrayList<String[]> resultado = new ArrayList<>();
     String SQL = "SELECT s.idSolicitud, c.NombreCliente, u.NombreUsuario " +
@@ -287,7 +296,7 @@ public class Conexion {
     return resultado;
         
     }
-    
+//--------------------------ELIMINAR SOLICITUD--------------------------
     public boolean eliminarSolicitud(String id) {
     try {
         String SQL = "DELETE FROM Solicitud WHERE idSolicitud = " + id;
@@ -298,6 +307,7 @@ public class Conexion {
     }
     return true;
 }
+//--------------------------ELIMINAR SOLICITUD--------------------------
     public boolean eliminarSolicitudDe(String id) {
     Connection conn = null;
     PreparedStatement stmtNotificaciones = null;
@@ -341,9 +351,8 @@ public class Conexion {
         }
     }
 }
-    
-     
-    
+
+//--------------------------INSERTAR NOTIFICACION--------------------------    
     public boolean insertarNotificacion(Notificacion n) {
         try {
              
@@ -364,7 +373,8 @@ public class Conexion {
         JOptionPane.showMessageDialog(null, "Notificacion insertada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
-     
+
+//--------------------------MOSTRAR NOTIFICACION--------------------------      
     public ArrayList<String[]> mostrarNotificaciones() {
     ArrayList<String[]> resultado = new ArrayList<>();
     try {
@@ -389,6 +399,8 @@ public class Conexion {
     }
     return resultado;
 }
+    
+//--------------------------ELIMINAR NOTIFICACION--------------------------  
     public boolean eliminarNotificacion(Notificacion n) {
     try {
         String SQL = "DELETE FROM Notificaciones WHERE idNotificacion = " + n.idNotificacion;
@@ -535,7 +547,7 @@ public ArrayList<String[]> ConsultarUsuarios() {
 }
     
     
-}//FIN CONEXION
+}//----------------------------------------------FIN CONEXION----------------------------------------------
 
 
 //ULTRALORD************************************************************************

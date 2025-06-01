@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -160,7 +161,17 @@ DefaultListModel<String> model;
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-       bd.mostrarRepartidor();
+        model.clear(); // Limpiar el modelo anterior
+    ArrayList<String[]> lista = bd.mostrarRepartidor();
+
+    for (String[] rep : lista) {
+        String nombre = rep[1];
+        String correo = rep[2];
+        String rol = rep[3];
+        model.addElement(nombre + " - " + correo);
+    }
+
+    ListaRepartidores.setModel(model);
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed

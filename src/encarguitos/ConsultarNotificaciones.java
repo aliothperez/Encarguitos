@@ -101,7 +101,7 @@ DefaultListModel<String> model;
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(60, 140, 22));
         BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
-        BtnActualizar.setText("Actualizar");
+        BtnActualizar.setText("Refrescar");
         BtnActualizar.setContentAreaFilled(false);
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

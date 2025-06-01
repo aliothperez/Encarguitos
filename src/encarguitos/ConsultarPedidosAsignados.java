@@ -102,7 +102,7 @@ DefaultListModel<String> model;
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(60, 140, 22));
         BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
-        BtnActualizar.setText("Actualizar");
+        BtnActualizar.setText("Refrescar");
         BtnActualizar.setContentAreaFilled(false);
         BtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -133,33 +133,7 @@ DefaultListModel<String> model;
     }//GEN-LAST:event_BtnVolverActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        String seleccionado = ListaPedidosAsignados.getSelectedValue();
-    if (seleccionado == null) {
-        JOptionPane.showMessageDialog(this, "Seleccione un pedido para eliminar.");
-        return;
-    }
-
-    // Extraer el ID del string: "ID: 5 - Entregar paquete"
-    int id = Integer.parseInt(seleccionado.split(" ")[1]);
-
-    int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el pedido ID " + id + "?",
-            "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-
-    if (confirm == JOptionPane.YES_OPTION) {
-        try {
-            Statement st = bd.conexion.createStatement();
-            String deleteQuery = "DELETE FROM pedidos WHERE id_pedido = " + id;
-            int rows = st.executeUpdate(deleteQuery);
-            if (rows > 0) {
-                JOptionPane.showMessageDialog(this, "Pedido eliminado con éxito.");
-                bd.eliminarSolicitud(seleccionado); // Actualizar la lista
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el pedido para eliminar.");
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al eliminar pedido: " + ex.getMessage());
-        }
-    }
+       
     }//GEN-LAST:event_BtnEliminarActionPerformed
  
     /**

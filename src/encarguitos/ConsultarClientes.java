@@ -26,7 +26,8 @@ public class ConsultarClientes extends javax.swing.JFrame {
         initComponents();
         this.bd = bd;
         this.tipoUsuario = tipoUsuario;
-        
+        model = new DefaultListModel<>();
+        ListaClientes.setModel(model);
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -196,9 +197,9 @@ public class ConsultarClientes extends javax.swing.JFrame {
     ArrayList<String[]> lista = bd.ConsultarCliente();
 
     for (String[] cli : lista) {
-        String nombre = cli[1];
-        String numtel = cli[2];
-        String dir = cli[3];
+        String nombre = cli[0];
+        String numtel = cli[1];
+        String dir = cli[2];
         model.addElement(nombre + " - " + numtel + " - "+dir);
     }
 

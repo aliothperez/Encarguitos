@@ -243,7 +243,7 @@ Conexion bd = new Conexion();
                 PrincipalGerente pge = new PrincipalGerente();
                 pge.bd = bd; 
                 pge.getTipoUsuario();
-                CC = new ConsultarClientes(this.bd, 0);
+                CC = new ConsultarClientes(this.bd, 1);
                 break;
         }
          CC.setVisible(true);

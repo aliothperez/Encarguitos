@@ -6,6 +6,7 @@ package encarguitos;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class DetallesSoliRepartidor extends javax.swing.JFrame {
     Conexion bd = new Conexion();
-
+    Usuario u=Login.u;
     /**
      * Creates new form DetallesProdServ
      */
@@ -123,6 +124,12 @@ public class DetallesSoliRepartidor extends javax.swing.JFrame {
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
         // TODO add your handling code here:
         //actualizarProductos
+        String cad=cmbEstado.getItemAt(cmbEstado.getSelectedIndex());
+        if(bd.actualizarProductos(cad,u.idUsuario)){
+            JOptionPane.showMessageDialog(this,"Se actualizo con exito");
+        }else{
+            JOptionPane.showMessageDialog(this,"Error. intenta denuevo");
+        }
         
     }//GEN-LAST:event_btnEstadoActionPerformed
     public void cargarDetallesSolicitud(String[] datosSolicitud) {

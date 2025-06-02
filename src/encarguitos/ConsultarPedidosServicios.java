@@ -293,7 +293,7 @@ Usuario u = new Usuario();
                          "DATE_FORMAT(s.FechaSolicitud, '%d/%m/%Y') as FechaSolicitud, " +
                          "DATE_FORMAT(s.FechaEntrega, '%d/%m/%Y') as FechaEntrega, " +
                          "s.Estatus, c.NombreCliente, c.NumeroTel, c.Direccion, " +
-                         "c.Referencias, u.NombreUsuario " +
+                         "c.Referencias, u.NombreUsuario,s.Total  " +
                          "FROM Solicitud s " +
                          "INNER JOIN Cliente c ON s.idCliente = c.idCliente " +
                          "INNER JOIN Usuarios u ON s.idUsuario = u.idUsuario " +

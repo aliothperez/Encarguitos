@@ -43,6 +43,7 @@ public class DetallesProdServ extends javax.swing.JFrame {
         LblID = new javax.swing.JLabel();
         LblNumero = new javax.swing.JLabel();
         LblPedido = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
         LblDireccion = new javax.swing.JLabel();
         LblFeEn = new javax.swing.JLabel();
         LblFeSol = new javax.swing.JLabel();
@@ -69,6 +70,9 @@ public class DetallesProdServ extends javax.swing.JFrame {
 
         LblPedido.setText("Pedido");
         jPanel1.add(LblPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 330, 270));
+
+        lblTotal.setText("TOTAL:");
+        jPanel1.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, 120, -1));
 
         LblDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         LblDireccion.setText("Direccion");
@@ -125,6 +129,7 @@ public class DetallesProdServ extends javax.swing.JFrame {
     
     LblFeSol.setText("Solicitado: " + datosSolicitud[3]); // Fecha solicitud
     LblFeEn.setText("Entrega: " + datosSolicitud[4]); // Fecha entrega
+    LblFeEn.setText("TOTAL: " + datosSolicitud[12]); // TOTAL
 }
     /**
      * @param args the command line arguments
@@ -172,5 +177,6 @@ public class DetallesProdServ extends javax.swing.JFrame {
     private javax.swing.JLabel LblPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblTotal;
     // End of variables declaration//GEN-END:variables
 }

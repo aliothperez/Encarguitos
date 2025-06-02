@@ -112,11 +112,12 @@
         <Component class="javax.swing.JComboBox" name="cmbEstado">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Inicio Recorrido"/>
-                <StringItem index="1" value="En Camino"/>
-                <StringItem index="2" value="ruta"/>
-                <StringItem index="3" value="llego"/>
+              <StringArray count="5">
+                <StringItem index="0" value="En proceso"/>
+                <StringItem index="1" value="Preparando env&#xed;o"/>
+                <StringItem index="2" value="Enviado"/>
+                <StringItem index="3" value="Entregado"/>
+                <StringItem index="4" value="Cancelado"/>
               </StringArray>
             </Property>
           </Properties>
@@ -133,6 +134,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Actualizar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEstadoActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="10" y="530" width="-1" height="-1"/>

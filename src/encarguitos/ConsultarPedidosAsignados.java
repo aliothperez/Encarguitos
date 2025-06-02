@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 public class ConsultarPedidosAsignados extends javax.swing.JFrame {
 Conexion bd = new Conexion();
 DefaultListModel ls= new DefaultListModel();
+Usuario u=Login.u;
     /**
      * Creates new form ConsultarPedidosServicios
      */
@@ -41,18 +42,18 @@ DefaultListModel ls= new DefaultListModel();
         }
     
         lsPedido.setModel(ls);
-        /*
-        lsSolicitudes.addMouseListener(new MouseAdapter() {
+        
+        lsPedido.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 2) { // Doble clic
-                    String seleccionado = lsSolicitudes.getSelectedValue();
+                    String seleccionado = lsPedido.getSelectedValue();
                     if (seleccionado != null) {
                         mostrarDetallesSolicitud(seleccionado);
                     }
                 }
             }
-        });*/
+        });
         
           MostrarlsPedidos();
 
@@ -158,7 +159,7 @@ DefaultListModel ls= new DefaultListModel();
          DefaultListModel<String> model = (DefaultListModel<String>) lsPedido.getModel();
         model.clear();
 
-        ArrayList<String[]> datos = bd.mostrarListaSolicitudAs();
+        ArrayList<String[]> datos = bd.mostrarListaSolicitudAs(u.idUsuario);
 
         if (datos.isEmpty()) {
             model.addElement("No hay pedidos disponibles");
@@ -176,6 +177,47 @@ DefaultListModel ls= new DefaultListModel();
         }
         
         
+    }
+    
+    private void mostrarDetallesSolicitud(String elementoSeleccionado) {
+    // Extraer el ID del pedido del texto seleccionado
+    String id = elementoSeleccionado.split("\\|")[0].replace("ID:", "").trim();
+    
+    if (id != null && !id.isEmpty()) {
+        try {
+            // Obtener todos los detalles del pedido
+            String SQL = "SELECT s.idSolicitud, s.Tipo, s.Especificaciones, " +
+                         "DATE_FORMAT(s.FechaSolicitud, '%d/%m/%Y') as FechaSolicitud, " +
+                         "DATE_FORMAT(s.FechaEntrega, '%d/%m/%Y') as FechaEntrega, " +
+                         "s.Estatus, c.NombreCliente, c.NumeroTel, c.Direccion, " +
+                         "c.Referencias, u.NombreUsuario " +
+                         "FROM Solicitud s " +
+                         "INNER JOIN Cliente c ON s.idCliente = c.idCliente " +
+                         "INNER JOIN Usuarios u ON s.idUsuario = u.idUsuario " +
+                         "WHERE s.idSolicitud = " + id;
+            
+            bd.cursor = bd.transaccion.executeQuery(SQL);
+            
+            if (bd.cursor.next()) {
+                String[] datos = new String[11];
+                for (int i = 0; i < datos.length; i++) {
+                    datos[i] = bd.cursor.getString(i+1);
+                }
+                
+                // Mostrar la ventana de detalles
+                DetallesSoliRepartidor detalles = new DetallesSoliRepartidor();
+                detalles.cargarDetallesSolicitud(datos);
+                detalles.bd=bd;
+                detalles.setVisible(true);
+                this.dispose();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, 
+                "Error al obtener detalles del pedido: " + ex.getMessage(),
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
     }
     /**
      * @param args the command line arguments

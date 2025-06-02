@@ -82,10 +82,15 @@ public class DetallesSoliRepartidor extends javax.swing.JFrame {
         LblPedido.setText("Pedido");
         jPanel1.add(LblPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 330, 270));
 
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inicio Recorrido", "En Camino", "ruta", "llego" }));
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "En proceso", "Preparando envío", "Enviado", "Entregado", "Cancelado" }));
         jPanel1.add(cmbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, -1, -1));
 
         btnEstado.setText("Actualizar");
+        btnEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadoActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, -1, -1));
 
         LblDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -114,6 +119,12 @@ public class DetallesSoliRepartidor extends javax.swing.JFrame {
         cps.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
+
+    private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
+        // TODO add your handling code here:
+        //actualizarProductos
+        
+    }//GEN-LAST:event_btnEstadoActionPerformed
     public void cargarDetallesSolicitud(String[] datosSolicitud) {
     // Asignación de datos a los componentes de la interfaz
     LblNombre.setText(datosSolicitud[6]); // Nombre del cliente

@@ -301,10 +301,11 @@ public class Conexion {
         
     }
     //---------------------MOSTRAR LISTA SOLICITUD ASIGNADA------------------------------
-    public ArrayList<String[]> mostrarListaSolicitudAs(){
+    public ArrayList<String[]> mostrarListaSolicitudAs(int i){
        ArrayList<String[]> resultado = new ArrayList<>();
-    String SQL = "SELECT s.idSolicitud, s.Tipo,s.FechaEntrega FROM Solicitud s INNER JOIN Cliente c ON s.idCliente = c.idCliente INNER JOIN Usuarios u ON " +
-"s.idUsuario = u.idUsuario ORDER BY s.FechaEntrega ASC";
+    String SQL = "SELECT * FROM Solicitud s INNER JOIN Cliente c ON s.idCliente = c.idCliente "
+            + "INNER JOIN Usuarios u ON s.idUsuario = u.idUsuario "
+            + "where s.idUsuario="+i+" ORDER BY s.FechaEntrega ASC;";
     
     try (Statement stmt = conexion.createStatement();
          ResultSet rs = stmt.executeQuery(SQL)) {
@@ -322,6 +323,26 @@ public class Conexion {
     }
     return resultado;
         
+    }
+    
+    //----------------------ACTUALIZAR ESTADO SERVICIO--------------------------------
+    public boolean actualizarProductos(String Est, int id) {
+        try {
+            
+            String SQL = "UPDATE Solicitud set Estatus= '%ESP%' where idSolicitud = %IP%";
+
+            // Reemplazar los marcadores con los valores correspondientes
+            SQL = SQL.replaceAll("%ESP%", Est);
+            SQL = SQL.replaceAll("%IP%", id+""); 
+
+            // Ejecutar la consulta SQL
+            transaccion.execute(SQL);
+            System.out.println(SQL);
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el Estado: " + ex.getMessage());
+            return false;
+        }
+        return true;
     }
 //--------------------------ELIMINAR SOLICITUD--------------------------
     public boolean eliminarSolicitud(String id) {

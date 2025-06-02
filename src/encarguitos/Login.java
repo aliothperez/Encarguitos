@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
     Conexion bd = new Conexion();
     public static Usuario u;
+    
     /**
      * Creates new form Login
      */

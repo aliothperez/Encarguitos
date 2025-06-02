@@ -15,6 +15,7 @@ import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 /**
  *
@@ -142,7 +143,17 @@ DefaultListModel<String> model;
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        bd.mostrarNotificaciones();
+        model.clear(); // Limpiar el modelo anterior
+    ArrayList<String[]> lista = bd.mostrarNotificaciones();
+
+    for (String[] rep : lista) {
+        String nombre = rep[1];
+        String desc = rep[3];
+
+        model.addElement(nombre + " - " + desc);
+    }
+
+    ListaNotificaciones.setModel(model);
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed

@@ -134,7 +134,9 @@ public class Conexion {
             String[] datos = {
                 cursor.getString(1),
                 cursor.getString(2),
-                cursor.getString(3),cursor.getString(4),cursor.getString(5)
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5)
             };
             resultado.add(datos);
         }
@@ -155,7 +157,9 @@ public class Conexion {
             String[] datos = {
                 cursor.getString(1),
                 cursor.getString(2),
-                cursor.getString(3)
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5)
             };
             resultado.add(datos);
         }

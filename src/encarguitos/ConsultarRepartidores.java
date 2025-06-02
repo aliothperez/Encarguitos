@@ -25,8 +25,9 @@ DefaultListModel<String> model;
      * Creates new form ConsultarRepartidores
      */
     public ConsultarRepartidores() {
-        model = new DefaultListModel<>();
         initComponents();
+        model = new DefaultListModel<>();
+        ListaRepartidores.setModel(model);
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -167,7 +168,7 @@ DefaultListModel<String> model;
     for (String[] rep : lista) {
         String nombre = rep[1];
         String correo = rep[2];
-        String rol = rep[3];
+
         model.addElement(nombre + " - " + correo);
     }
 

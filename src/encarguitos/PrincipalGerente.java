@@ -55,11 +55,10 @@ public int tipoUsuario = 1;
         BtnPedidos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnReset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaNoti = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
         BtnNotificaciones1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -128,17 +127,6 @@ public int tipoUsuario = 1;
         jLabel2.setText("Gerente");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        btnReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volverBlack.png"))); // NOI18N
-        btnReset.setContentAreaFilled(false);
-        btnReset.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, 30));
-
         ListaNoti.setBackground(new java.awt.Color(60, 140, 22));
         ListaNoti.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ListaNoti.setForeground(new java.awt.Color(255, 255, 255));
@@ -146,9 +134,6 @@ public int tipoUsuario = 1;
         jScrollPane1.setViewportView(ListaNoti);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 400, 190));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaInterfaz.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         BtnNotificaciones1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnNotificaciones1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
@@ -161,6 +146,9 @@ public int tipoUsuario = 1;
             }
         });
         jPanel1.add(BtnNotificaciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 150, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaInterfaz.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 537));
 
@@ -191,12 +179,10 @@ public int tipoUsuario = 1;
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-//            cargarNotificaciones();
-    }//GEN-LAST:event_btnResetActionPerformed
-
     private void BtnNotificaciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotificaciones1ActionPerformed
-        // TODO add your handling code here:
+        ConsultarNotificaciones CN = new ConsultarNotificaciones();
+        CN.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BtnNotificaciones1ActionPerformed
 // Método para cargar notificaciones en el JList
 /*private void cargarNotificaciones() {
@@ -260,7 +246,6 @@ public int tipoUsuario = 1;
     private javax.swing.JButton BtnUsuarios;
     private javax.swing.JButton BtnVolver;
     private javax.swing.JList<String> ListaNoti;
-    private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

@@ -108,12 +108,12 @@ Conexion bd = new Conexion();
         taEspesificaciones.setRows(5);
         jScrollPane1.setViewportView(taEspesificaciones);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 290, 210));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 290, 210));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(60, 140, 22));
         jLabel7.setText("Pedido");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
         cmbTipo.setBackground(new java.awt.Color(60, 140, 22));
         cmbTipo.setForeground(new java.awt.Color(255, 255, 255));
@@ -124,7 +124,7 @@ Conexion bd = new Conexion();
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(60, 140, 22));
         jLabel10.setText("Fecha de Entrega");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 620, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, -1, -1));
 
         BtnRegistrar1.setBackground(new java.awt.Color(60, 140, 22));
         BtnRegistrar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -140,7 +140,7 @@ Conexion bd = new Conexion();
                 BtnRegistrar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 690, 100, 30));
+        jPanel1.add(BtnRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 670, 100, 30));
 
         txtFeEn.setForeground(new java.awt.Color(153, 153, 153));
         txtFeEn.setText("Ingresar Fecha de Entrega");
@@ -150,10 +150,10 @@ Conexion bd = new Conexion();
                 txtFeEnMouseClicked(evt);
             }
         });
-        jPanel1.add(txtFeEn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 640, 280, -1));
+        jPanel1.add(txtFeEn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 620, 280, -1));
 
         jSeparator6.setForeground(new java.awt.Color(60, 140, 22));
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 660, 290, 10));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 640, 290, 10));
 
         BtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.png"))); // NOI18N
         BtnVolver.setContentAreaFilled(false);
@@ -178,7 +178,7 @@ Conexion bd = new Conexion();
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(60, 140, 22));
         jLabel12.setText("Total a Pagar");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));
 
         txtTotal.setText("$");
         txtTotal.setBorder(null);
@@ -192,15 +192,15 @@ Conexion bd = new Conexion();
                 txtTotalKeyTyped(evt);
             }
         });
-        jPanel1.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 280, -1));
+        jPanel1.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, 280, -1));
 
         jSeparator7.setForeground(new java.awt.Color(60, 140, 22));
-        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 290, 10));
+        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 290, 10));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 750));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -17,13 +17,16 @@ import javax.swing.JOptionPane;
 public class ConsultarUsuarios extends javax.swing.JFrame {
     Conexion bd = new Conexion();
     int tipoUsuario; // 0=Gestor, 1=Repartidor, 2=Gerente
-
+DefaultListModel<String> model;
     /**
      * Creates new form ConsultarUsuarios
      */
     public ConsultarUsuarios( int tipoUsuario) {
         initComponents();
         this.bd = bd;
+        model = new DefaultListModel<>();
+        ListaUsuarios.setModel(model);
+
         this.tipoUsuario = tipoUsuario;
         try {
             if(bd.conexion.isClosed()){
@@ -156,10 +159,24 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        
+        model.clear(); // Limpiar el modelo anterior
+    ArrayList<String[]> lista = bd.ConsultarUsuarios();
+
+    for (String[] cli : lista) {
+        String nombre = cli[0];
+        String correo = cli[1];
+        String rol = cli[3];
+        model.addElement(nombre + " - " + correo + " - "+rol);
+    }
+
+    ListaUsuarios.setModel(model);
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+           PrincipalGerente v = new PrincipalGerente();
+            v.bd=bd;
+            v.setVisible(true);
+            this.dispose();
         
     }//GEN-LAST:event_BtnVolverActionPerformed
         
@@ -194,13 +211,11 @@ public class ConsultarUsuarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Conexion bd = new Conexion();
-                 int tipoUsuario = 2;
-                 if(tipoUsuario == 0){
+                
+                
+               
                 new ConsultarClientes(0).setVisible(true);
-                 }else if (tipoUsuario== 1){
-                  new ConsultarClientes(1).setVisible(true);
-                 }
+               
             }
         });
     }

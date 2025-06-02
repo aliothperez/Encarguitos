@@ -127,7 +127,7 @@ public int tipoUsuario = 1;
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         BtnNotificaciones.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/campana-de-notificacion.png"))); // NOI18N
+        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
         BtnNotificaciones.setText("Notificaciones");
         BtnNotificaciones.setContentAreaFilled(false);
         BtnNotificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

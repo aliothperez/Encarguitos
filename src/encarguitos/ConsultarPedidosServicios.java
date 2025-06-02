@@ -302,7 +302,7 @@ Usuario u = new Usuario();
             bd.cursor = bd.transaccion.executeQuery(SQL);
             
             if (bd.cursor.next()) {
-                String[] datos = new String[11];
+                String[] datos = new String[12];
                 for (int i = 0; i < datos.length; i++) {
                     datos[i] = bd.cursor.getString(i+1);
                 }

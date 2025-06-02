@@ -129,7 +129,7 @@ public class DetallesProdServ extends javax.swing.JFrame {
     
     LblFeSol.setText("Solicitado: " + datosSolicitud[3]); // Fecha solicitud
     LblFeEn.setText("Entrega: " + datosSolicitud[4]); // Fecha entrega
-    LblFeEn.setText("TOTAL: " + datosSolicitud[12]); // TOTAL
+    LblFeEn.setText("TOTAL: " + datosSolicitud[11]); // TOTAL
 }
     /**
      * @param args the command line arguments

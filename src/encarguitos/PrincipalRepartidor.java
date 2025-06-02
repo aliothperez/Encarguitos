@@ -4,9 +4,11 @@
  */
 package encarguitos;
 
+import static encarguitos.Login.u;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  *
@@ -14,6 +16,7 @@ import java.util.logging.Logger;
  */
 public class PrincipalRepartidor extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+Usuario u=new Usuario();
 
     /**
      * Creates new form PrincipalRepartidor
@@ -110,12 +113,16 @@ Conexion bd = new Conexion();
 
     private void BtnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidoActionPerformed
        ConsultarPedidosAsignados CP = new ConsultarPedidosAsignados();
+        CP.u=u;
+        CP.bd=bd;
         CP.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnPedidoActionPerformed
 
     private void BtnNotiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotiActionPerformed
         RegistrarNotificaciones RN = new RegistrarNotificaciones();
+        RN.u=u;
+        RN.bd=bd;
         RN.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnNotiActionPerformed

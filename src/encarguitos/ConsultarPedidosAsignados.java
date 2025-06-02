@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarPedidosAsignados extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+//DefaultListModel<String> model;
 DefaultListModel ls= new DefaultListModel();
 Usuario u=Login.u;
     /**
@@ -156,6 +157,7 @@ Usuario u=Login.u;
        
     }//GEN-LAST:event_BtnEliminarActionPerformed
     public void MostrarlsPedidos(){
+        System.out.println(u.idUsuario);
          DefaultListModel<String> model = (DefaultListModel<String>) lsPedido.getModel();
         model.clear();
 
@@ -207,6 +209,7 @@ Usuario u=Login.u;
                 // Mostrar la ventana de detalles
                 DetallesSoliRepartidor detalles = new DetallesSoliRepartidor();
                 detalles.cargarDetallesSolicitud(datos);
+                detalles.u=u;
                 detalles.bd=bd;
                 detalles.setVisible(true);
                 this.dispose();

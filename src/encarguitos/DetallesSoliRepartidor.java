@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class DetallesSoliRepartidor extends javax.swing.JFrame {
     Conexion bd = new Conexion();
     Usuario u=Login.u;
+    int id=0;
     /**
      * Creates new form DetallesProdServ
      */
@@ -115,9 +116,10 @@ public class DetallesSoliRepartidor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        ConsultarPedidosServicios cps = new ConsultarPedidosServicios();
-        cps.bd=bd;
-        cps.setVisible(true);
+        ConsultarPedidosAsignados cpa = new ConsultarPedidosAsignados();
+        
+        cpa.bd=bd;cpa.u=u;
+        cpa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 
@@ -125,7 +127,7 @@ public class DetallesSoliRepartidor extends javax.swing.JFrame {
         // TODO add your handling code here:
         //actualizarProductos
         String cad=cmbEstado.getItemAt(cmbEstado.getSelectedIndex());
-        if(bd.actualizarProductos(cad,u.idUsuario)){
+        if(bd.actualizarProductos(cad,id)){
             JOptionPane.showMessageDialog(this,"Se actualizo con exito");
         }else{
             JOptionPane.showMessageDialog(this,"Error. intenta denuevo");
@@ -135,7 +137,7 @@ public class DetallesSoliRepartidor extends javax.swing.JFrame {
     public void cargarDetallesSolicitud(String[] datosSolicitud) {
     // Asignación de datos a los componentes de la interfaz
     LblNombre.setText(datosSolicitud[6]); // Nombre del cliente
-    LblID.setText("ID: " + datosSolicitud[0]); // ID de la solicitud
+    LblID.setText("ID: " + datosSolicitud[0]);id=Integer.parseInt(datosSolicitud[0]); // ID de la solicitud
     LblNumero.setText("Tel: " + datosSolicitud[7]); // Teléfono
     LblDireccion.setText("Dirección: " + datosSolicitud[8]); // Dirección
     

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarNotificaciones extends javax.swing.JFrame {
 Conexion bd = new Conexion();
+Usuario u=new Usuario();
 
     /**
      * Creates new form RegistrarNotificaciones
@@ -223,6 +224,8 @@ Conexion bd = new Conexion();
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
         // TODO add your handling code here:
         PrincipalRepartidor PR = new PrincipalRepartidor();
+        PR.u=u;
+        PR.bd=bd;
         PR.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed

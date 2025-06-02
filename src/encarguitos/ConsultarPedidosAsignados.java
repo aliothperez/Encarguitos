@@ -24,7 +24,6 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarPedidosAsignados extends javax.swing.JFrame {
 Conexion bd = new Conexion();
-
 DefaultListModel ls= new DefaultListModel();
     /**
      * Creates new form ConsultarPedidosServicios

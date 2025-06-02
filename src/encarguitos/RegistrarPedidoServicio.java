@@ -214,9 +214,12 @@ Conexion bd = new Conexion();
     private void BtnRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrar1ActionPerformed
         Cliente c= new Cliente();
         Usuario u= new Usuario();
+        Solicitud s = new Solicitud();
         String Espe = taEspesificaciones.getText(),feEn = txtFeEn.getText(); 
-        double total = Double.parseDouble(txtTotal.getText());
 
+        double total = Double.parseDouble(txtTotal.getText());
+        ConsultarPedidosAsignados CPA = new ConsultarPedidosAsignados();
+        
         // Validar que los textos no estén vacíos
         if (Espe.isEmpty() || feEn.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Al menos una de las variables está vacía.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -238,7 +241,7 @@ Conexion bd = new Conexion();
         u=bd.obtenerRepartidor(cmbRepartidor.getItemAt(cmbRepartidor.getSelectedIndex()));
         
        bd.insertarSolicitud(new Solicitud(0,u.idUsuario,c.idCliente,cmbTipo.getItemAt(cmbTipo.getSelectedIndex()),
-                Espe,"",feEn,,total));
+                Espe,"",feEn,"Pendiente" ,total));
     }//GEN-LAST:event_BtnRegistrar1ActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed

@@ -179,7 +179,7 @@ DefaultListModel<String> model;
                 JOptionPane.YES_NO_OPTION);
 
             if (confirmacion == JOptionPane.YES_OPTION) {
-                bd.eliminarNotificacion(new Notificacion(0, idUsuario, idSolicitud, ""));
+                bd.eliminarNotificacion(new Notificacion(0, idUsuario, idSolicitud, "", false));
                 JOptionPane.showMessageDialog(this, "Notificación eliminada correctamente.");
                 BtnActualizarActionPerformed(null);
             }

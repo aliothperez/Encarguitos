@@ -704,6 +704,11 @@ class Usuario {
         this.total = total;
     }
 
+    public Solicitud() {
+    }
+
+    
+
 }
 
 class Notificacion {
@@ -711,13 +716,15 @@ class Notificacion {
     int idUsuario;
     int idSolicitud;
     String descripcion;
+    boolean estatus;
 
     // Constructor
-    public Notificacion(int idNotificacion, int idUsuario, int idSolicitud, String descripcion) {
+    public Notificacion(int idNotificacion, int idUsuario, int idSolicitud, String descripcion,boolean estatus) {
         this.idNotificacion = idNotificacion;
         this.idUsuario = idUsuario;
         this.idSolicitud = idSolicitud;
         this.descripcion = descripcion;
+        this.estatus = estatus;
     }
 
  

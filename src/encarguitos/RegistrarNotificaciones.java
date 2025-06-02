@@ -204,7 +204,7 @@ Conexion bd = new Conexion();
             JOptionPane.YES_NO_OPTION);
 
         if(confirm == JOptionPane.YES_OPTION) {
-            Notificacion nueva = new Notificacion(0, idUsuario, idSolicitud, taDescripcion.getText().trim());
+            Notificacion nueva = new Notificacion(0, idUsuario, idSolicitud, taDescripcion.getText().trim(), false);
             boolean exito = bd.insertarNotificacion(nueva);
 
             if(exito) {

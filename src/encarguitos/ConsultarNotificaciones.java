@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package encarguitos;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +19,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
 
 /**
  *
@@ -31,6 +36,8 @@ DefaultListModel<String> model;
     public ConsultarNotificaciones() {
         model = new DefaultListModel<>();
         initComponents();
+        cargarNotificaciones(); 
+        bd.marcarTodasComoLeidas(); 
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -143,8 +150,8 @@ DefaultListModel<String> model;
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        model.clear(); // Limpiar el modelo anterior
-    ArrayList<String[]> lista = bd.mostrarNotificaciones();
+    model.clear(); // Limpiar el modelo anterior
+    ArrayList<String[]> lista = bd.mostrarTodasNotificaciones();
 
     for (String[] rep : lista) {
         String nombre = rep[1];
@@ -152,7 +159,8 @@ DefaultListModel<String> model;
 
         model.addElement(nombre + " - " + desc);
     }
-
+    
+   
     ListaNotificaciones.setModel(model);
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
@@ -189,6 +197,39 @@ DefaultListModel<String> model;
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
    
+    private void cargarNotificaciones() {
+    model.clear();
+    ArrayList<String[]> lista = bd.mostrarTodasNotificaciones();
+    
+    for (String[] notif : lista) {
+        String texto = notif[1]  + " - " + notif[3];
+        model.addElement(texto);
+    }
+    
+    ListaNotificaciones.setModel(model);
+    
+    // Configurar renderizador para mostrar no leídas con fondo amarillo
+   ListaNotificaciones.setCellRenderer(new DefaultListCellRenderer() {
+    @Override
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                  boolean isSelected, boolean cellHasFocus) {
+        Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        
+        String estatus = lista.get(index)[4];
+                boolean leida = "1".equals(estatus);        
+        if (!leida) { 
+            c.setBackground(Color.YELLOW);
+            c.setFont(c.getFont().deriveFont(Font.BOLD));
+        } else { 
+            c.setBackground(isSelected ? list.getSelectionBackground() : Color.WHITE);
+            c.setFont(c.getFont().deriveFont(Font.PLAIN));
+        }
+        
+        return c;
+    }
+});
+
+}
     
     /**
      * @param args the command line arguments

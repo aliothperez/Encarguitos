@@ -29,8 +29,7 @@ Conexion bd = new Conexion();
      */
     public RegistrarPedidoServicio() {
         initComponents();
-        ((AbstractDocument) txtTotal.getDocument()).setDocumentFilter(new MoneyFilter());
-        txtTotal.setText("$");
+        
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -73,6 +72,7 @@ Conexion bd = new Conexion();
         txtTotal = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(60, 140, 22));
@@ -180,7 +180,6 @@ Conexion bd = new Conexion();
         jLabel12.setText("Total a Pagar");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));
 
-        txtTotal.setText("$");
         txtTotal.setBorder(null);
         txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,6 +199,9 @@ Conexion bd = new Conexion();
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registrar plantilla .png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jLabel3.setText("$");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 560, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 720));
 
         pack();
@@ -213,6 +215,7 @@ Conexion bd = new Conexion();
         Cliente c= new Cliente();
         Usuario u= new Usuario();
         String Espe = taEspesificaciones.getText(),feEn = txtFeEn.getText(); 
+        double total = Double.parseDouble(txtTotal.getText());
 
         // Validar que los textos no estén vacíos
         if (Espe.isEmpty() || feEn.isEmpty()) {
@@ -234,9 +237,8 @@ Conexion bd = new Conexion();
         c=bd.obtenerCliente(cmbCliente.getItemAt(cmbCliente.getSelectedIndex()));
         u=bd.obtenerRepartidor(cmbRepartidor.getItemAt(cmbRepartidor.getSelectedIndex()));
         
-        //si todo essta al tiro
-        /*bd.insertarSolicitud(new Solicitud(0,u.idUsuario,c.idCliente,cmbTipo.getItemAt(cmbTipo.getSelectedIndex()),
-                Espe,"",feEn,cmbEstatus.getItemAt(cmbEstatus.getSelectedIndex())));*/
+       bd.insertarSolicitud(new Solicitud(0,u.idUsuario,c.idCliente,cmbTipo.getItemAt(cmbTipo.getSelectedIndex()),
+                Espe,"",feEn,,total));
     }//GEN-LAST:event_BtnRegistrar1ActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
@@ -254,18 +256,6 @@ Conexion bd = new Conexion();
         char c = evt.getKeyChar();
     String text = txtTotal.getText();
 
-    // No permitir borrar el signo de pesos
-    if (c == KeyEvent.VK_BACK_SPACE && txtTotal.getCaretPosition() <= 1) {
-        evt.consume();
-        return;
-    }
-
-    // Impedir escribir antes del signo de pesos
-    if (txtTotal.getCaretPosition() == 0) {
-        txtTotal.setCaretPosition(1); // mueve el cursor después del $
-        evt.consume();
-        return;
-    }
 
     // Solo permitir dígitos y un punto
     if (!Character.isDigit(c) && c != '.') {
@@ -369,6 +359,7 @@ Conexion bd = new Conexion();
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -381,36 +372,4 @@ Conexion bd = new Conexion();
     private javax.swing.JTextField txtFeEn;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
-}
-class MoneyFilter extends DocumentFilter {
-    @Override
-    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-        if (offset == 0) {
-            // Impedir insertar antes del símbolo $
-            return;
-        }
-        if (string.matches("[0-9.]+")) {
-            super.insertString(fb, offset, string, attr);
-        }
-    }
-
-    @Override
-    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-        if (offset == 0) {
-            // Impedir reemplazar el símbolo $
-            return;
-        }
-        if (text.matches("[0-9.]*")) {
-            super.replace(fb, offset, length, text, attrs);
-        }
-    }
-
-    @Override
-    public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
-        if (offset == 0) {
-            // Impedir borrar el símbolo $
-            return;
-        }
-        super.remove(fb, offset, length);
-    }
 }

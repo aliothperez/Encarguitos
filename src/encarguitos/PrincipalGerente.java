@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -23,8 +24,9 @@ public int tipoUsuario = 1;
      */
     public PrincipalGerente() {
         initComponents();
-            //cargarNotificaciones(); // Agrega esta línea
-        
+        ArrayList<String[]> nuevas = bd.mostrarNotificacionesNoLeidas();
+        cargarNotificacionesNoLeidas(); 
+
         try {
             if(bd.conexion.isClosed()){
                 System.out.println("Noo!!!. Se cerro");
@@ -57,7 +59,7 @@ public int tipoUsuario = 1;
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaNoti = new javax.swing.JList<>();
-        BtnNotificaciones1 = new javax.swing.JButton();
+        BtnNotificaciones = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -135,17 +137,17 @@ public int tipoUsuario = 1;
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 400, 190));
 
-        BtnNotificaciones1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnNotificaciones1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
-        BtnNotificaciones1.setText("Notificaciones");
-        BtnNotificaciones1.setContentAreaFilled(false);
-        BtnNotificaciones1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnNotificaciones1.addActionListener(new java.awt.event.ActionListener() {
+        BtnNotificaciones.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
+        BtnNotificaciones.setText("Notificaciones");
+        BtnNotificaciones.setContentAreaFilled(false);
+        BtnNotificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnNotificaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnNotificaciones1ActionPerformed(evt);
+                BtnNotificacionesActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnNotificaciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 150, -1));
+        jPanel1.add(BtnNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 150, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaInterfaz.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -179,31 +181,30 @@ public int tipoUsuario = 1;
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed
 
-    private void BtnNotificaciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotificaciones1ActionPerformed
+    private void BtnNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotificacionesActionPerformed
         ConsultarNotificaciones CN = new ConsultarNotificaciones();
+         bd.marcarTodasComoLeidas();
         CN.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_BtnNotificaciones1ActionPerformed
-// Método para cargar notificaciones en el JList
-/*private void cargarNotificaciones() {
-    // Obtener las notificaciones de la base de datos
-    ArrayList<String[]> notificaciones = bd.mostrarNotificaciones();
+        this.dispose();        
+    }//GEN-LAST:event_BtnNotificacionesActionPerformed
+
     
-    // Crear un array para almacenar las notificaciones formateadas
-    String[] notificacionesFormateadas = new String[notificaciones.size()];
+    private void cargarNotificacionesNoLeidas() {
+    ArrayList<String[]> notificaciones = bd.mostrarNotificacionesNoLeidas();
+    DefaultListModel<String> model = new DefaultListModel<>();
     
-    // Formatear cada notificación
-    for (int i = 0; i < notificaciones.size(); i++) {
-        String[] notificacion = notificaciones.get(i);
-        notificacionesFormateadas[i] = String.format("ID: %s | Usuario: %s | Solicitud: %s | %s", 
-            
-            notificacion[0]  // Descripción
-        );
+    for (String[] notif : notificaciones) {
+        String texto = notif[1] + " - Solicitud #" + notif[2] + ": " + notif[3];
+        model.addElement(texto);
     }
     
-    // Asignar las notificaciones formateadas al JList
-    ListaNoti.setListData(notificacionesFormateadas);
-}*/
+    ListaNoti.setModel(model);
+    
+    // Cambiar icono si hay notificaciones nuevas (Estatus = 0)
+    if (!notificaciones.isEmpty()) {
+        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion_nueva.png")));
+    }
+}
     /**
      * @param args the command line arguments
      */
@@ -241,7 +242,7 @@ public int tipoUsuario = 1;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnClientes;
-    private javax.swing.JButton BtnNotificaciones1;
+    private javax.swing.JButton BtnNotificaciones;
     private javax.swing.JButton BtnPedidos;
     private javax.swing.JButton BtnUsuarios;
     private javax.swing.JButton BtnVolver;

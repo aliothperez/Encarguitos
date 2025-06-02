@@ -174,7 +174,7 @@ public class Conexion {
     public Cliente obtenerCliente(String nombre){
         Cliente c = new Cliente();
         try {
-        String SQL = "SELECT * FROM Cliente WHERE NombreCliente = %nom%";
+        String SQL = "SELECT * FROM Cliente WHERE NombreCliente = '"+nombre+"'";
         SQL = SQL.replaceAll("%nom%", nombre);
         cursor = transaccion.executeQuery(SQL);
 
@@ -253,8 +253,8 @@ public class Conexion {
     public boolean insertarSolicitud(Solicitud s) {
         try {
              
-            String SQL = "INSERT INTO Solicitud (idUsuario, idCliente, Tipo, Especificaciones, FechaSolicitud, FechaEntrega, Estatus)" +
-"VALUES (%idU%, %idC%, '%ti%', '%ee%', CURDATE(), '%fe%', '%est%');";
+            String SQL = "INSERT INTO Solicitud (idUsuario, idCliente, Tipo, Especificaciones, FechaSolicitud, FechaEntrega, Estatus, Total)" +
+"VALUES (%idU%, %idC%, '%ti%', '%ee%', CURDATE(), '%fe%', '%est%',%tot%);";
 
             SQL = SQL.replaceAll("%idU%", String.valueOf(s.idUsuario));
             SQL = SQL.replaceAll("%idC%", String.valueOf(s.idCliente));
@@ -262,6 +262,7 @@ public class Conexion {
             SQL = SQL.replaceAll("%ee%", s.especificaciones);
             SQL = SQL.replaceAll("%fe%", s.fechaEntrega);
             SQL = SQL.replaceAll("%est%", s.estatus);
+            SQL = SQL.replaceAll("%tot%", String.valueOf(s.total));
             
             transaccion.execute(SQL);
             System.out.println(SQL);
@@ -400,23 +401,24 @@ public class Conexion {
         return true;
     }
 
-//--------------------------MOSTRAR NOTIFICACION--------------------------      
-    public ArrayList<String[]> mostrarNotificaciones() {
+//--------------------------MOSTRAR NOTIFICACIONES NO LEIDAS--------------------------
+public ArrayList<String[]> mostrarNotificacionesNoLeidas() {
     ArrayList<String[]> resultado = new ArrayList<>();
     try {
-        String SQL = "Select n.idNotificacion,u.NombreUsuario,s.idSolicitud,n.Descripcion"
-                + " from Notificaciones n inner join Usuarios u on u.idUsuario=n.idUsuario "
-                + "inner join Solicitud s on s.idSolicitud = n.idSolicitud;";
-        
+        String SQL = "SELECT n.idNotificacion, u.NombreUsuario, s.idSolicitud, n.Descripcion " +
+                     "FROM Notificaciones n " +
+                     "INNER JOIN Usuarios u ON u.idUsuario = n.idUsuario " +
+                     "INNER JOIN Solicitud s ON s.idSolicitud = n.idSolicitud " +
+                     "WHERE n.Estatus = 0";
+
         cursor = transaccion.executeQuery(SQL);
 
         while (cursor.next()) {
             String[] datos = {
                 cursor.getString(1), // ID Notificación
                 cursor.getString(2), // Nombre Usuario
-                cursor.getString(3), // Tipo Solicitud
-                cursor.getString(4), // Descripción
-                
+                cursor.getString(3), // ID Solicitud
+                cursor.getString(4)  // Descripción
             };
             resultado.add(datos);
         }
@@ -424,6 +426,64 @@ public class Conexion {
         Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
     }
     return resultado;
+}
+
+
+//--------------------------MOSTRAR TODAS LAS NOTIFICACIONES--------------------------
+public ArrayList<String[]> mostrarTodasNotificaciones() {
+    ArrayList<String[]> resultado = new ArrayList<>();
+    try {
+        String sql = "SELECT n.idNotificacion, u.NombreUsuario, s.idSolicitud, n.Descripcion, n.Estatus " +
+                     "FROM Notificaciones n " +
+                     "INNER JOIN Usuarios u ON u.idUsuario = n.idUsuario " +
+                     "INNER JOIN Solicitud s ON s.idSolicitud = n.idSolicitud";
+
+        cursor = transaccion.executeQuery(sql);
+
+        while (cursor.next()) {
+            String[] datos = {
+                cursor.getString(1), // ID Notificación
+                cursor.getString(2), // Nombre Usuario
+                cursor.getString(3), // ID Solicitud
+                cursor.getString(4), // Descripción
+                cursor.getString(5)  // Estatus (1=Leído, 0=No leído)
+            };
+            resultado.add(datos);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return resultado;
+}
+
+
+//--------------------------MARCAR NOTIFICACION COMO LEIDA--------------------------
+public boolean marcarNotificacionComoLeida(int idNotificacion) {
+    try {
+        String SQL = "UPDATE Notificaciones SET Estatus = 1 WHERE idNotification = ?";
+        PreparedStatement ps = conexion.prepareStatement(SQL);
+        ps.setInt(1, idNotificacion);
+        
+        int filas = ps.executeUpdate();
+        return filas > 0;
+    } catch (SQLException ex) {
+        System.out.println("Error al marcar notificación como leída: " + ex.getMessage());
+        return false;
+    }
+}
+
+//--------------------------MARCAR TODAS LAS NOTIFICACIONES COMO LEIDAS--------------------------
+public boolean marcarTodasComoLeidas() {
+    try {
+        String SQL = "UPDATE Notificaciones SET Estatus = 1 WHERE Estatus = 0";
+        PreparedStatement ps = conexion.prepareStatement(SQL);
+        
+        int filas = ps.executeUpdate();
+        return filas > 0;
+    } catch (SQLException ex) {
+        System.out.println("Error al marcar notificaciones como leídas: " + ex.getMessage());
+        return false;
+    }
 }
     
 //--------------------------ELIMINAR NOTIFICACION--------------------------  
@@ -437,9 +497,6 @@ public class Conexion {
         return false;
     }
 }
-    
-     
-    
 
      
      //--FIN ULTRALORD************************************************************************
@@ -583,6 +640,7 @@ class Cliente {
      String numeroTel;
      String direccion;
      String referencias;
+     
 
     
     public Cliente(int idCliente, String nombreCliente, String numeroTel, String direccion, String referencias) {
@@ -631,9 +689,10 @@ class Usuario {
     String fechaSolicitud;
     String fechaEntrega;
     String estatus;
+    double total;
 
     // Constructor
-    public Solicitud(int idSolicitud, int idUsuario, int idCliente, String tipo, String especificaciones, String fechaSolicitud, String fechaEntrega, String estatus) {
+    public Solicitud(int idSolicitud, int idUsuario, int idCliente, String tipo, String especificaciones, String fechaSolicitud, String fechaEntrega, String estatus,double total) {
         this.idSolicitud = idSolicitud;
         this.idUsuario = idUsuario;
         this.idCliente = idCliente;
@@ -642,6 +701,7 @@ class Usuario {
         this.fechaSolicitud = fechaSolicitud;
         this.fechaEntrega = fechaEntrega;
         this.estatus = estatus;
+        this.total = total;
     }
 
 }

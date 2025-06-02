@@ -25,7 +25,6 @@ public int tipoUsuario = 1;
     public PrincipalGerente() {
         initComponents();
         ArrayList<String[]> nuevas = bd.mostrarNotificacionesNoLeidas();
-        cargarNotificacionesNoLeidas(); 
 
         try {
             if(bd.conexion.isClosed()){
@@ -57,8 +56,6 @@ public int tipoUsuario = 1;
         BtnPedidos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ListaNoti = new javax.swing.JList<>();
         BtnNotificaciones = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -91,7 +88,7 @@ public int tipoUsuario = 1;
                 BtnUsuariosActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        jPanel1.add(BtnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
 
         BtnClientes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente.png"))); // NOI18N
@@ -105,7 +102,7 @@ public int tipoUsuario = 1;
                 BtnClientesActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 90, -1));
+        jPanel1.add(BtnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 90, -1));
 
         BtnPedidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Pedido.png"))); // NOI18N
@@ -119,7 +116,7 @@ public int tipoUsuario = 1;
                 BtnPedidosActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, -1, 90));
+        jPanel1.add(BtnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, 90));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCarro.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 480, 120, 50));
@@ -129,25 +126,20 @@ public int tipoUsuario = 1;
         jLabel2.setText("Gerente");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        ListaNoti.setBackground(new java.awt.Color(60, 140, 22));
-        ListaNoti.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        ListaNoti.setForeground(new java.awt.Color(255, 255, 255));
-        ListaNoti.setToolTipText("");
-        jScrollPane1.setViewportView(ListaNoti);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 400, 190));
-
         BtnNotificaciones.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion.png"))); // NOI18N
+        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/campana-de-notificacion.png"))); // NOI18N
         BtnNotificaciones.setText("Notificaciones");
         BtnNotificaciones.setContentAreaFilled(false);
         BtnNotificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnNotificaciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnNotificaciones.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnNotificaciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         BtnNotificaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnNotificacionesActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 150, -1));
+        jPanel1.add(BtnNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlantillaInterfaz.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -188,23 +180,7 @@ public int tipoUsuario = 1;
         this.dispose();        
     }//GEN-LAST:event_BtnNotificacionesActionPerformed
 
-    
-    private void cargarNotificacionesNoLeidas() {
-    ArrayList<String[]> notificaciones = bd.mostrarNotificacionesNoLeidas();
-    DefaultListModel<String> model = new DefaultListModel<>();
-    
-    for (String[] notif : notificaciones) {
-        String texto = notif[1] + " - Solicitud #" + notif[2] + ": " + notif[3];
-        model.addElement(texto);
-    }
-    
-    ListaNoti.setModel(model);
-    
-    // Cambiar icono si hay notificaciones nuevas (Estatus = 0)
-    if (!notificaciones.isEmpty()) {
-        BtnNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notificacion_nueva.png")));
-    }
-}
+   
     /**
      * @param args the command line arguments
      */
@@ -246,11 +222,9 @@ public int tipoUsuario = 1;
     private javax.swing.JButton BtnPedidos;
     private javax.swing.JButton BtnUsuarios;
     private javax.swing.JButton BtnVolver;
-    private javax.swing.JList<String> ListaNoti;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
